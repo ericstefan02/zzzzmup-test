@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+  }
+}
+
+@theme {
+  /* Tipografija */
+  --font-sans: var(--font-sans);
+
+  /* Primary (Plava ka tamno sivoj) */
+  --color-primary-50: #f0f4fe;
+  --color-primary-100: #eff6ff;
+  --color-primary-200: #dde7fc;
+  --color-primary-300: #487ceb;
+  --color-primary-400: #264ccb;
+  --color-primary-500: #233fa4;
+  --color-primary-600: #1e3682;
+  --color-primary-700: #152763;
+  --color-primary-800: #1e293b;
+  --color-primary-900: #0f172a;
+  --color-primary-950: #020617;
+
+  /* Accent */
+  --color-accent: #dc2626;
+  --color-success: #4ADE80;
+}

@@ -1,0 +1,241 @@
+{
+  "common": {
+    "and": "i"
+  },
+  "nav": {
+    "home": "Početna",
+    "aboutUs": "O nama",
+    "history": "Istorijat",
+    "preventiveCenter": "Preventivni centar",
+    "services": "Usluge",
+    "workSchedule": "Raspored rada",
+    "notifications": "Obaveštenja",
+    "news": "Vesti",
+    "career": "Karijera",
+    "contact": "Kontakt"
+  },
+  "days": {
+    "monday": "Ponedeljak",
+    "tuesday": "Utorak",
+    "wednesday": "Sreda",
+    "thursday": "Četvrtak",
+    "friday": "Petak",
+    "saturday": "Subota",
+    "sunday": "Nedelja"
+  },
+  "workingHours": {
+    "weekdays": "Ponedeljak - Petak",
+    "weekends": "Subota - Nedelja",
+    "weekendNote": "Samo Služba opšte medicine"
+  },
+  "layout": {
+    "infoBar": {
+      "address": "Durmitorska 9, Beograd",
+      "phone": "Telefon: +381 11 361 5665"
+    },
+    "nav": {
+      "instituteName": "Zavod za zdravstvenu zaštitu radnika",
+      "ministryName": "Ministarstva unutrašnjih poslova",
+      "logoAlt": "Logo zavoda",
+      "eFormButton": "E-Forma (PDF)"
+    },
+    "footer": {
+      "instituteName": "Zavod za zdravstvenu zaštitu",
+      "description": "Vaše zdravlje je naš prioritet. Pružamo vrhunsku zdravstvenu zaštitu zaposlenima u Ministarstvu unutrašnjih poslova i svim našim pacijentima.",
+      "mainLinks": "Glavni linkovi",
+      "contactUs": "Kontaktirajte nas",
+      "workingHoursTitle": "Radno vreme",
+      "companyId": "Matični broj",
+      "taxId": "PIB",
+      "activityCode": "Šifra delatnosti",
+      "bankAccount": "Tekući račun",
+      "copyright": "Zavod za zdravstvenu zaštitu radnika MUP-a. Sva prava zadržana.",
+      "privacyPolicy": "Politika privatnosti",
+      "termsOfUse": "Uslovi korišćenja"
+    }
+  },
+  "components": {
+    "pagination": {
+      "ariaLabel": "Paginacija",
+      "previousPage": "Prethodna strana",
+      "nextPage": "Sledeća strana",
+      "page": "Strana {page}"
+    },
+    "documentTable": {
+      "type": "Tip",
+      "documentName": "Naziv dokumenta",
+      "date": "Datum",
+      "download": "Preuzimanje",
+      "downloadAria": "Preuzmi {title}"
+    },
+    "documentYearAccordion": {
+      "year": "{year}. godina"
+    },
+    "calendarYearAccordion": {
+      "activitiesFor": "Aktivnosti za {year}. godinu"
+    },
+    "readMore": "Pročitaj više",
+    "learnMore": "Saznaj više",
+    "priority": "Prioritet",
+    "free": "Besplatno",
+    "detachedClinicCard": {
+      "weekdayHours": "Pon - Pet:"
+    },
+    "servicesList": {
+      "serviceLabel": "Usluga / procedura",
+      "priceLabel": "Cena"
+    }
+  },
+  "pages": {
+    "home": {
+      "officialInstitution": "Zvanična državna institucija",
+      "heroTitle": "Zavod za zdravstvenu zaštitu radnika",
+      "heroTitleMinistry": "Ministarstva unutrašnjih poslova",
+      "heroDescription": "Pružamo posvećenu i specijalizovanu medicinsku negu i sistematske preglede za zaposlene u Ministarstvu i njihove porodice, uz najviše standarde profesionalnog integriteta.",
+      "learnMore": "Saznajte više o nama",
+      "heroImageAlt": "Zavod za zdravstvenu zaštitu radnika",
+      "servicesLabel": "Službe i nega",
+      "servicesTitle": "Naše medicinske usluge",
+      "servicesDescription": "Sveobuhvatna zdravstvena zaštita prilagođena specifičnim potrebama pripadnika Ministarstva",
+      "securityHealth": "Stub zdravlja službi bezbednosti",
+      "securityHealthDesc": "Primarna zdravstvena zaštita za preko 40.000 pripadnika MUP-a širom zemlje. Decenije iskustva u službi onih koji nas čuvaju",
+      "availability": "Dostupnost i efikasnost",
+      "availabilityDesc": "Brza dijagnostika i specijalistički pregledi bez dugih lista čekanja za sve zaposlene u MUP-u i njihove porodice",
+      "newsTitle": "Vesti i obaveštenja",
+      "newsDescription": "Budite u toku sa najnovijim aktivnostima Zavoda i važnim zdravstvenim preporukama",
+      "viewAllNews": "Pogledajte sve vesti"
+    },
+    "aboutUs": {
+      "title": "O Zavodu",
+      "description": "U službi pripadnika Ministarstva unutrašnjih poslova i građana još od 1992. godine. Našu tradiciju gradimo na posvećenosti, profesionalizmu i vrhunskoj medicinskoj nezi.",
+      "historyLabel": "Naša istorija i misija",
+      "trustTitle": "Tradicija poverenja i",
+      "trustTitleHighlight": "medicinske izuzetnosti",
+      "paragraph1": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova osnovan je sa jasnom misijom: da pruži beskompromisnu medicinsku podršku onima koji služe našoj državi. Tokom više od sedam decenija, razvili smo se u vrhunsku zdravstvenu ustanovu koja je danas otvorena i dostupna svim građanima.",
+      "paragraph2": "Naš centralni objekat opremljen je najsavremenijom dijagnostičkom tehnologijom i okuplja vodeće specijaliste iz oblasti interne medicine, kardiologije, medicine rada i drugih grana. Ponosimo se visoko profesionalnim i efikasnim okruženjem, u kom se poštuje vreme i dostojanstvo svakog pacijenta.",
+      "paragraph3": "Danas nastavljamo da održavamo najviše standarde javnog zdravlja. Transparentnost u radu i posvećenost javnom interesu ostaju temelj našeg odnosa prema pacijentima i društvu.",
+      "satisfiedPatients": "Zadovoljnih pacijenata",
+      "yearsOfWork": "Godina rada",
+      "imageAlt": "Slika instituta",
+      "documentsTitle": "Finansijski izveštaji, javne nabavke i dokumenta",
+      "documentsDescription": "U skladu sa Zakonom o slobodnom pristupu informacijama od javnog značaja, Zavod redovno objavljuje svu relevantnu finansijsku dokumentaciju, oglase o javnim nabavkama i zvanične izveštaje o radu ustanove.",
+      "noDocuments": "Nema dostupnih dokumenata.",
+      "financialReports": "Finansijski izveštaji",
+      "publicProcurement": "Javne nabavke",
+      "workReports": "Izveštaji o radu",
+      "other": "Ostalo"
+    },
+    "career": {
+      "title": "Karijera u ZZZZMUP-u",
+      "description": "Postanite deo stručnog tima posvećenog zdravstvenoj zaštiti radnika Ministarstva unutrašnjih poslova. Pregledajte aktuelne konkurse i slobodna radna mesta.",
+      "selectionTitle": "Proces selekcije kandidata",
+      "selectionDescription": "Kao državna zdravstvena ustanova, primenjujemo transparentan i zakonom propisan proces odabira kadrova.",
+      "phase1Name": "Prijava",
+      "phase1Desc": "Kandidati se prijavljuju putem online formulara, dostavljajući potrebnu dokumentaciju i informacije o sebi.",
+      "phase2Name": "Provera uslova",
+      "phase2Desc": "Naš tim pažljivo pregledava sve prijave kako bi osigurao da kandidati ispunjavaju osnovne zahteve za poziciju.",
+      "phase3Name": "Intervju",
+      "phase3Desc": "Odabrani kandidati bivaju pozvani na intervju, gde imaju priliku da predstave svoje veštine i iskustvo.",
+      "phase4Name": "Odluka",
+      "phase4Desc": "Nakon intervjua, naš tim donosi odluku o tome koji kandidat najbolje odgovara potrebama naše organizacije."
+    },
+    "contact": {
+      "title": "Kontakt i lokacija",
+      "description": "Kontaktirajte naše službe, saznajte gde se nalazimo i informišite se o svojim pravima kao pacijent",
+      "formTitle": "Karijera i opšte informacije",
+      "formDescription": "Putem ovog formulara možete postaviti opšta pitanja, podeliti svoje utiske ili konkurisati za radno mesto u našem Zavodu. U slučaju hitne medicinske pomoći, odmah pozovite",
+      "formNameLabel": "Ime",
+      "formNamePlaceholder": "Unesite vaše ime",
+      "formLastNameLabel": "Prezime",
+      "formLastNamePlaceholder": "Unesite vaše prezime",
+      "formEmailLabel": "Email adresa",
+      "formEmailPlaceholder": "Unesite vašu email adresu",
+      "formPhoneLabel": "Broj telefona",
+      "formPhonePlaceholder": "Unesite vaš broj telefona",
+      "formInquiryLabel": "Vrsta upita",
+      "formInquiryPlaceholder": "Izaberite vrstu upita",
+      "formFileLabel": "Datoteka (CV ili drugi relevantni dokumenti)",
+      "formFilePlaceholder": "Izaberite datoteku",
+      "formMessageLabel": "Poruka",
+      "formMessagePlaceholder": "Unesite vašu poruku",
+      "formAgreeTerms": "Slažem se sa",
+      "formTermsLink": "uslovima korišćenja",
+      "formPrivacyLink": "pravilima privatnosti",
+      "formAgreeDescription": "Razumem da ovaj kontakt obrazac nije za hitne slučajeve i pristajem na obradu mojih podataka u skladu sa zakonskim propisima o privatnosti.",
+      "formSubmit": "Pošalji poruku",
+      "inquiryGeneral": "Opšte informacije",
+      "inquiryCareer": "Karijera i zapošljavanje",
+      "inquiryMedicalDocs": "Zahtev za medicinskom dokumentacijom",
+      "inquiryComplaint": "Pritužba na kvalitet usluge",
+      "inquiryPatientRights": "Prava pacijenata",
+      "inquiryOther": "Ostalo",
+      "headquarters": "Sedište Zavoda",
+      "headquartersDescription": "Glavni administrativni i medicinski centar",
+      "addressLabel": "Adresa",
+      "addressValue": "Durmitorska 9, Savski Venac",
+      "addressCity": "11000 Beograd, Srbija",
+      "phoneLabel": "Broj telefona",
+      "emailLabel": "Email adresa",
+      "workingHoursLabel": "Radno vreme",
+      "mapTitle": "Google mapa sa lokacijom Zavoda MUP-a",
+      "detachedClinicsTitle": "Detaširane ambulante",
+      "detachedClinicsDescription": "Detaširani medicinski objekti koji pružaju specijalističke usluge širom regiona",
+      "faqTitle": "Često postavljana pitanja",
+      "faqDescription": "Odgovori na najčešće postavljana pitanja o našim uslugama, procedurama i pravima pacijenata",
+      "legalTitle": "Pravna zaštita i prava pacijenata",
+      "legalDescription": "Vaša prava su zakonom zagarantovana. U skladu sa važećim propisima, pacijentima Zavoda osigurana je pravna zaštita i stručna pomoć u ostvarivanju njihovih prava kroz dve instance",
+      "rfzoTitle": "Zaštitnik prava osiguranika (RFZO)",
+      "rfzoDescription": "U skladu sa Pravilnikom o zaštiti prava osiguranih lica (Sl. glasnik RS br. 68/13)",
+      "rfzoLocation": "Specijalna bolnica \u201ESveti Sava\u201C, kancelarija br. 10",
+      "patientAdviserTitle": "Savetnik za zaštitu prava pacijenata",
+      "patientAdviserDescription": "Za direktne prigovore i pravne savete, pacijentima je na raspolaganju gradski savetnik",
+      "patientAdviserLocation": "Tiršova 1, prizemlje, kancelarija br. 9",
+      "locationLabel": "Lokacija",
+      "phoneContactLabel": "Telefon",
+      "emailContactLabel": "Email",
+      "legalNote": "Vaša prava kao pacijenta su zaštićena zakonom. Ne oklevajte da se obratite ovim službama za pomoć.",
+      "legalLearnMore": "Saznaj više"
+    },
+    "preventiveCenter": {
+      "title": "Preventivni centar",
+      "description": "Preventivni centar ZZZZMUP Srbije ima zadatak da promoviše zdravlje i sprečava bolesti kroz edukaciju o zdravim stilovima života. Umesto samog lečenja, fokus stavljamo na očuvanje zdravlja, redovne kontrole i prevenciju. Svi pregledi i skrininzi se obavljaju u skladu sa najvišim nacionalnim standardima.",
+      "addressLabel": "Adresa",
+      "addressValue": "Durmitorska 9, Beograd",
+      "phoneLabel": "Telefon",
+      "emailLabel": "Email",
+      "workingHoursLabel": "Radno vreme",
+      "workingHoursValue": "Četvrtak: 13:30 - 17:30",
+      "counselingTitle": "Savetovališta",
+      "counselingDescription": "Specijalizovane usluge edukacije i preventivne zdravstvene zaštite",
+      "preventiveCounseling": "Preventivno savetovalište",
+      "preventiveCounselingDesc": "Edukacija i podizanje svesti o značaju zdravih stilova života. Skrininzi za kardiovaskularne bolesti, dijabetes tip 2 i karcinome.",
+      "diabetesCounseling": "Savetovalište za dijabetes melitus",
+      "diabetesCounselingDesc": "Specijalizovana edukacija i podrška za pacijente sa dijabetesom, fokusirana na prevenciju i kontrolu bolesti.",
+      "calendarTitle": "Zdravstveni kalendar",
+      "calendarDescription": "Pregled aktivnosti i kampanja po godinama",
+      "noActivities": "Nema dostupnih aktivnosti."
+    },
+    "services": {
+      "title": "Medicinske usluge i cenovnik",
+      "description": "Sveobuhvatan pregled lekarskih pregleda, dijagnostičkih procedura i specijalističkih usluga dostupnih u Zavodu. Cene su navedene za usluge koje nisu obuhvaćene obaveznim zdravstvenim osiguranjem.",
+      "departmentsLabel": "Odeljenja"
+    },
+    "workSchedule": {
+      "title": "Raspored rada lekara",
+      "description": "Informišite se o dostupnosti i rasporedu smena naših lekara specijalista. Podaci se ažuriraju na nedeljnom nivou.",
+      "departmentLabel": "Odeljenje",
+      "departmentPlaceholder": "Izaberite odeljenje",
+      "doctorLabel": "Doktor",
+      "doctorPlaceholder": "Pretražite doktora...",
+      "dayColumn": "Dan",
+      "firstShift": "Prva smena",
+      "secondShift": "Druga smena",
+      "detachedClinicsTitle": "Detaširane ambulante"
+    },
+    "news": {
+      "title": "Vesti i javna saopštenja",
+      "description": "Budite u toku sa najnovijim vestima, zdravstvenim preporukama i zvaničnim saopštenjima Zavoda",
+      "latestNews": "Najnovije vesti"
+    }
+  }
+}
