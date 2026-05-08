@@ -146,6 +146,17 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.preventiveCenter.title'),
+  description: () => t('seo.preventiveCenter.description'),
+  keywords: () => t('seo.preventiveCenter.keywords'),
+  ogTitle: () => t('seo.preventiveCenter.title'),
+  ogDescription: () => t('seo.preventiveCenter.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 interface CalendarItem {
   title: string
   created_at: string

@@ -41,6 +41,17 @@
 import NewsMainBanner from '~/components/news/NewsMainBanner.vue'
 import type { NewsArticle } from '~/types/news'
 
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.news.title'),
+  description: () => t('seo.news.description'),
+  keywords: () => t('seo.news.keywords'),
+  ogTitle: () => t('seo.news.title'),
+  ogDescription: () => t('seo.news.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 const page = ref(1)
 
 const mainArticle: NewsArticle = {

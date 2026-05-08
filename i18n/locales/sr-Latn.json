@@ -237,5 +237,131 @@
       "description": "Budite u toku sa najnovijim vestima, zdravstvenim preporukama i zvaničnim saopštenjima Zavoda",
       "latestNews": "Najnovije vesti"
     }
+  },
+  "seo": {
+    "siteName": "ZZZZMUP - Zavod za zdravstvenu zaštitu radnika MUP-a",
+    "siteDescription": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova - specijalizovana zdravstvena ustanova u Beogradu.",
+    "home": {
+      "title": "Zavod za zdravstvenu zaštitu radnika MUP-a {'|'} Početna",
+      "description": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova - specijalizovana medicinska nega, sistematski pregledi i zdravstvena zaštita za pripadnike MUP-a i građane Beograda.",
+      "keywords": "zavod za zdravstvenu zaštitu, MUP, zdravstvena zaštita, sistematski pregledi, medicinska nega, Beograd, Durmitorska 9"
+    },
+    "aboutUs": {
+      "title": "O Zavodu {'|'} ZZZZMUP",
+      "description": "Saznajte više o istoriji, misiji i radu Zavoda za zdravstvenu zaštitu radnika MUP-a. Preko 30 godina u službi zdravlja pripadnika Ministarstva unutrašnjih poslova i građana.",
+      "keywords": "o nama, istorijat, misija, zdravstvena ustanova, MUP, finansijski izveštaji, javne nabavke"
+    },
+    "contact": {
+      "title": "Kontakt i lokacija {'|'} ZZZZMUP",
+      "description": "Kontaktirajte Zavod za zdravstvenu zaštitu radnika MUP-a. Adresa: Durmitorska 9, Beograd. Telefon: +381 11 361 5665. Detaširane ambulante i prava pacijenata.",
+      "keywords": "kontakt, adresa, telefon, lokacija, detaširane ambulante, prava pacijenata, Durmitorska 9, Beograd"
+    },
+    "career": {
+      "title": "Karijera i zapošljavanje {'|'} ZZZZMUP",
+      "description": "Pridružite se timu Zavoda za zdravstvenu zaštitu radnika MUP-a. Pregledajte aktuelne konkurse, slobodna radna mesta i proces selekcije kandidata.",
+      "keywords": "karijera, zapošljavanje, konkursi, radna mesta, zdravstvo, MUP"
+    },
+    "services": {
+      "title": "Medicinske usluge i cenovnik {'|'} ZZZZMUP",
+      "description": "Sveobuhvatan pregled medicinskih usluga, lekarskih pregleda, dijagnostičkih procedura i specijalističkih usluga u Zavodu za zdravstvenu zaštitu radnika MUP-a.",
+      "keywords": "medicinske usluge, cenovnik, lekarski pregledi, dijagnostika, specijalističke usluge, Beograd"
+    },
+    "workSchedule": {
+      "title": "Raspored rada lekara {'|'} ZZZZMUP",
+      "description": "Raspored rada i smena lekara specijalista u Zavodu za zdravstvenu zaštitu radnika MUP-a. Podaci se ažuriraju na nedeljnom nivou.",
+      "keywords": "raspored rada, lekari, smene, specijalisti, radno vreme, detaširane ambulante"
+    },
+    "preventiveCenter": {
+      "title": "Preventivni centar {'|'} ZZZZMUP",
+      "description": "Preventivni centar ZZZZMUP-a - promocija zdravlja, prevencija bolesti, savetovališta za dijabetes i kardiovaskularne bolesti. Zdravstveni kalendar aktivnosti.",
+      "keywords": "preventivni centar, prevencija, savetovalište, dijabetes, kardiovaskularne bolesti, zdravstveni kalendar"
+    },
+    "privacyPolicy": {
+      "title": "Politika privatnosti {'|'} ZZZZMUP",
+      "description": "Politika privatnosti Zavoda za zdravstvenu zaštitu radnika MUP-a. Informacije o zaštiti ličnih podataka i pravima korisnika.",
+      "keywords": "politika privatnosti, zaštita podataka, lični podaci, ZZZZMUP"
+    },
+    "termsOfUse": {
+      "title": "Uslovi korišćenja {'|'} ZZZZMUP",
+      "description": "Uslovi korišćenja veb-sajta Zavoda za zdravstvenu zaštitu radnika MUP-a.",
+      "keywords": "uslovi korišćenja, pravila korišćenja, veb-sajt, ZZZZMUP"
+    },
+    "news": {
+      "title": "Vesti i javna saopštenja {'|'} ZZZZMUP",
+      "description": "Najnovije vesti, zdravstvene preporuke i zvanična saopštenja Zavoda za zdravstvenu zaštitu radnika MUP-a.",
+      "keywords": "vesti, saopštenja, zdravstvene preporuke, obaveštenja, ZZZZMUP"
+    },
+    "newsArticle": {
+      "titleSuffix": "ZZZZMUP"
+    }
+  },
+  "legal": {
+    "backButton": "Nazad",
+    "lastUpdated": "Poslednje ažuriranje",
+    "privacyPolicy": {
+      "title": "Politika privatnosti",
+      "subtitle": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova",
+      "lastUpdated": "01.01.2025.",
+      "intro": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova (u daljem tekstu: Zavod) posvećen je zaštiti privatnosti svih korisnika ovog veb-sajta. Ova politika privatnosti objašnjava kako prikupljamo, koristimo, čuvamo i štitimo vaše lične podatke u skladu sa Zakonom o zaštiti podataka o ličnosti (\"Sl. glasnik RS\", br. 87/2018).",
+      "section1Title": "1. Rukovalac podacima",
+      "section1Text": "Rukovalac vašim ličnim podacima je Zavod za zdravstvenu zaštitu radnika MUP-a, sa sedištem na adresi Durmitorska 9, 11000 Beograd, Republika Srbija. Za sva pitanja u vezi sa zaštitom ličnih podataka možete nas kontaktirati na: info{'@'}zzzzmup.rs.",
+      "section2Title": "2. Koje podatke prikupljamo",
+      "section2Text": "Prilikom korišćenja našeg veb-sajta, možemo prikupljati sledeće kategorije ličnih podataka:",
+      "section2Items": "Kontaktne podatke (ime, prezime, email adresa, broj telefona) – kada popunite kontakt formular|Profesionalne podatke (CV, radno iskustvo) – ukoliko konkurišete za radno mesto|Tehničke podatke (IP adresa, tip pretraživača, operativni sistem) – automatski prilikom posete sajtu|Podatke o korišćenju sajta – putem kolačića i analitičkih alata",
+      "section3Title": "3. Svrha obrade podataka",
+      "section3Text": "Vaše lične podatke obrađujemo isključivo u sledeće svrhe:",
+      "section3Items": "Odgovaranje na vaše upite i zahteve putem kontakt formulara|Obrada prijava za zapošljavanje|Poboljšanje funkcionalnosti i korisničkog iskustva veb-sajta|Ispunjavanje zakonskih obaveza|Zaštita bezbednosti veb-sajta i sprečavanje zloupotreba",
+      "section4Title": "4. Pravni osnov obrade",
+      "section4Text": "Obrada vaših ličnih podataka zasniva se na: vašem pristanku (član 12 Zakona), izvršavanju ugovornih obaveza, poštovanju pravnih obaveza rukovaoca, kao i legitimnim interesima Zavoda u meri u kojoj ne pretežu nad vašim pravima i slobodama.",
+      "section5Title": "5. Period čuvanja podataka",
+      "section5Text": "Vaše lične podatke čuvamo samo onoliko dugo koliko je potrebno za ispunjenje svrhe za koju su prikupljeni. Kontaktne podatke iz upita čuvamo do 12 meseci od prijema. Podatke iz prijava za zapošljavanje čuvamo do 6 meseci od završetka konkursa. Tehničke podatke čuvamo do 12 meseci.",
+      "section6Title": "6. Vaša prava",
+      "section6Text": "U skladu sa Zakonom o zaštiti podataka o ličnosti, imate sledeća prava:",
+      "section6Items": "Pravo na pristup – da zatražite informaciju o tome da li obrađujemo vaše podatke|Pravo na ispravku – da zatražite ispravku netačnih ili nepotpunih podataka|Pravo na brisanje – da zatražite brisanje vaših podataka|Pravo na ograničenje obrade – da zatražite ograničenje obrade u određenim situacijama|Pravo na prenosivost – da dobijete svoje podatke u strukturiranom formatu|Pravo na prigovor – da uložite prigovor na obradu vaših podataka",
+      "section6Outro": "Za ostvarivanje bilo kog od navedenih prava, obratite nam se putem emaila: info{'@'}zzzzmup.rs.",
+      "section7Title": "7. Kolačići",
+      "section7Text": "Ovaj veb-sajt koristi kolačiće (cookies) radi poboljšanja korisničkog iskustva. Kolačići su male tekstualne datoteke koje se čuvaju na vašem uređaju prilikom posete sajtu. Koristimo tehničke kolačiće neophodne za funkcionisanje sajta i analitičke kolačiće za praćenje posećenosti. Možete podesiti svoj pretraživač da odbija kolačiće, ali to može uticati na funkcionalnost sajta.",
+      "section8Title": "8. Bezbednost podataka",
+      "section8Text": "Primenjujemo odgovarajuće tehničke i organizacione mere zaštite kako bismo obezbedili sigurnost vaših ličnih podataka i sprečili neovlašćen pristup, gubitak, uništenje ili izmenu podataka.",
+      "section9Title": "9. Izmene politike privatnosti",
+      "section9Text": "Zadržavamo pravo da povremeno ažuriramo ovu politiku privatnosti. Sve izmene stupaju na snagu danom objavljivanja na ovoj stranici. Datum poslednjeg ažuriranja naveden je na vrhu dokumenta.",
+      "section10Title": "10. Kontakt",
+      "section10Text": "Za sva pitanja, zahteve ili pritužbe u vezi sa obradom vaših ličnih podataka, možete nas kontaktirati na:",
+      "section10Address": "Zavod za zdravstvenu zaštitu radnika MUP-a",
+      "section10AddressLine": "Durmitorska 9, 11000 Beograd",
+      "section10Email": "Email: info{'@'}zzzzmup.rs",
+      "section10Phone": "Telefon: +381 11 361 5665",
+      "section10Outro": "Ukoliko smatrate da je obrada vaših podataka izvršena suprotno odredbama Zakona, imate pravo da podnesete pritužbu Povereniku za informacije od javnog značaja i zaštitu podataka o ličnosti."
+    },
+    "termsOfUse": {
+      "title": "Uslovi korišćenja",
+      "subtitle": "Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova",
+      "lastUpdated": "01.01.2025.",
+      "intro": "Korišćenjem ovog veb-sajta (u daljem tekstu: Sajt) prihvatate sledeće uslove korišćenja. Molimo vas da ih pažljivo pročitate pre korišćenja Sajta. Ukoliko se ne slažete sa ovim uslovima, molimo vas da ne koristite Sajt.",
+      "section1Title": "1. Opšti uslovi",
+      "section1Text": "Ovaj Sajt je zvanični veb-sajt Zavoda za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova (u daljem tekstu: Zavod), sa sedištem u Beogradu, Durmitorska 9. Sajt ima informativan karakter i namenjen je pružanju informacija o radu Zavoda, uslugama, rasporedu rada i drugim relevantnim informacijama.",
+      "section2Title": "2. Korišćenje sadržaja",
+      "section2Text": "Sav sadržaj objavljen na Sajtu, uključujući tekstove, fotografije, grafičke elemente, logo, ikonice i ostale materijale, zaštićen je autorskim pravom i pravima intelektualne svojine. Sadržaj Sajta možete koristiti isključivo u lične, nekomercijalne svrhe. Zabranjeno je kopiranje, distribucija, javno prikazivanje ili izmena sadržaja bez prethodne pismene saglasnosti Zavoda.",
+      "section3Title": "3. Medicinsko odricanje odgovornosti",
+      "section3Text": "Informacije objavljene na Sajtu imaju isključivo informativni karakter i ne predstavljaju medicinski savet, dijagnozu ili preporuku za lečenje. Informacije na Sajtu ne mogu zameniti stručni lekarski pregled, dijagnozu i terapiju. U slučaju zdravstvenih tegoba, uvek se obratite nadležnom lekaru. U hitnim situacijama pozovite 194.",
+      "section4Title": "4. Kontakt formular",
+      "section4Text": "Prilikom korišćenja kontakt formulara na Sajtu, obavezujete se da ćete pružiti tačne i potpune informacije. Zabranjeno je slanje uvredljivih, pretećih, nezakonitih ili neželjenih sadržaja putem formulara. Zavod zadržava pravo da ne odgovori na poruke koje krše ove uslove.",
+      "section5Title": "5. Veze ka drugim sajtovima",
+      "section5Text": "Sajt može sadržati veze (linkove) ka veb-sajtovima trećih strana. Zavod nema kontrolu nad sadržajem tih sajtova i ne snosi odgovornost za njihov sadržaj, politiku privatnosti ili prakse. Pristup tim sajtovima je na vašu sopstvenu odgovornost.",
+      "section6Title": "6. Ograničenje odgovornosti",
+      "section6Text": "Zavod ulaže razumne napore da obezbedi tačnost i ažurnost informacija na Sajtu, ali ne garantuje potpunu tačnost, kompletnost ili dostupnost sadržaja. Zavod ne snosi odgovornost za eventualnu štetu nastanu usled korišćenja ili nemogućnosti korišćenja Sajta, uključujući direktnu, indirektnu, slučajnu ili posledičnu štetu.",
+      "section7Title": "7. Dostupnost sajta",
+      "section7Text": "Zavod nastoji da obezbedi neprekidnu dostupnost Sajta, ali ne garantuje da će Sajt biti dostupan u svakom trenutku. Zadržavamo pravo da privremeno ili trajno obustavimo rad Sajta bez prethodne najave, u svrhu održavanja, ažuriranja ili iz drugih razloga.",
+      "section8Title": "8. Izmene uslova korišćenja",
+      "section8Text": "Zavod zadržava pravo da u svakom trenutku izmeni ili dopuni ove uslove korišćenja. Izmene stupaju na snagu danom objavljivanja na ovoj stranici. Nastavkom korišćenja Sajta nakon izmena, smatra se da ste prihvatili nove uslove.",
+      "section9Title": "9. Merodavno pravo i rešavanje sporova",
+      "section9Text": "Na ove uslove korišćenja primenjuje se pravo Republike Srbije. Za sve eventualne sporove koji proizlaze iz korišćenja Sajta nadležan je sud u Beogradu.",
+      "section10Title": "10. Kontakt",
+      "section10Text": "Za sva pitanja u vezi sa ovim uslovima korišćenja, možete nas kontaktirati na:",
+      "section10Address": "Zavod za zdravstvenu zaštitu radnika MUP-a",
+      "section10AddressLine": "Durmitorska 9, 11000 Beograd",
+      "section10Email": "Email: info{'@'}zzzzmup.rs",
+      "section10Phone": "Telefon: +381 11 361 5665"
+    }
   }
 }

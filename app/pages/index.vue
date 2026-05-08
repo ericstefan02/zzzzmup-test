@@ -168,6 +168,17 @@ import type { HighlightCardData } from '~/types/common'
 import type { NewsArticle } from '~/types/news'
 import type { ServicesCardData } from '~/types/services'
 
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.home.title'),
+  description: () => t('seo.home.description'),
+  keywords: () => t('seo.home.keywords'),
+  ogTitle: () => t('seo.home.title'),
+  ogDescription: () => t('seo.home.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 const hightlightItems: HighlightCardData[] = [
   {
     title: 'Cenovnik',

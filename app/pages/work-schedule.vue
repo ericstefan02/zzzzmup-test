@@ -210,6 +210,17 @@
 <script setup lang="ts">
 import type { DetachmentClinicScheduleItem } from '~/types/schedule'
 
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.workSchedule.title'),
+  description: () => t('seo.workSchedule.description'),
+  keywords: () => t('seo.workSchedule.keywords'),
+  ogTitle: () => t('seo.workSchedule.title'),
+  ogDescription: () => t('seo.workSchedule.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 // TODO: zameniti dummy vrednostima i povezati sa backendom
 interface WorkScheduleItem {
   day: string

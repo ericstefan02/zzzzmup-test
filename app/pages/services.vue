@@ -64,6 +64,17 @@
 <script lang="ts" setup>
 import type { Department } from '~/types/services'
 
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.services.title'),
+  description: () => t('seo.services.description'),
+  keywords: () => t('seo.services.keywords'),
+  ogTitle: () => t('seo.services.title'),
+  ogDescription: () => t('seo.services.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 const selectedDepartment = ref<Department | null>({
   id: 1,
   title: 'Opšta medicina',

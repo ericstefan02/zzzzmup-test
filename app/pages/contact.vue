@@ -485,6 +485,15 @@ import type { DetachedClinic } from '~/types/detached-clinic'
 
 const { t } = useI18n()
 
+useSeoMeta({
+  title: () => t('seo.contact.title'),
+  description: () => t('seo.contact.description'),
+  keywords: () => t('seo.contact.keywords'),
+  ogTitle: () => t('seo.contact.title'),
+  ogDescription: () => t('seo.contact.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 const INQUIRY_TYPE_OPTIONS = [
   { label: t('pages.contact.inquiryGeneral'), value: 'general' },
   { label: t('pages.contact.inquiryCareer'), value: 'career' },

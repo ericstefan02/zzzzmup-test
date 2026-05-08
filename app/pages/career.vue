@@ -37,6 +37,17 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.career.title'),
+  description: () => t('seo.career.description'),
+  keywords: () => t('seo.career.keywords'),
+  ogTitle: () => t('seo.career.title'),
+  ogDescription: () => t('seo.career.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 interface SelectionPhase {
   number: number
   name: string

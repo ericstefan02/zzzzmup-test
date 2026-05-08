@@ -102,6 +102,17 @@
 <script lang="ts" setup>
 import type { DocumentItem } from '~/types/common'
 
+const { t } = useI18n()
+
+useSeoMeta({
+  title: () => t('seo.aboutUs.title'),
+  description: () => t('seo.aboutUs.description'),
+  keywords: () => t('seo.aboutUs.keywords'),
+  ogTitle: () => t('seo.aboutUs.title'),
+  ogDescription: () => t('seo.aboutUs.description'),
+  ogSiteName: () => t('seo.siteName'),
+})
+
 type DocumentType = 'financial' | 'procurement' | 'reports' | 'other'
 
 const DOCUMENT_TYPES_TABS: {
