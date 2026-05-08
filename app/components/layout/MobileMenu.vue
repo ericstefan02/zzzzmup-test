@@ -129,6 +129,7 @@
 const route = useRoute()
 const isOpen = ref(false)
 const openSubmenu = ref<string | null>(null)
+const { open: openEFormModal } = useEFormModal()
 
 const isChildActive = (item: (typeof NAV_ITEMS)[number]) => {
   return item.children?.some((child) => child.route === route.path)
@@ -140,7 +141,9 @@ const toggleSubmenu = (title: string) => {
 
 const handleButtonClicked = () => {
   isOpen.value = false
-  console.log('Button clicked')
+  nextTick(() => {
+    openEFormModal()
+  })
 }
 
 watch(

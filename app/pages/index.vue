@@ -31,14 +31,20 @@
         <div class="flex items-center gap-4">
           <div
             class="px-6 py-3 bg-white rounded-xl hover:bg-primary-100 transition-colors cursor-pointer"
+            @click="openEFormModal"
           >
-            <p class="font-bold text-primary-500">Brza akcija</p>
+            <p class="text-sm sm:text-base font-bold text-primary-500">
+              {{ $t('pages.home.heroButtonEForm') }}
+            </p>
           </div>
-          <div
+          <NuxtLink
+            to="/services"
             class="px-6 py-3 rounded-xl border border-primary-200/40 bg-white/10 hover:bg-white/20 backdrop-blur transition-colors cursor-pointer"
           >
-            <p class="font-bold text-white">Brza akcija isto</p>
-          </div>
+            <p class="text-sm sm:text-base font-bold text-white">
+              {{ $t('pages.home.heroButtonServices') }}
+            </p>
+          </NuxtLink>
         </div>
       </div>
       <NuxtImg
@@ -57,14 +63,14 @@
       class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-24 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5"
     >
       <HighlightCard
-        v-for="(item, index) in hightlightItems"
+        v-for="(item, index) in highlightItems"
         :key="index"
         :title="item.title"
         :description="item.description"
         :icon="item.icon"
         :button-text="item.buttonText"
         :main="item.main"
-        @click="handleCardActionClicked"
+        @click="item.action"
       />
     </section>
     <section
@@ -148,6 +154,7 @@
             :text="$t('pages.home.viewAllNews')"
             variant="text"
             append-icon="ion:arrow-forward"
+            @click="$router.push('/news')"
           />
         </div>
       </div>
@@ -164,11 +171,12 @@
   </div>
 </template>
 <script lang="ts" setup>
-import type { HighlightCardData } from '~/types/common'
 import type { NewsArticle } from '~/types/news'
 import type { ServicesCardData } from '~/types/services'
 
 const { t } = useI18n()
+const router = useRouter()
+const { open: openEFormModal } = useEFormModal()
 
 useSeoMeta({
   title: () => t('seo.home.title'),
@@ -178,35 +186,64 @@ useSeoMeta({
   ogDescription: () => t('seo.home.description'),
   ogSiteName: () => t('seo.siteName'),
 })
+// TODO: srediit link za sliku
+useHead({
+  script: [
+    {
+      type: 'application/ld+json',
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'MedicalOrganization',
+        name: 'Zavod za zdravstvenu zaštitu radnika MUP-a',
+        url: 'https://www.zzzzmup.rs',
+        logo: 'https://www.zzzzmup.rs/img/logo.png',
+        image: 'https://www.zzzzmup.rs/img/logo.png',
+        address: {
+          '@type': 'PostalAddress',
+          streetAddress: 'Durmitorska 9',
+          addressLocality: 'Beograd',
+          postalCode: '11000',
+          addressCountry: 'RS',
+        },
+        telephone: '+381113615665',
+        email: 'info@zzzzmup.rs',
+        openingHours: ['Mo-Fr 07:00-19:00', 'Sa-Su 07:00-13:00'],
+      }),
+    },
+  ],
+})
 
-const hightlightItems: HighlightCardData[] = [
+const highlightItems = computed(() => [
   {
-    title: 'Cenovnik',
-    description: 'Pogledajte naš cenovnik usluga i saznajte više o pregledima.',
-    icon: 'ion:pricetags',
-    buttonText: 'Pogledajte cenovnik',
+    title: t('pages.home.highlightServices'),
+    description: t('pages.home.highlightServicesDesc'),
+    icon: 'ion:medkit',
+    buttonText: t('pages.home.highlightServicesButton'),
+    action: () => router.push('/services'),
   },
   {
-    title: 'Cenovnik',
-    description: 'Pogledajte naš cenovnik usluga i saznajte više o pregledima.',
-    icon: 'ion:pricetags',
-    buttonText: 'Pogledajte cenovnik',
+    title: t('pages.home.highlightSchedule'),
+    description: t('pages.home.highlightScheduleDesc'),
+    icon: 'ion:calendar',
+    buttonText: t('pages.home.highlightScheduleButton'),
+    action: () => router.push('/work-schedule'),
   },
   {
-    title: 'Izaberite lekara',
-    description:
-      'Izaberite svog lekara popunjavanjem onlajn forme i preuzmite potrebna dokumenta.',
+    title: t('pages.home.highlightEForm'),
+    description: t('pages.home.highlightEFormDesc'),
     icon: 'ion:document',
-    buttonText: 'Popunite formu',
+    buttonText: t('pages.home.highlightEFormButton'),
     main: true,
+    action: () => openEFormModal(),
   },
   {
-    title: 'Cenovnik',
-    description: 'Pogledajte naš cenovnik usluga i saznajte više o pregledima.',
-    icon: 'ion:pricetags',
-    buttonText: 'Pogledajte cenovnik',
+    title: t('pages.home.highlightPreventive'),
+    description: t('pages.home.highlightPreventiveDesc'),
+    icon: 'ion:heart',
+    buttonText: t('pages.home.highlightPreventiveButton'),
+    action: () => router.push('/preventive-center'),
   },
-]
+])
 
 const selectedServices: ServicesCardData[] = [
   {
@@ -281,8 +318,4 @@ const newsArticles: NewsArticle[] = [
     created_at: '2024-06-10T14:00:00Z',
   },
 ]
-
-const handleCardActionClicked = () => {
-  console.log('Card action clicked')
-}
 </script>

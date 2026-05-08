@@ -106,12 +106,13 @@
 <script setup lang="ts">
 const route = useRoute()
 const openDropdown = ref<string | null>(null)
+const { open: openEFormModal } = useEFormModal()
 
 const isChildActive = (item: (typeof NAV_ITEMS)[number]) => {
   return item.children?.some((child) => child.route === route.path)
 }
 
 const handleButtonClicked = () => {
-  console.log('Button clicked')
+  openEFormModal()
 }
 </script>
