@@ -1,4 +1,4 @@
-# ZMUP — Zavod za medicinu u primarnoj zaštiti
+# ZZZZMUP — Zavod za zdravstvenu zaštitu radnika MUP-a
 
 Zvanični web sajt zdravstvene ustanove, izgrađen kao moderan, višejezičan i brz JAMstack sajt. Sajt pokriva sve ključne aspekte institucije — od usluga i rasporeda rada do vesti, preventivnog centra i karijere.
 
