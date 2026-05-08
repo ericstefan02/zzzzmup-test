@@ -17,6 +17,8 @@
     "@nuxtjs/i18n": "^10.3.0",
     "@nuxtjs/sitemap": "^8.0.15",
     "@tailwindcss/vite": "^4.2.2",
+    "@vee-validate/nuxt": "^4.15.1",
+    "@vee-validate/rules": "^4.15.1",
     "nuxt": "^4.4.2",
     "tailwindcss": "^4.2.2",
     "vue": "^3.5.32",

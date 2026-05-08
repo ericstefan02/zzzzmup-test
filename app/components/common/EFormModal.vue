@@ -53,46 +53,55 @@
 
             <form
               class="grid grid-cols-1 md:grid-cols-2 gap-8 px-6 md:px-10"
-              @submit.prevent="handleSubmit"
+              novalidate
+              @submit="onSubmit"
             >
               <Input
-                v-model="form.fullName"
+                v-model="fullName"
                 :label="$t('components.eFormModal.fullNameLabel')"
                 :placeholder="$t('components.eFormModal.fullNamePlaceholder')"
                 :required="true"
+                :error="errors.fullName"
               />
               <Input
-                v-model="form.lbo"
+                v-model="lbo"
                 :label="$t('components.eFormModal.lboLabel')"
                 :placeholder="$t('components.eFormModal.lboPlaceholder')"
                 :required="true"
+                :error="errors.lbo"
+                inputmode="numeric"
               />
               <Input
-                v-model="form.rzzzo"
+                v-model="rzzzo"
                 :label="$t('components.eFormModal.rzzzoLabel')"
                 :placeholder="$t('components.eFormModal.rzzzoPlaceholder')"
                 :required="true"
+                :error="errors.rzzzo"
               />
               <Input
-                v-model="form.jmbg"
+                v-model="jmbg"
                 :label="$t('components.eFormModal.jmbgLabel')"
                 :placeholder="$t('components.eFormModal.jmbgPlaceholder')"
                 :required="true"
+                :error="errors.jmbg"
+                inputmode="numeric"
               />
               <div class="md:col-span-2">
                 <Input
-                  v-model="form.address"
+                  v-model="address"
                   :label="$t('components.eFormModal.addressLabel')"
                   :placeholder="$t('components.eFormModal.addressPlaceholder')"
                   :required="true"
+                  :error="errors.address"
                 />
               </div>
               <Input
-                v-model="form.phone"
+                v-model="phone"
                 :label="$t('components.eFormModal.phoneLabel')"
                 :placeholder="$t('components.eFormModal.phonePlaceholder')"
                 type="tel"
                 :required="true"
+                :error="errors.phone"
               />
 
               <div class="flex flex-col gap-3">
@@ -103,11 +112,10 @@
                 <div class="flex items-center gap-6">
                   <label class="flex items-center gap-2 cursor-pointer">
                     <input
-                      v-model="form.gender"
+                      v-model="gender"
                       type="radio"
                       value="M"
                       class="accent-primary-500 w-4 h-4"
-                      required
                     />
                     <span class="text-neutral-700">{{
                       $t('components.eFormModal.genderMale')
@@ -115,7 +123,7 @@
                   </label>
                   <label class="flex items-center gap-2 cursor-pointer">
                     <input
-                      v-model="form.gender"
+                      v-model="gender"
                       type="radio"
                       value="Ž"
                       class="accent-primary-500 w-4 h-4"
@@ -125,12 +133,16 @@
                     }}</span>
                   </label>
                 </div>
+                <div v-if="errors.gender" class="flex items-center gap-1.5">
+                  <Icon name="ion:warning" size="14" class="text-accent" />
+                  <p class="text-sm text-accent">{{ errors.gender }}</p>
+                </div>
               </div>
 
               <div class="flex items-start gap-3 col-span-1 md:col-span-2">
                 <input
                   id="eFormAgreeTerms"
-                  v-model="form.agreeToTerms"
+                  v-model="agreeToTerms"
                   type="checkbox"
                   class="accent-primary-400 mt-1"
                 />
@@ -154,7 +166,7 @@
                   :text="$t('components.eFormModal.submitButton')"
                   prepend-icon="ion:download"
                   size="large"
-                  :disabled="!form.agreeToTerms"
+                  :disabled="!agreeToTerms"
                 />
                 <p
                   class="text-sm text-neutral-500 text-center max-w-full md:max-w-1/2"
@@ -171,29 +183,57 @@
 </template>
 
 <script setup lang="ts">
-const { isOpen, close } = useEFormModal()
+import { useForm } from 'vee-validate'
 
-const form = ref({
-  fullName: '',
-  lbo: '',
-  rzzzo: '',
-  address: '',
-  jmbg: '',
-  phone: '',
-  gender: '',
-  agreeToTerms: false,
+const { isOpen, close } = useEFormModal()
+const { t } = useI18n()
+
+const { errors, handleSubmit, defineField, resetForm } = useForm({
+  validationSchema: {
+    fullName: (v: string) => !!v?.trim() || t('validation.required'),
+    lbo: (v: string) => {
+      if (!v?.trim()) return t('validation.required')
+      if (!/^\d{11}$/.test(v.trim())) return t('validation.lbo')
+      return true
+    },
+    rzzzo: (v: string) => !!v?.trim() || t('validation.required'),
+    address: (v: string) => !!v?.trim() || t('validation.required'),
+    jmbg: (v: string) => {
+      if (!v?.trim()) return t('validation.required')
+      if (!/^\d{13}$/.test(v.trim())) return t('validation.jmbg')
+      return true
+    },
+    phone: (v: string) => {
+      if (!v?.trim()) return t('validation.required')
+      if (!/^\+381\d{7,12}$/.test(v.trim().replace(/\s/g, '')))
+        return t('validation.phone')
+      return true
+    },
+    gender: (v: string) => !!v || t('validation.required'),
+    agreeToTerms: () => true,
+  },
 })
 
-const handleSubmit = () => {
+const [fullName] = defineField('fullName')
+const [lbo] = defineField('lbo')
+const [rzzzo] = defineField('rzzzo')
+const [address] = defineField('address')
+const [jmbg] = defineField('jmbg')
+const [phone] = defineField('phone')
+const [gender] = defineField('gender')
+const [agreeToTerms] = defineField('agreeToTerms')
+
+const onSubmit = handleSubmit((values) => {
   // TODO: Povezati sa API-jem koji popunjava PDF i vraća ga za download
-  console.log('E-Form submitted:', form.value)
-}
+  console.log('E-Form submitted:', values)
+})
 
 watch(isOpen, (val) => {
   if (val) {
     document.body.style.overflow = 'hidden'
   } else {
     document.body.style.overflow = ''
+    resetForm()
   }
 })
 </script>

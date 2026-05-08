@@ -2,6 +2,14 @@
   "common": {
     "and": "i"
   },
+  "validation": {
+    "required": "Ovo polje je obavezno",
+    "email": "Unesite ispravnu imejl adresu",
+    "lbo": "LBO mora sadržati tačno 11 cifara",
+    "jmbg": "JMBG mora sadržati tačno 13 cifara",
+    "phone": "Broj telefona mora biti u formatu +381...",
+    "phoneOptional": "Unesite ispravan broj telefona"
+  },
   "nav": {
     "home": "Početna",
     "aboutUs": "O nama",

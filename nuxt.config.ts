@@ -44,6 +44,7 @@ export default defineNuxtConfig({
     '@nuxt/icon',
     '@nuxtjs/i18n',
     '@nuxtjs/sitemap',
+    '@vee-validate/nuxt',
   ],
   // TODO: Zameniti sa pravim domenom pre produkcije
   site: {

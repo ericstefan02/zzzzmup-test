@@ -22,59 +22,65 @@
               </NuxtLink>
             </p>
           </div>
-          <form method="POST" @submit.prevent="handleSubmit">
+          <form method="POST" novalidate @submit="onSubmit">
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <Input
-                v-model="form.name"
+                v-model="name"
                 :label="$t('pages.contact.formNameLabel')"
                 :placeholder="$t('pages.contact.formNamePlaceholder')"
                 :required="true"
+                :error="errors.name"
               />
               <Input
-                v-model="form.lastName"
+                v-model="lastName"
                 :label="$t('pages.contact.formLastNameLabel')"
                 :placeholder="$t('pages.contact.formLastNamePlaceholder')"
                 :required="true"
+                :error="errors.lastName"
               />
               <Input
-                v-model="form.email"
+                v-model="email"
                 :label="$t('pages.contact.formEmailLabel')"
                 :placeholder="$t('pages.contact.formEmailPlaceholder')"
                 type="email"
                 :required="true"
+                :error="errors.email"
               />
               <Input
-                v-model="form.phoneNumber"
+                v-model="phoneNumber"
                 :label="$t('pages.contact.formPhoneLabel')"
                 :placeholder="$t('pages.contact.formPhonePlaceholder')"
                 type="tel"
+                :error="errors.phoneNumber"
               />
               <Select
-                v-model="form.inquiryType"
+                v-model="inquiryType"
                 :label="$t('pages.contact.formInquiryLabel')"
                 :placeholder="$t('pages.contact.formInquiryPlaceholder')"
                 :options="INQUIRY_TYPE_OPTIONS"
                 required
+                :error="errors.inquiryType"
               />
               <FileInput
-                v-model="form.file"
+                v-model="file"
                 :label="$t('pages.contact.formFileLabel')"
                 :placeholder="$t('pages.contact.formFilePlaceholder')"
                 accept=".pdf,.doc,.docx,.jpg,.png"
               />
               <div class="col-span-1 md:col-span-2">
                 <Textarea
-                  v-model="form.message"
+                  v-model="message"
                   :label="$t('pages.contact.formMessageLabel')"
                   :placeholder="$t('pages.contact.formMessagePlaceholder')"
                   :required="true"
+                  :error="errors.message"
                   :rows="6"
                 />
               </div>
               <div class="flex items-start gap-3 col-span-1 md:col-span-2">
                 <input
                   id="agreeToTerms"
-                  v-model="form.agreeToTerms"
+                  v-model="agreeToTerms"
                   type="checkbox"
                   class="accent-primary-400 mt-2"
                 />
@@ -106,7 +112,7 @@
                 type="submit"
                 :text="$t('pages.contact.formSubmit')"
                 size="large"
-                :disabled="!form.agreeToTerms"
+                :disabled="!agreeToTerms"
                 :shrinked="true"
               />
             </div>
@@ -480,6 +486,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+import { useForm } from 'vee-validate'
 import type { FAQItem } from '~/types/common'
 import type { DetachedClinic } from '~/types/detached-clinic'
 
@@ -503,20 +510,42 @@ const INQUIRY_TYPE_OPTIONS = [
   { label: t('pages.contact.inquiryOther'), value: 'other' },
 ]
 
-const form = ref({
-  name: '',
-  lastName: '',
-  email: '',
-  phoneNumber: '',
-  inquiryType: '',
-  message: '',
-  agreeToTerms: false,
-  file: null,
+const { errors, handleSubmit, defineField } = useForm({
+  validationSchema: {
+    name: (v: string) => !!v?.trim() || t('validation.required'),
+    lastName: (v: string) => !!v?.trim() || t('validation.required'),
+    email: (v: string) => {
+      if (!v?.trim()) return t('validation.required')
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()))
+        return t('validation.email')
+      return true
+    },
+    phoneNumber: (v: string) => {
+      if (!v?.trim()) return true
+      if (!/^\+?\d[\d\s-]{6,}$/.test(v.trim()))
+        return t('validation.phoneOptional')
+      return true
+    },
+    inquiryType: (v: string) => !!v || t('validation.required'),
+    message: (v: string) => !!v?.trim() || t('validation.required'),
+    agreeToTerms: () => true,
+    file: () => true,
+  },
 })
 
-const handleSubmit = () => {
+const [name] = defineField('name')
+const [lastName] = defineField('lastName')
+const [email] = defineField('email')
+const [phoneNumber] = defineField('phoneNumber')
+const [inquiryType] = defineField('inquiryType')
+const [message] = defineField('message')
+const [agreeToTerms] = defineField('agreeToTerms')
+const [file] = defineField('file')
+
+const onSubmit = handleSubmit((values) => {
   // Handle form submission logic here
-}
+  console.log('Contact form submitted:', values)
+})
 
 const detachedClinics: DetachedClinic[] = [
   {
