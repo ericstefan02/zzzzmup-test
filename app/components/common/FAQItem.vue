@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full px-8 py-5 bg-white border-y border-neutral-100 hover:bg-neutral-50 transition-colors"
+    class="w-full px-4 md:px-8 py-5 bg-white border-y border-neutral-100 hover:bg-neutral-50 transition-colors"
   >
     <button
       type="button"

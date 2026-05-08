@@ -5,9 +5,9 @@
     :disabled="loading"
     @click="handleButtonClicked"
   >
-    <Icon v-if="prependIcon" :name="prependIcon" />
+    <Icon v-if="prependIcon" :name="prependIcon" class="shrink-0" />
     {{ text }}
-    <Icon v-if="appendIcon" :name="appendIcon" />
+    <Icon v-if="appendIcon" :name="appendIcon" class="shrink-0" />
   </button>
 </template>
 <script lang="ts" setup>

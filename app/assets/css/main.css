@@ -30,4 +30,7 @@
   /* Accent */
   --color-accent: #dc2626;
   --color-success: #4ADE80;
+
+  /* Custom breakpoint for navigation */
+  --breakpoint-nav: 1440px;
 }

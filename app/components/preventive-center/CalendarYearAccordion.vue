@@ -8,7 +8,7 @@
     >
       <div class="flex items-center gap-4">
         <div class="px-4 py-2.5 rounded-xl border border-neutral-200">
-          <p class="font-bold text-primary-400 text-lg">{{ year }}</p>
+          <p class="font-bold text-primary-400 sm:text-lg">{{ year }}</p>
         </div>
         <span class="font-semibold text-primary-900">
           {{ $t('components.calendarYearAccordion.activitiesFor', { year }) }}

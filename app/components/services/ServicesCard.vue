@@ -1,6 +1,6 @@
 <template>
   <article
-    class="flex flex-col gap-6 bg-white p-8 rounded-xl shadow"
+    class="flex flex-col gap-4 md:gap-6 bg-white p-4 md:p-6 lg:p-8 rounded-xl shadow"
     :class="{ 'shadow-primary-300/60': primary }"
   >
     <div class="flex items-start justify-between">

@@ -3,11 +3,13 @@
     class="rounded-xl border border-neutral-200 shadow-sm overflow-hidden"
   >
     <div
-      class="bg-neutral-50 border-b border-neutral-200 px-6 py-4 flex items-center justify-between uppercase font-bold text-xs text-neutral-500"
+      class="bg-neutral-50 border-b border-neutral-200 px-3 md:px-6 py-4 flex items-center justify-between uppercase font-bold text-xs text-neutral-500"
       aria-hidden="true"
     >
       <p>{{ $t('components.servicesList.serviceLabel') }}</p>
-      <p class="pr-11">{{ $t('components.servicesList.priceLabel') }}</p>
+      <p class="pr-6 md:pr-11">
+        {{ $t('components.servicesList.priceLabel') }}
+      </p>
     </div>
     <ul class="divide-y divide-neutral-200">
       <ServiceListItem

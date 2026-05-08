@@ -4,26 +4,46 @@
       :title="$t('pages.services.title')"
       :description="$t('pages.services.description')"
     />
-    <div class="px-28 grid grid-cols-4 items-start gap-12 my-10">
+    <div
+      class="px-4 md:px-12 lg:px-28 flex flex-col lg:grid lg:grid-cols-4 items-start gap-6 lg:gap-12 my-6 md:my-10"
+    >
       <nav
-        class="rounded-xl border border-neutral-200 shadow-xs overflow-hidden"
+        class="w-full lg:w-auto flex lg:flex-col lg:rounded-xl lg:border lg:border-neutral-200 lg:shadow-xs overflow-x-auto lg:overflow-visible gap-2 lg:gap-0"
         aria-label="Odeljenja"
       >
-        <div class="p-4 flex items-center gap-2 border-b border-neutral-200">
+        <div
+          class="hidden lg:flex p-4 items-center gap-2 border-b border-neutral-200"
+        >
           <Icon name="ion:layers" size="18" class="text-primary-400" />
           <h2 class="text-primary-900 text-lg font-bold">
             {{ $t('pages.services.departmentsLabel') }}
           </h2>
         </div>
-        <DepartmentButton
+        <button
           v-for="department in departments"
           :key="department.id"
-          :department="department"
-          :selected="selectedDepartment?.id === department.id"
-          @select="selectedDepartment = $event"
-        />
+          type="button"
+          class="lg:hidden whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
+          :class="
+            selectedDepartment?.id === department.id
+              ? 'bg-primary-500 text-white border-primary-500'
+              : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
+          "
+          @click="selectedDepartment = department"
+        >
+          {{ department.title }}
+        </button>
+        <div class="hidden lg:block">
+          <DepartmentButton
+            v-for="department in departments"
+            :key="department.id"
+            :department="department"
+            :selected="selectedDepartment?.id === department.id"
+            @select="selectedDepartment = $event"
+          />
+        </div>
       </nav>
-      <section class="col-span-3 flex flex-col gap-8">
+      <section class="lg:col-span-3 flex flex-col gap-8 w-full lg:w-auto">
         <div class="flex flex-col gap-1">
           <h2 class="text-2xl font-bold text-primary-900">
             {{ selectedDepartment?.title }}

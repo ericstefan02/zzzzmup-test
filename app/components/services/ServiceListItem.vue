@@ -5,21 +5,24 @@
   >
     <button
       type="button"
-      class="w-full px-6 py-4 flex items-center justify-between cursor-pointer"
+      class="w-full px-3 md:px-6 py-4 flex items-center justify-between cursor-pointer gap-3 sm:gap-0"
       :aria-expanded="isOpen"
       @click="isOpen = !isOpen"
     >
-      <span class="text-left">{{ service.title }}</span>
+      <span
+        class="text-left text-sm sm:text-base font-semibold text-primary-900"
+        >{{ service.title }}</span
+      >
       <div class="flex items-center gap-3">
         <span
           v-if="service.price"
-          class="rounded-full bg-primary-50 px-3 py-1.5 text-sm font-bold text-primary-400 border border-primary-200"
+          class="rounded-full bg-primary-50 px-3 py-1.5 text-sm font-semibold sm:font-bold text-primary-400 border border-primary-200"
         >
           {{ formattedPrice }}
         </span>
         <span
           v-else
-          class="rounded-full flex items-center gap-1 px-3 py-1.5 text-sm font-bold bg-green-50 text-green-700 border border-green-200"
+          class="rounded-full flex items-center gap-1 px-3 py-1.5 text-sm font-semibold sm:font-bold bg-green-50 text-green-700 border border-green-200"
         >
           <Icon name="ion:checkmark" size="14" class="text-green-700" />
           {{ $t('components.free') }}
@@ -41,7 +44,7 @@
       :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
     >
       <div class="overflow-hidden">
-        <p class="px-6 pb-4 text-neutral-500 text-sm">
+        <p class="px-3 md:px-6 pb-4 text-neutral-500 text-sm">
           {{ service.description }}
         </p>
       </div>

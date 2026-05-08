@@ -4,7 +4,9 @@
       :title="$t('pages.career.title')"
       :description="$t('pages.career.description')"
     />
-    <section class="py-12 px-28 flex flex-col gap-8">
+    <section
+      class="py-6 md:py-12 px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-8"
+    >
       <div class="flex flex-col gap-4">
         <h3 class="text-primary-900 font-bold text-center text-3xl">
           {{ $t('pages.career.selectionTitle') }}
@@ -13,7 +15,7 @@
           {{ $t('pages.career.selectionDescription') }}
         </p>
       </div>
-      <div class="grid grid-cols-4 gap-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div
           v-for="phase in selectionPhases"
           :key="phase.number"

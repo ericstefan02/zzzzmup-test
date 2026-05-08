@@ -1,7 +1,7 @@
 <template>
-  <footer class="px-28 py-16 bg-primary-900">
-    <div class="flex flex-col gap-12">
-      <div class="grid grid-cols-4 gap-8">
+  <footer class="px-4 md:px-12 lg:px-28 py-8 md:py-16 bg-primary-900">
+    <div class="flex flex-col gap-8 md:gap-12">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="flex flex-col gap-6">
           <div class="flex items-center gap-3 text-lg font-bold text-white">
             <NuxtLink to="/">
@@ -106,7 +106,7 @@
         </div>
       </div>
       <div class="h-px bg-primary-800 w-full" />
-      <div class="flex items-center gap-8">
+      <div class="flex flex-wrap items-center gap-4 md:gap-8">
         <div class="flex flex-col gap-1">
           <p class="text-neutral-400 text-sm">
             {{ $t('layout.footer.companyId') }}
@@ -133,8 +133,8 @@
         </div>
       </div>
       <div class="h-px bg-primary-800 w-full" />
-      <div class="flex items-center justify-between">
-        <p class="text-sm text-neutral-300">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p class="text-sm text-neutral-300 text-center sm:text-left">
           &copy; {{ currentYear }} {{ $t('layout.footer.copyright') }}
         </p>
         <div class="flex items-center gap-7">

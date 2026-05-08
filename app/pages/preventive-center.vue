@@ -5,7 +5,7 @@
       :description="$t('pages.preventiveCenter.description')"
     />
     <address
-      class="grid gap-6 bg-white grid-cols-4 px-28 py-12 not-italic drop-shadow"
+      class="grid gap-6 bg-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4 md:px-12 lg:px-28 py-8 md:py-12 not-italic drop-shadow"
     >
       <NuxtLink
         class="flex items-center gap-4"
@@ -70,48 +70,54 @@
         </div>
       </div>
     </address>
-    <div class="px-28 py-12 flex flex-col gap-16">
+    <div
+      class="px-4 md:px-12 lg:px-28 py-6 md:py-12 flex flex-col gap-8 md:gap-16"
+    >
       <section class="flex flex-col gap-12">
         <div class="flex flex-col gap-4 items-center">
-          <h3 class="text-center font-bold text-4xl">
+          <h3 class="text-center font-bold text-2xl sm:text-3xl">
             {{ $t('pages.preventiveCenter.counselingTitle') }}
           </h3>
           <p class="text-center text-neutral-500 text-lg">
             {{ $t('pages.preventiveCenter.counselingDescription') }}
           </p>
         </div>
-        <div class="grid grid-cols-2 gap-8">
-          <div class="bg-white p-10 flex flex-col gap-4 rounded-2xl shadow">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div
+            class="bg-white p-6 md:p-10 flex flex-col gap-4 rounded-2xl shadow"
+          >
             <div
-              class="w-16 h-16 bg-primary-50 text-primary-400 flex items-center justify-center rounded-2xl"
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-primary-50 text-primary-400 flex items-center justify-center rounded-2xl"
             >
               <Icon name="ion:heart" size="30" />
             </div>
-            <h4 class="text-2xl font-bold text-primary-900">
+            <h4 class="text-xl md:text-2xl font-bold text-primary-900">
               {{ $t('pages.preventiveCenter.preventiveCounseling') }}
             </h4>
-            <p class="text-lg text-neutral-500">
+            <p class="text-base md:text-lg text-neutral-500">
               {{ $t('pages.preventiveCenter.preventiveCounselingDesc') }}
             </p>
           </div>
-          <div class="bg-white p-10 flex flex-col gap-4 rounded-2xl shadow">
+          <div
+            class="bg-white p-6 md:p-10 flex flex-col gap-4 rounded-2xl shadow"
+          >
             <div
-              class="w-16 h-16 bg-primary-50 text-primary-400 flex items-center justify-center rounded-2xl"
+              class="w-14 h-14 sm:w-16 sm:h-16 bg-primary-50 text-primary-400 flex items-center justify-center rounded-2xl"
             >
               <Icon name="ion:md-pulse" size="30" />
             </div>
-            <h4 class="text-2xl font-bold text-primary-900">
+            <h4 class="text-xl md:text-2xl font-bold text-primary-900">
               {{ $t('pages.preventiveCenter.diabetesCounseling') }}
             </h4>
-            <p class="text-lg text-neutral-500">
+            <p class="text-base md:text-lg text-neutral-500">
               {{ $t('pages.preventiveCenter.diabetesCounselingDesc') }}
             </p>
           </div>
         </div>
       </section>
-      <section class="flex flex-col gap-12">
+      <section class="flex flex-col gap-8 sm:gap-12">
         <div class="flex flex-col gap-4 items-center">
-          <h3 class="text-center font-bold text-4xl">
+          <h3 class="text-center font-bold text-2xl sm:text-3xl">
             {{ $t('pages.preventiveCenter.calendarTitle') }}
           </h3>
           <p class="text-center text-neutral-500 text-lg">

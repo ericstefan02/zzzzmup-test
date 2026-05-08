@@ -4,9 +4,11 @@
       :title="$t('pages.contact.title')"
       :description="$t('pages.contact.description')"
     />
-    <div class="px-28 py-12 flex flex-col gap-16">
+    <div
+      class="px-4 md:px-12 lg:px-28 py-6 md:py-12 flex flex-col gap-8 md:gap-16"
+    >
       <section
-        class="rounded-2xl px-8 py-10 bg-white -mt-22 relative shadow-lg"
+        class="rounded-2xl px-4 md:px-8 py-8 md:py-10 bg-white -mt-12 md:-mt-22 relative shadow-lg"
       >
         <div class="flex flex-col gap-8">
           <div class="flex flex-col gap-3">
@@ -21,7 +23,7 @@
             </p>
           </div>
           <form method="POST" @submit.prevent="handleSubmit">
-            <div class="grid grid-cols-2 gap-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
               <Input
                 v-model="form.name"
                 :label="$t('pages.contact.formNameLabel')"
@@ -60,7 +62,7 @@
                 :placeholder="$t('pages.contact.formFilePlaceholder')"
                 accept=".pdf,.doc,.docx,.jpg,.png"
               />
-              <div class="col-span-2">
+              <div class="col-span-1 md:col-span-2">
                 <Textarea
                   v-model="form.message"
                   :label="$t('pages.contact.formMessageLabel')"
@@ -69,7 +71,7 @@
                   :rows="6"
                 />
               </div>
-              <div class="flex items-start gap-3 col-span-2">
+              <div class="flex items-start gap-3 col-span-1 md:col-span-2">
                 <input
                   id="agreeToTerms"
                   v-model="form.agreeToTerms"
@@ -79,13 +81,13 @@
                 <div class="flex flex-col gap-1">
                   <label for="agreeToTerms" class="text-sm text-neutral-700">
                     {{ $t('pages.contact.formAgreeTerms') }}
-                    <NuxtLink to="/terms"
+                    <NuxtLink to="/terms-of-use"
                       ><span class="text-primary-400">{{
                         $t('pages.contact.formTermsLink')
                       }}</span></NuxtLink
                     >
                     {{ $t('common.and') }}
-                    <NuxtLink to="/privacy"
+                    <NuxtLink to="/privacy-policy"
                       ><span class="text-primary-400">{{
                         $t('pages.contact.formPrivacyLink')
                       }}</span></NuxtLink
@@ -96,7 +98,9 @@
                   </p>
                 </div>
               </div>
-              <div class="h-px bg-primary-200 w-full col-span-2" />
+              <div
+                class="h-px bg-primary-200 w-full col-span-1 md:col-span-2"
+              />
               <Button
                 prepend-icon="ion:ios-send"
                 type="submit"
@@ -113,10 +117,14 @@
       <section
         class="rounded-2xl border border-neutral-200 shadow-xs overflow-hidden"
       >
-        <div class="p-8 bg-primary-100 flex flex-col gap-1">
+        <div class="p-4 md:p-8 bg-primary-100 flex flex-col gap-1">
           <div class="flex items-center gap-3">
-            <Icon name="ion:business" size="30" class="text-primary-400" />
-            <h2 class="text-3xl font-bold text-primary-900">
+            <Icon
+              name="ion:business"
+              size="30"
+              class="text-primary-400 shrink-0"
+            />
+            <h2 class="text-xl md:text-3xl font-bold text-primary-900">
               {{ $t('pages.contact.headquarters') }}
             </h2>
           </div>
@@ -124,11 +132,11 @@
             {{ $t('pages.contact.headquartersDescription') }}
           </p>
         </div>
-        <div class="grid grid-cols-2">
-          <address class="flex flex-col gap-6 p-8 bg-white">
+        <div class="grid grid-cols-1 md:grid-cols-2">
+          <address class="flex flex-col gap-6 p-4 md:p-8 bg-white">
             <div class="flex items-start gap-4 not-italic">
               <div
-                class="flex items-center justify-center h-10 w-10 bg-primary-100 rounded-lg"
+                class="flex items-center justify-center h-10 w-10 shrink-0 bg-primary-100 rounded-lg"
               >
                 <Icon
                   name="ion:location-sharp"
@@ -141,7 +149,7 @@
                   {{ $t('pages.contact.addressLabel') }}
                 </p>
                 <NuxtLink
-                  class="text-neutral-700 hover:text-primary-900 transition-colors"
+                  class="text-neutral-700 hover:text-primary-900 transition-colors text-sm sm:text-base"
                   :to="MAPS_EMBED_URL"
                   target="_blank"
                 >
@@ -152,7 +160,7 @@
             </div>
             <div class="flex items-start gap-4 not-italic">
               <div
-                class="flex items-center justify-center h-10 w-10 bg-primary-100 rounded-lg"
+                class="flex items-center justify-center h-10 w-10 shrink-0 bg-primary-100 rounded-lg"
               >
                 <Icon name="ion:call" size="18" class="text-primary-400" />
               </div>
@@ -161,7 +169,7 @@
                   {{ $t('pages.contact.phoneLabel') }}
                 </p>
                 <NuxtLink
-                  class="text-neutral-700 hover:text-primary-900 transition-colors"
+                  class="text-neutral-700 hover:text-primary-900 transition-colors text-sm sm:text-base"
                   :to="PHONE_NUMBER_URL"
                 >
                   +381 11 3615 665
@@ -170,7 +178,7 @@
             </div>
             <div class="flex items-start gap-4 not-italic">
               <div
-                class="flex items-center justify-center h-10 w-10 bg-primary-100 rounded-lg"
+                class="flex items-center justify-center h-10 w-10 shrink-0 bg-primary-100 rounded-lg"
               >
                 <Icon name="ion:mail" size="18" class="text-primary-400" />
               </div>
@@ -179,7 +187,7 @@
                   {{ $t('pages.contact.emailLabel') }}
                 </p>
                 <NuxtLink
-                  class="text-neutral-700 hover:text-primary-900 transition-colors"
+                  class="text-neutral-700 hover:text-primary-900 transition-colors text-sm sm:text-base"
                   :to="EMAIL_ADDRESS_URL"
                 >
                   info@zzzzmup.rs
@@ -188,7 +196,7 @@
             </div>
             <div class="flex items-start gap-4">
               <div
-                class="flex items-center justify-center h-10 w-10 bg-primary-100 rounded-lg"
+                class="flex items-center justify-center h-10 w-10 shrink-0 bg-primary-100 rounded-lg"
               >
                 <Icon
                   name="ion:android-time"
@@ -205,7 +213,9 @@
                     v-for="(item, index) in GROUPED_WORKING_HOURS"
                     :key="index"
                   >
-                    <div class="flex items-center gap-4 justify-between">
+                    <div
+                      class="flex items-center gap-4 justify-between text-sm sm:text-base"
+                    >
                       <p class="text-neutral-700">{{ $t(item.title) }}</p>
                       <p class="text-primary-900 font-medium">
                         {{ item.time }}
@@ -237,8 +247,12 @@
       <section class="flex flex-col gap-8">
         <div class="flex flex-col gap-1">
           <div class="flex items-center gap-3">
-            <Icon name="ion:medical-sharp" size="30" class="text-primary-400" />
-            <h2 class="text-3xl font-bold text-primary-900">
+            <Icon
+              name="ion:medical-sharp"
+              size="30"
+              class="text-primary-400 shrink-0"
+            />
+            <h2 class="text-xl md:text-3xl font-bold text-primary-900">
               {{ $t('pages.contact.detachedClinicsTitle') }}
             </h2>
           </div>
@@ -246,7 +260,7 @@
             {{ $t('pages.contact.detachedClinicsDescription') }}
           </p>
         </div>
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           <DetachedClinicCard
             v-for="clinic in detachedClinics"
             :key="clinic.id"
@@ -257,10 +271,14 @@
       <section
         class="rounded-2xl border-t border-x border-neutral-200 shadow-xs overflow-hidden"
       >
-        <div class="p-8 flex flex-col gap-1">
+        <div class="p-4 md:p-8 flex flex-col gap-1">
           <div class="flex items-center gap-3">
-            <Icon name="ion:help-circle" size="30" class="text-primary-400" />
-            <h2 class="text-3xl font-bold text-primary-900">
+            <Icon
+              name="ion:help-circle"
+              size="30"
+              class="text-primary-400 shrink-0"
+            />
+            <h2 class="text-xl md:text-3xl font-bold text-primary-900">
               {{ $t('pages.contact.faqTitle') }}
             </h2>
           </div>
@@ -277,14 +295,14 @@
       <section
         class="rounded-2xl border border-neutral-200 shadow-xs overflow-hidden"
       >
-        <div class="p-8 flex flex-col gap-1">
+        <div class="p-4 md:p-8 flex flex-col gap-1">
           <div class="flex items-center gap-3">
             <Icon
               name="ion:shield-checkmark"
               size="30"
-              class="text-primary-400"
+              class="text-primary-400 shrink-0"
             />
-            <h2 class="text-3xl font-bold text-primary-900">
+            <h2 class="text-xl md:text-3xl font-bold text-primary-900">
               {{ $t('pages.contact.legalTitle') }}
             </h2>
           </div>
@@ -292,20 +310,22 @@
             {{ $t('pages.contact.legalDescription') }}
           </p>
         </div>
-        <div class="p-8 gap-8 grid grid-cols-2 bg-white">
+        <div
+          class="p-4 md:p-8 gap-6 md:gap-8 grid grid-cols-1 md:grid-cols-2 bg-white"
+        >
           <div
-            class="p-8 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-6"
+            class="p-4 md:p-8 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-6"
           >
             <div class="flex items-center gap-4">
               <div
-                class="h-10 w-10 bg-primary-400 rounded-lg items-center justify-center flex"
+                class="h-8 w-8 sm:h-10 sm:w-10 shrink-0 bg-primary-400 rounded-lg items-center justify-center flex"
               >
-                <span aria-hidden="true" class="text-white font-bold text-lg"
+                <span aria-hidden="true" class="text-white font-bold sm:text-lg"
                   >1</span
                 >
               </div>
               <div class="flex flex-col gap-1.5">
-                <h3 class="text-xl font-bold text-primary-900">
+                <h3 class="text-lg md:text-xl font-bold text-primary-900">
                   {{ $t('pages.contact.rfzoTitle') }}
                 </h3>
                 <p class="text-neutral-700 text-sm">
@@ -318,27 +338,33 @@
               <div class="flex items-start gap-4">
                 <Icon
                   name="ion:location-sharp"
-                  class="text-primary-400"
+                  class="text-primary-400 shrink-0"
                   size="18"
                 />
                 <div class="flex flex-col gap-2">
                   <p class="text-neutral-700 text-xs font-bold uppercase">
                     {{ $t('pages.contact.locationLabel') }}
                   </p>
-                  <p class="font-semibold text-primary-900">
+                  <p
+                    class="font-semibold text-primary-900 text-sm md:text-base"
+                  >
                     {{ $t('pages.contact.rfzoLocation') }}
                   </p>
                 </div>
               </div>
               <div class="flex items-start gap-4">
-                <Icon name="ion:call" class="text-primary-400" size="18" />
+                <Icon
+                  name="ion:call"
+                  class="text-primary-400 shrink-0"
+                  size="18"
+                />
                 <div class="flex flex-col gap-2">
                   <p class="text-neutral-700 text-xs font-bold uppercase">
                     {{ $t('pages.contact.phoneContactLabel') }}
                   </p>
                   <NuxtLink
                     to="tel:+381648522717"
-                    class="font-semibold text-primary-900"
+                    class="font-semibold text-primary-900 text-sm md:text-base"
                   >
                     +381 64 85 22 717
                   </NuxtLink>
@@ -347,18 +373,18 @@
             </div>
           </div>
           <div
-            class="p-8 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-6"
+            class="p-4 md:p-8 bg-neutral-50 rounded-xl border border-neutral-200 flex flex-col gap-6"
           >
             <div class="flex items-center gap-4">
               <div
-                class="h-10 w-10 bg-primary-400 rounded-lg items-center justify-center flex"
+                class="h-8 w-8 sm:h-10 sm:w-10 shrink-0 bg-primary-400 rounded-lg items-center justify-center flex"
               >
-                <span aria-hidden="true" class="text-white font-bold text-lg"
+                <span aria-hidden="true" class="text-white font-bold sm:text-lg"
                   >2</span
                 >
               </div>
               <div class="flex flex-col gap-1.5">
-                <h3 class="text-xl font-bold text-primary-900">
+                <h3 class="text-lg md:text-xl font-bold text-primary-900">
                   {{ $t('pages.contact.patientAdviserTitle') }}
                 </h3>
                 <p class="text-neutral-700 text-sm">
@@ -371,41 +397,51 @@
               <div class="flex items-start gap-4">
                 <Icon
                   name="ion:location-sharp"
-                  class="text-primary-400"
+                  class="text-primary-400 shrink-0"
                   size="18"
                 />
                 <div class="flex flex-col gap-2">
                   <p class="text-neutral-700 text-xs font-bold uppercase">
                     {{ $t('pages.contact.locationLabel') }}
                   </p>
-                  <p class="font-semibold text-primary-900">
+                  <p
+                    class="font-semibold text-primary-900 text-sm md:text-base"
+                  >
                     {{ $t('pages.contact.patientAdviserLocation') }}
                   </p>
                 </div>
               </div>
               <div class="flex items-start gap-4">
-                <Icon name="ion:call" class="text-primary-400" size="18" />
+                <Icon
+                  name="ion:call"
+                  class="text-primary-400 shrink-0"
+                  size="18"
+                />
                 <div class="flex flex-col gap-2">
                   <p class="text-neutral-700 text-xs font-bold uppercase">
                     {{ $t('pages.contact.phoneContactLabel') }}
                   </p>
                   <NuxtLink
                     to="tel:+381113605634"
-                    class="font-semibold text-primary-900"
+                    class="font-semibold text-primary-900 text-sm md:text-base"
                   >
                     +381 11 360 5634
                   </NuxtLink>
                 </div>
               </div>
               <div class="flex items-start gap-4">
-                <Icon name="ion:mail" class="text-primary-400" size="18" />
+                <Icon
+                  name="ion:mail"
+                  class="text-primary-400 shrink-0"
+                  size="18"
+                />
                 <div class="flex flex-col gap-2">
                   <p class="text-neutral-700 text-xs font-bold uppercase">
                     {{ $t('pages.contact.emailContactLabel') }}
                   </p>
                   <NuxtLink
                     to="mailto:savetnik.pacijent@beograd.gov.rs"
-                    class="font-semibold text-primary-900"
+                    class="font-semibold text-primary-900 text-sm md:text-base break-all"
                   >
                     savetnik.pacijent@beograd.gov.rs
                   </NuxtLink>
@@ -413,10 +449,16 @@
               </div>
             </div>
           </div>
-          <div class="w-full h-px bg-neutral-200 col-span-2" />
-          <div class="flex items-center justify-between col-span-2">
+          <div class="w-full h-px bg-neutral-200 col-span-1 md:col-span-2" />
+          <div
+            class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 col-span-1 md:col-span-2"
+          >
             <div class="flex items-center gap-2">
-              <Icon name="ion:alert-circle" size="18" class="text-yellow-500" />
+              <Icon
+                name="ion:alert-circle"
+                size="18"
+                class="text-yellow-500 shrink-0"
+              />
               <p class="text-neutral-500">
                 {{ $t('pages.contact.legalNote') }}
               </p>

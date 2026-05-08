@@ -5,14 +5,16 @@
       :description="$t('pages.aboutUs.description')"
     />
 
-    <section class="px-28 py-16 grid grid-cols-2 gap-16 bg-white">
+    <section
+      class="px-4 md:px-12 lg:px-28 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 bg-white"
+    >
       <div class="flex flex-col gap-6">
         <span
           class="font-bold text-xs text-primary-400 rounded-full bg-primary-50 px-3 py-1 max-w-max uppercase"
         >
           {{ $t('pages.aboutUs.historyLabel') }}
         </span>
-        <h2 class="text-4xl font-bold text-primary-900">
+        <h2 class="text-2xl md:text-4xl font-bold text-primary-900">
           {{ $t('pages.aboutUs.trustTitle') }}
           <span class="text-primary-500">{{
             $t('pages.aboutUs.trustTitleHighlight')
@@ -41,9 +43,9 @@
     </section>
 
     <section
-      class="px-48 py-16 flex flex-col items-center justify-center gap-8"
+      class="px-4 md:px-16 lg:px-48 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8"
     >
-      <h2 class="font-bold text-primary-900 text-3xl text-center">
+      <h2 class="font-bold text-primary-900 text-2xl sm:text-3xl text-center">
         {{ $t('pages.aboutUs.documentsTitle') }}
       </h2>
       <p class="text-neutral-500 text-center">
@@ -54,7 +56,7 @@
       >
         <div
           role="tablist"
-          class="grid grid-cols-4 border-b border-neutral-200"
+          class="grid grid-cols-2 md:grid-cols-4 border-b border-neutral-200"
         >
           <button
             v-for="tab in DOCUMENT_TYPES_TABS"
@@ -62,7 +64,7 @@
             type="button"
             role="tab"
             :aria-selected="activeDocumentType === tab.value"
-            class="flex items-center justify-center gap-2 px-6 py-3 font-semibold transition-colors"
+            class="flex items-center justify-center gap-2 px-3 md:px-6 py-3 text-xs md:text-sm font-semibold transition-colors"
             :class="{
               'bg-primary-500 text-white': activeDocumentType === tab.value,
               'text-neutral-500 hover:text-primary-400 hover:bg-primary-50 cursor-pointer':
@@ -70,7 +72,7 @@
             }"
             @click="activeDocumentType = tab.value"
           >
-            <Icon :name="tab.icon" size="16" />
+            <Icon :name="tab.icon" size="16" class="shrink-0" />
             <span>{{ $t(tab.label) }}</span>
           </button>
         </div>

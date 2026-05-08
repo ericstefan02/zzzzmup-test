@@ -1,6 +1,8 @@
 <template>
   <div>
-    <section class="relative px-28 py-32 h-172">
+    <section
+      class="relative px-4 md:px-12 lg:px-28 py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
+    >
       <div class="relative flex flex-col gap-6 z-10 text-white">
         <div
           class="flex items-center gap-2 px-3 py-1 border border-white/20 max-w-max rounded-full bg-white/10 backdrop-blur"
@@ -14,14 +16,16 @@
             {{ $t('pages.home.officialInstitution') }}
           </p>
         </div>
-        <h2 class="font-bold text-6xl text-white leading-16 tracking-tight">
+        <h2
+          class="font-bold text-3xl md:text-5xl lg:text-6xl text-white leading-10 md:leading-16 tracking-tight"
+        >
           {{ $t('pages.home.heroTitle') }}
           <br />
           <span class="text-[#BFDBFE] leading-normal tracking-normal">{{
             $t('pages.home.heroTitleMinistry')
           }}</span>
         </h2>
-        <p class="max-w-1/2 text-xl">
+        <p class="max-w-full md:max-w-2/3 lg:max-w-1/2 text-base md:text-xl">
           {{ $t('pages.home.heroDescription') }}
         </p>
         <div class="flex items-center gap-4">
@@ -49,7 +53,9 @@
         class="absolute inset-0 bg-linear-to-b from-primary-950/75 to-primary-600/85"
       />
     </section>
-    <section class="grid grid-cols-4 gap-6 px-24 pt-24 -mt-59.5">
+    <section
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-24 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5"
+    >
       <HighlightCard
         v-for="(item, index) in hightlightItems"
         :key="index"
@@ -61,19 +67,23 @@
         @click="handleCardActionClicked"
       />
     </section>
-    <section class="flex flex-col gap-16 py-24 px-28">
+    <section
+      class="flex flex-col gap-8 md:gap-16 py-8 md:py-24 px-4 md:px-12 lg:px-28"
+    >
       <div class="flex flex-col gap-1 items-center justify-center">
         <span class="text-sm font-bold text-primary-400 uppercase">
           {{ $t('pages.home.servicesLabel') }}
         </span>
-        <h2 class="text-primary-900 font-bold text-4xl">
+        <h2 class="text-primary-900 font-bold text-2xl md:text-4xl">
           {{ $t('pages.home.servicesTitle') }}
         </h2>
         <p class="text-center max-w-150 text-lg text-neutral-500">
           {{ $t('pages.home.servicesDescription') }}
         </p>
       </div>
-      <div class="grid grid-cols-3 gap-8">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+      >
         <ServicesCard
           v-for="(item, index) in selectedServices"
           :key="index"
@@ -85,11 +95,11 @@
       </div>
     </section>
     <section
-      class="px-28 py-12 bg-primary-600 flex justify-between items-center gap-16"
+      class="px-4 md:px-12 lg:px-28 py-8 md:py-12 bg-primary-600 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-16"
     >
-      <div class="flex items-start gap-4 max-w-2/5">
+      <div class="flex items-start gap-4 max-w-full md:max-w-2/5">
         <div
-          class="flex items-center justify-center rounded-full bg-white/10 p-3"
+          class="flex items-center justify-center rounded-full bg-white/10 p-3 shrink-0"
         >
           <Icon name="ion:shield-half-outline" size="24" class="text-white" />
         </div>
@@ -102,10 +112,10 @@
           </p>
         </div>
       </div>
-      <div class="w-px bg-primary-500 self-stretch" />
-      <div class="flex items-start gap-4 max-w-2/5">
+      <div class="hidden md:block w-px bg-primary-500 self-stretch" />
+      <div class="flex items-start gap-4 max-w-full md:max-w-2/5">
         <div
-          class="flex items-center justify-center rounded-full bg-white/10 p-3"
+          class="flex items-center justify-center rounded-full bg-white/10 p-3 shrink-0"
         >
           <Icon name="ion:people" size="24" class="text-white" />
         </div>
@@ -119,14 +129,18 @@
         </div>
       </div>
     </section>
-    <section class="px-28 py-24 flex flex-col gap-12">
+    <section
+      class="px-4 md:px-12 lg:px-28 py-8 md:py-24 flex flex-col gap-6 md:gap-12"
+    >
       <div>
         <div>
           <h3 class="font-bold text-primary-900 text-3xl">
             {{ $t('pages.home.newsTitle') }}
           </h3>
         </div>
-        <div class="flex items-center justify-between">
+        <div
+          class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2"
+        >
           <p class="text-neutral-500">
             {{ $t('pages.home.newsDescription') }}
           </p>
@@ -137,7 +151,9 @@
           />
         </div>
       </div>
-      <div class="grid grid-cols-3 gap-8">
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+      >
         <NewsCard
           v-for="(item, index) in newsArticles"
           :key="index"

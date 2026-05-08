@@ -1,7 +1,11 @@
 <template>
-  <aside class="px-20 py-2 border-b border-neutral-200 bg-white text-sm">
-    <div class="px-8 flex justify-between">
-      <div class="flex gap-6 items-center">
+  <aside
+    class="px-4 md:px-12 lg:px-20 py-2 border-b border-neutral-200 bg-white text-xs sm:text-sm"
+  >
+    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0">
+      <div
+        class="flex gap-3 sm:gap-6 items-center justify-between sm:justify-start"
+      >
         <div class="flex items-center gap-2">
           <Icon name="ion:android-time" class="text-primary-400" />
           <p class="font-medium text-neutral-500">
@@ -18,7 +22,7 @@
           </div>
         </NuxtLink>
       </div>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center gap-4 justify-between sm:justify-start">
         <NuxtLink :to="PHONE_NUMBER_URL">
           <div class="flex items-center gap-2">
             <Icon name="ion:call" class="text-accent" />
@@ -27,7 +31,9 @@
             </p>
           </div>
         </NuxtLink>
-        <div class="flex items-center gap-1 border-l border-neutral-200 pl-4">
+        <div
+          class="flex items-center gap-1 sm:border-l border-neutral-200 pl-4"
+        >
           <button
             type="button"
             class="px-2 py-0.5 rounded text-xs font-bold transition-colors cursor-pointer"

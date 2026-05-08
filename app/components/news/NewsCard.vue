@@ -6,7 +6,7 @@
       <img
         :src="newsArticle.image"
         :alt="newsArticle.title"
-        class="rounded-xl h-64 w-full object-cover"
+        class="rounded-xl h-40 md:h-52 lg:h-64 w-full object-cover"
       />
       <div
         class="flex items-center justify-center bg-white text-primary-900 px-3 py-1 rounded-md absolute left-4 top-4 shadow"

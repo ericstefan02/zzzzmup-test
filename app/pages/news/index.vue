@@ -4,8 +4,13 @@
       :title="$t('pages.news.title')"
       :description="$t('pages.news.description')"
     />
-    <div class="px-28 flex flex-col gap-12 mb-16">
-      <NewsMainBanner :news-article="mainArticle" class="-mt-18 relative" />
+    <div
+      class="px-4 md:px-12 lg:px-28 flex flex-col gap-8 md:gap-12 mb-10 md:mb-16"
+    >
+      <NewsMainBanner
+        :news-article="mainArticle"
+        class="-mt-16 md:-mt-18 relative"
+      />
       <section class="flex flex-col gap-6">
         <div class="flex items-center gap-3">
           <Icon name="ion:newspaper-sharp" class="text-primary-400" size="20" />
@@ -14,7 +19,7 @@
           </h2>
         </div>
         <div class="h-px w-full bg-neutral-200" />
-        <div class="grid grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <NewsCard
             v-for="article in news"
             :key="article.id"
