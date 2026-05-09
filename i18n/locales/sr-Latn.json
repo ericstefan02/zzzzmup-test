@@ -2,6 +2,20 @@
   "common": {
     "and": "i"
   },
+  "months": {
+    "january": "januar",
+    "february": "februar",
+    "march": "mart",
+    "april": "april",
+    "may": "maj",
+    "june": "jun",
+    "july": "jul",
+    "august": "avgust",
+    "september": "septembar",
+    "october": "oktobar",
+    "november": "novembar",
+    "december": "decembar"
+  },
   "validation": {
     "required": "Ovo polje je obavezno",
     "email": "Unesite ispravnu imejl adresu",
@@ -269,6 +283,7 @@
     "workSchedule": {
       "title": "Raspored rada lekara",
       "description": "Informišite se o dostupnosti i rasporedu smena naših lekara specijalista. Podaci se ažuriraju na nedeljnom nivou.",
+      "scheduleValidityLabel": "Period važenja rasporeda",
       "departmentLabel": "Odeljenje",
       "departmentPlaceholder": "Izaberite odeljenje",
       "doctorLabel": "Doktor",

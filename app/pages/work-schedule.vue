@@ -3,7 +3,23 @@
     <TextBanner
       :title="$t('pages.workSchedule.title')"
       :description="$t('pages.workSchedule.description')"
-    />
+    >
+      <div
+        class="px-4 md:px-5 py-2.5 md:py-3 bg-white/10 backdrop-blur-xl border border-white/20 rounded-lg md:max-w-max"
+      >
+        <div class="flex items-center gap-3">
+          <Icon name="ion:calendar-clear" size="20" class="text-white" />
+          <div>
+            <p class="font-medium uppercase text-xs text-[#C2D5FA]">
+              {{ $t('pages.workSchedule.scheduleValidityLabel') }}
+            </p>
+            <p class="font-bold text-white md:text-lg">
+              {{ currentWeekRange }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </TextBanner>
     <div class="px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-10">
       <div
         class="px-4 md:px-8 py-8 md:py-12 gap-6 grid grid-cols-1 md:grid-cols-2 bg-white rounded-xl shadow-lg -mt-6 sm:-mt-10 relative"
@@ -211,6 +227,44 @@
 import type { DetachmentClinicScheduleItem } from '~/types/schedule'
 
 const { t } = useI18n()
+
+const MONTH_KEYS = [
+  'months.january',
+  'months.february',
+  'months.march',
+  'months.april',
+  'months.may',
+  'months.june',
+  'months.july',
+  'months.august',
+  'months.september',
+  'months.october',
+  'months.november',
+  'months.december',
+] as const
+
+const currentWeekRange = computed(() => {
+  const now = new Date()
+  const dayOfWeek = now.getDay()
+  const diffToMonday = dayOfWeek === 0 ? -6 : 1 - dayOfWeek
+
+  const monday = new Date(now)
+  monday.setDate(now.getDate() + diffToMonday)
+
+  const sunday = new Date(monday)
+  sunday.setDate(monday.getDate() + 6)
+
+  const formatDate = (date: Date) => {
+    const month = t(MONTH_KEYS[date.getMonth()]!)
+    return `${date.getDate()}. ${month}`
+  }
+
+  if (monday.getFullYear() !== sunday.getFullYear()) {
+    return `${formatDate(monday)} ${monday.getFullYear()}. - ${formatDate(sunday)} ${sunday.getFullYear()}.`
+  }
+
+  return `${formatDate(monday)} - ${formatDate(sunday)}, ${monday.getFullYear()}.`
+})
 
 useSeoMeta({
   title: () => t('seo.workSchedule.title'),

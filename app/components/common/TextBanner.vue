@@ -12,6 +12,8 @@
         {{ description }}
       </p>
 
+      <slot />
+
       <div class="left-0 right-0 top-1/4 bottom-0 absolute pointer-events-none">
         <svg
           class="w-full h-full text-white/10"

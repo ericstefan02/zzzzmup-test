@@ -2,6 +2,20 @@
   "common": {
     "and": "и"
   },
+  "months": {
+    "january": "јануар",
+    "february": "фебруар",
+    "march": "март",
+    "april": "април",
+    "may": "мај",
+    "june": "јун",
+    "july": "јул",
+    "august": "август",
+    "september": "септембар",
+    "october": "октобар",
+    "november": "новембар",
+    "december": "децембар"
+  },
   "validation": {
     "required": "Ово поље је обавезно",
     "email": "Унесите исправну имејл адресу",
@@ -269,6 +283,7 @@
     "workSchedule": {
       "title": "Распоред рада лекара",
       "description": "Информишите се о доступности и распореду смена наших лекара специјалиста. Подаци се ажурирају на недељном нивоу.",
+      "scheduleValidityLabel": "Период важења распореда",
       "departmentLabel": "Одељење",
       "departmentPlaceholder": "Изаберите одељење",
       "doctorLabel": "Доктор",
