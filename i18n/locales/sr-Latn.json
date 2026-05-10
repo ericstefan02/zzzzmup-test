@@ -197,7 +197,14 @@
       "phase3Name": "Intervju",
       "phase3Desc": "Odabrani kandidati bivaju pozvani na intervju, gde imaju priliku da predstave svoje veštine i iskustvo.",
       "phase4Name": "Odluka",
-      "phase4Desc": "Nakon intervjua, naš tim donosi odluku o tome koji kandidat najbolje odgovara potrebama naše organizacije."
+      "phase4Desc": "Nakon intervjua, naš tim donosi odluku o tome koji kandidat najbolje odgovara potrebama naše organizacije.",
+      "openPositionsTitle": "Aktuelne ponude za posao",
+      "jobActive": "Aktivan",
+      "jobExpired": "Istekao",
+      "expiringDateLabel": "Rok za prijavu",
+      "checkJobButton": "Pogledaj oglas",
+      "applyButton": "Prijavi se",
+      "jobDescriptionLabel": "Opis oglasa"
     },
     "contact": {
       "title": "Kontakt i lokacija",
