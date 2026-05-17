@@ -48,7 +48,7 @@
         </div>
       </div>
       <NuxtImg
-        src="/img/temporary-index.jpg"
+        src="/img/index2.png"
         class="absolute inset-0 w-full h-full object-cover"
         :alt="$t('pages.home.heroImageAlt')"
         format="webp"
