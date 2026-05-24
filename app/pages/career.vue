@@ -4,37 +4,39 @@
       :title="$t('pages.career.title')"
       :description="$t('pages.career.description')"
     />
-    <section
-      class="py-6 md:py-12 px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-8 bg-white"
-    >
-      <div class="flex flex-col gap-4">
-        <h3 class="text-primary-900 font-bold text-center text-3xl">
-          {{ $t('pages.career.selectionTitle') }}
-        </h3>
-        <p class="text-center text-sm text-neutral-500">
-          {{ $t('pages.career.selectionDescription') }}
-        </p>
-      </div>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-        <div
-          v-for="phase in selectionPhases"
-          :key="phase.number"
-          class="flex flex-col gap-4 items-center"
-        >
-          <div
-            class="flex items-center justify-center rounded-full h-12 w-12 bg-primary-50 text-primary-400 border border-primary-400"
-          >
-            <p class="font-bold text-xl">{{ phase.number }}</p>
-          </div>
-          <p class="text font-bold text-primary-900">{{ $t(phase.name) }}</p>
-          <p class="text-sm text-neutral-500 text-center">
-            {{ $t(phase.description) }}
+    <section class="bg-white">
+      <div
+        class="py-6 md:py-12 px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-8 max-w-480 mx-auto"
+      >
+        <div class="flex flex-col gap-4">
+          <h3 class="text-primary-900 font-bold text-center text-3xl">
+            {{ $t('pages.career.selectionTitle') }}
+          </h3>
+          <p class="text-center text-sm text-neutral-500">
+            {{ $t('pages.career.selectionDescription') }}
           </p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div
+            v-for="phase in selectionPhases"
+            :key="phase.number"
+            class="flex flex-col gap-4 items-center"
+          >
+            <div
+              class="flex items-center justify-center rounded-full h-12 w-12 bg-primary-50 text-primary-400 border border-primary-400"
+            >
+              <p class="font-bold text-xl">{{ phase.number }}</p>
+            </div>
+            <p class="text font-bold text-primary-900">{{ $t(phase.name) }}</p>
+            <p class="text-sm text-neutral-500 text-center">
+              {{ $t(phase.description) }}
+            </p>
+          </div>
         </div>
       </div>
     </section>
     <section
-      class="py-6 md:py-12 px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-8"
+      class="py-6 md:py-12 px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-8 max-w-480 mx-auto"
     >
       <h3 class="text-primary-900 font-bold text-2xl">
         {{ $t('pages.career.openPositionsTitle') }}

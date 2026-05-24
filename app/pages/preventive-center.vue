@@ -71,7 +71,7 @@
       </div>
     </address>
     <div
-      class="px-4 md:px-12 lg:px-28 py-6 md:py-12 flex flex-col gap-8 md:gap-16"
+      class="px-4 md:px-12 lg:px-28 py-6 md:py-12 flex flex-col gap-8 md:gap-16 max-w-480 mx-auto"
     >
       <section class="flex flex-col gap-12">
         <div class="flex flex-col gap-4 items-center">

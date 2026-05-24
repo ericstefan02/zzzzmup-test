@@ -1,7 +1,7 @@
 <template>
   <!-- FIXME: promeniti na NuxtImg -->
   <div
-    class="grid grid-cols-1 md:grid-cols-2 border border-neutral-200 rounded-xl shadow-lg overflow-hidden max-h-auto md:max-h-150 bg-white"
+    class="grid grid-cols-1 md:grid-cols-2 border border-neutral-200 rounded-xl shadow-lg overflow-hidden max-h-auto md:max-h-150 bg-white max-w-480 mx-auto"
   >
     <img
       :src="newsArticle.image"

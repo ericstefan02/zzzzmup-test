@@ -43,7 +43,7 @@
     </section>
 
     <section
-      class="px-4 md:px-16 lg:px-48 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8"
+      class="px-4 md:px-16 lg:px-48 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8 max-w-480 mx-auto"
     >
       <h2 class="font-bold text-primary-900 text-2xl sm:text-3xl text-center">
         {{ $t('pages.aboutUs.documentsTitle') }}

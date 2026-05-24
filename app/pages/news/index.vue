@@ -11,7 +11,7 @@
         :news-article="mainArticle"
         class="-mt-16 md:-mt-18 relative"
       />
-      <section class="flex flex-col gap-6">
+      <section class="flex flex-col gap-6 max-w-480 mx-auto">
         <div class="flex items-center gap-3">
           <Icon name="ion:newspaper-sharp" class="text-primary-400" size="20" />
           <h2 class="text-primary-900 font-bold text-xl">

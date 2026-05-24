@@ -39,7 +39,7 @@
           </div>
           <NuxtLink
             to="/services"
-            class="px-6 py-3 rounded-xl border border-primary-200/40 bg-white/10 hover:bg-white/20 backdrop-blur transition-colors cursor-pointer"
+            class="px-6 py-3 rounded-xl border border-primary-200/40 bg-white/20 hover:bg-white/30 backdrop-blur transition-colors cursor-pointer"
           >
             <p class="text-sm sm:text-base font-bold text-white">
               {{ $t('pages.home.heroButtonServices') }}
@@ -60,7 +60,7 @@
       />
     </section>
     <section
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-24 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-24 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5 max-w-480 mx-auto"
     >
       <HighlightCard
         v-for="(item, index) in highlightItems"
@@ -88,7 +88,7 @@
         </p>
       </div>
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-480 mx-auto"
       >
         <ServicesCard
           v-for="(item, index) in selectedServices"
@@ -136,7 +136,7 @@
       </div>
     </section>
     <section
-      class="px-4 md:px-12 lg:px-28 py-8 md:py-24 flex flex-col gap-6 md:gap-12"
+      class="px-4 md:px-12 lg:px-28 py-8 md:py-24 flex flex-col gap-6 md:gap-12 max-w-480 mx-auto"
     >
       <div>
         <div>
