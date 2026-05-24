@@ -25,11 +25,41 @@ export const NAV_ITEMS: NavItem[] = [
   {
     title: 'nav.aboutUs',
     children: [
-      { title: 'nav.history', route: '/about-us' },
       { title: 'nav.preventiveCenter', route: '/preventive-center' },
+      {
+        title: 'nav.documents',
+        route: '/documents',
+        children: [
+          { title: 'nav.financialReports', route: '/documents?type=financial' },
+          {
+            title: 'nav.publicProcurement',
+            route: '/documents?type=procurement',
+          },
+          { title: 'nav.workReports', route: '/documents?type=reports' },
+          { title: 'nav.otherDocuments', route: '/documents?type=other' },
+        ],
+      },
     ],
   },
-  { title: 'nav.services', route: '/services' },
+  {
+    title: 'nav.services',
+    route: '/services',
+    children: [
+      { title: 'nav.generalMedicine', route: '/services?department=1' },
+      {
+        title: 'nav.specialistExams',
+        route: '/services?department=2',
+      },
+      { title: 'nav.diagnostics', route: '/services?department=3' },
+      { title: 'nav.physiotherapy', route: '/services?department=4' },
+      { title: 'nav.dentistry', route: '/services?department=5' },
+      {
+        title: 'nav.psychologicalSupport',
+        route: '/services?department=6',
+      },
+      { title: 'nav.groupExams', route: '/services?section=group' },
+    ],
+  },
   { title: 'nav.workSchedule', route: '/work-schedule' },
   {
     title: 'nav.notifications',

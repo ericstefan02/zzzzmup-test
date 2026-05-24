@@ -1,56 +1,13 @@
 <template>
   <div>
     <TextBanner
-      :title="$t('pages.aboutUs.title')"
-      :description="$t('pages.aboutUs.description')"
+      :title="$t('pages.documents.title')"
+      :description="$t('pages.documents.description')"
     />
-
-    <section
-      class="px-4 md:px-12 lg:px-28 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 bg-white"
-    >
-      <div class="flex flex-col gap-6">
-        <span
-          class="font-bold text-xs text-primary-400 rounded-full bg-primary-50 px-3 py-1 max-w-max uppercase"
-        >
-          {{ $t('pages.aboutUs.historyLabel') }}
-        </span>
-        <h2 class="text-2xl md:text-4xl font-bold text-primary-900">
-          {{ $t('pages.aboutUs.trustTitle') }}
-          <span class="text-primary-500">{{
-            $t('pages.aboutUs.trustTitleHighlight')
-          }}</span>
-        </h2>
-        <div class="flex flex-col gap-4 text-neutral-500 text-lg">
-          <p>{{ $t('pages.aboutUs.paragraph1') }}</p>
-          <p>{{ $t('pages.aboutUs.paragraph2') }}</p>
-          <p>{{ $t('pages.aboutUs.paragraph3') }}</p>
-        </div>
-        <!-- TODO: dopuniti -->
-        <div class="grid grid-cols-2 gap-6">
-          <NumbersBanner
-            number="100k"
-            :label="$t('pages.aboutUs.satisfiedPatients')"
-          />
-          <NumbersBanner number="30" :label="$t('pages.aboutUs.yearsOfWork')" />
-        </div>
-      </div>
-      <!-- TODO: prebaciti na NuxtImg -->
-      <img
-        src="https://images.pexels.com/photos/11782003/pexels-photo-11782003.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-        :alt="$t('pages.aboutUs.imageAlt')"
-        class="rounded-xl max-h-120 object-cover w-full self-center"
-      />
-    </section>
 
     <section
       class="px-4 md:px-16 lg:px-48 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8 max-w-480 mx-auto"
     >
-      <h2 class="font-bold text-primary-900 text-2xl sm:text-3xl text-center">
-        {{ $t('pages.aboutUs.documentsTitle') }}
-      </h2>
-      <p class="text-neutral-500 text-center">
-        {{ $t('pages.aboutUs.documentsDescription') }}
-      </p>
       <div
         class="bg-white shadow-sm border border-neutral-200 rounded-xl overflow-hidden w-full"
       >
@@ -70,15 +27,20 @@
               'text-neutral-500 hover:text-primary-400 hover:bg-primary-50 cursor-pointer':
                 activeDocumentType !== tab.value,
             }"
-            @click="activeDocumentType = tab.value"
+            @click="setActiveTab(tab.value)"
           >
             <Icon :name="tab.icon" size="16" class="shrink-0" />
             <span>{{ $t(tab.label) }}</span>
           </button>
         </div>
         <div role="tabpanel">
-          <template v-if="flatDocuments">
+          <template v-if="flatDocuments && flatDocuments.length">
             <DocumentTable :documents="flatDocuments" />
+          </template>
+          <template v-else-if="flatDocuments && !flatDocuments.length">
+            <p class="px-6 py-10 text-center text-neutral-400 text-sm">
+              {{ $t('pages.documents.noDocuments') }}
+            </p>
           </template>
           <template v-else>
             <DocumentYearAccordion
@@ -91,7 +53,7 @@
               v-if="!sortedYearEntries.length"
               class="px-6 py-10 text-center text-neutral-400 text-sm"
             >
-              {{ $t('pages.aboutUs.noDocuments') }}
+              {{ $t('pages.documents.noDocuments') }}
             </p>
           </template>
         </div>
@@ -103,13 +65,15 @@
 import type { DocumentItem } from '~/types/common'
 
 const { t } = useI18n()
+const route = useRoute()
+const router = useRouter()
 
 useSeoMeta({
-  title: () => t('seo.aboutUs.title'),
-  description: () => t('seo.aboutUs.description'),
-  keywords: () => t('seo.aboutUs.keywords'),
-  ogTitle: () => t('seo.aboutUs.title'),
-  ogDescription: () => t('seo.aboutUs.description'),
+  title: () => t('seo.documents.title'),
+  description: () => t('seo.documents.description'),
+  keywords: () => t('seo.documents.keywords'),
+  ogTitle: () => t('seo.documents.title'),
+  ogDescription: () => t('seo.documents.description'),
   ogSiteName: () => t('seo.siteName'),
 })
 
@@ -121,24 +85,47 @@ const DOCUMENT_TYPES_TABS: {
   icon: string
 }[] = [
   {
-    label: 'pages.aboutUs.financialReports',
+    label: 'pages.documents.financialReports',
     value: 'financial',
     icon: 'ion:document-text',
   },
   {
-    label: 'pages.aboutUs.publicProcurement',
+    label: 'pages.documents.publicProcurement',
     value: 'procurement',
     icon: 'ion:document-text',
   },
   {
-    label: 'pages.aboutUs.workReports',
+    label: 'pages.documents.workReports',
     value: 'reports',
     icon: 'ion:document-text',
   },
-  { label: 'pages.aboutUs.other', value: 'other', icon: 'ion:document-text' },
+  {
+    label: 'pages.documents.other',
+    value: 'other',
+    icon: 'ion:document-text',
+  },
 ]
 
-const activeDocumentType = ref<DocumentType>('financial')
+const validTypes: DocumentType[] = [
+  'financial',
+  'procurement',
+  'reports',
+  'other',
+]
+
+const getInitialType = (): DocumentType => {
+  const queryType = route.query.type as string
+  return validTypes.includes(queryType as DocumentType)
+    ? (queryType as DocumentType)
+    : 'financial'
+}
+
+const activeDocumentType = ref<DocumentType>(getInitialType())
+
+const setActiveTab = (type: DocumentType) => {
+  activeDocumentType.value = type
+  router.replace({ query: { type } })
+}
 
 // TODO: zameniti dummy vrednostima i povezati sa backendom
 
@@ -206,4 +193,17 @@ const sortedYearEntries = computed<[number, DocumentItem[]][]>(() => {
     .map(([year, docs]) => [Number(year), docs] as [number, DocumentItem[]])
     .sort(([a], [b]) => b - a)
 })
+
+// Watch for query param changes (e.g. when navigating from within the nav)
+watch(
+  () => route.query,
+  () => {
+    if (route.path === '/documents') {
+      const queryType = route.query.type as string
+      if (validTypes.includes(queryType as DocumentType)) {
+        activeDocumentType.value = queryType as DocumentType
+      }
+    }
+  },
+)
 </script>

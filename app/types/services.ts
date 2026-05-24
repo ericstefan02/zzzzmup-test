@@ -19,3 +19,11 @@ export interface Service {
   departmentId: number
   // department: Department
 }
+
+export interface GroupExam {
+  id: number
+  title: string
+  description: string
+  documentationRequired: string
+  price: number
+}

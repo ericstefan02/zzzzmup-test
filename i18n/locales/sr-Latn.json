@@ -29,7 +29,19 @@
     "aboutUs": "O nama",
     "history": "Istorijat",
     "preventiveCenter": "Preventivni centar",
+    "documents": "Dokumenta",
+    "financialReports": "Finansijski izveštaji",
+    "publicProcurement": "Javne nabavke",
+    "workReports": "Izveštaji o radu",
+    "otherDocuments": "Ostalo",
     "services": "Usluge",
+    "generalMedicine": "Opšta medicina",
+    "specialistExams": "Specijalistički pregledi",
+    "diagnostics": "Dijagnostika",
+    "physiotherapy": "Fizioterapija",
+    "dentistry": "Stomatologija",
+    "psychologicalSupport": "Psihološka podrška",
+    "groupExams": "Grupni pregledi",
     "workSchedule": "Raspored rada",
     "notifications": "Obaveštenja",
     "news": "Vesti",
@@ -282,10 +294,22 @@
       "calendarDescription": "Pregled aktivnosti i kampanja po godinama",
       "noActivities": "Nema dostupnih aktivnosti."
     },
+    "documents": {
+      "title": "Dokumenta i izveštaji",
+      "description": "Arhiv zvanične dokumentacije Zavoda za zdravstvenu zaštitu radnika MUP-a. Ovde možete pronaći finansijske izveštaje, dokumentaciju o javnim nabavkama, izveštaje o radu i ostala zvanična dokumenta ustanove.",
+      "noDocuments": "Nema dostupnih dokumenata.",
+      "financialReports": "Finansijski izveštaji",
+      "publicProcurement": "Javne nabavke",
+      "workReports": "Izveštaji o radu",
+      "other": "Ostalo"
+    },
     "services": {
-      "title": "Medicinske usluge i cenovnik",
-      "description": "Sveobuhvatan pregled lekarskih pregleda, dijagnostičkih procedura i specijalističkih usluga dostupnih u Zavodu. Cene su navedene za usluge koje nisu obuhvaćene obaveznim zdravstvenim osiguranjem.",
-      "departmentsLabel": "Odeljenja"
+      "title": "Medicinske usluge",
+      "description": "Sveobuhvatan pregled lekarskih pregleda, dijagnostičkih procedura i specijalističkih usluga dostupnih u Zavodu.",
+      "departmentsLabel": "Odeljenja",
+      "groupExamsTitle": "Grupni pregledi",
+      "groupExamsDescription": "Sistematski pregledi za organizovane grupe — specijalne jedinice, policiju i druge službe.",
+      "documentationRequired": "Potrebna dokumentacija"
     },
     "workSchedule": {
       "title": "Raspored rada lekara",
@@ -318,6 +342,11 @@
       "title": "O Zavodu {'|'} ZZZZMUP",
       "description": "Saznajte više o istoriji, misiji i radu Zavoda za zdravstvenu zaštitu radnika MUP-a. Preko 30 godina u službi zdravlja pripadnika Ministarstva unutrašnjih poslova i građana.",
       "keywords": "o nama, istorijat, misija, zdravstvena ustanova, MUP, finansijski izveštaji, javne nabavke"
+    },
+    "documents": {
+      "title": "Dokumenta i izveštaji {'|'} ZZZZMUP",
+      "description": "Arhiv zvanične dokumentacije Zavoda za zdravstvenu zaštitu radnika MUP-a - finansijski izveštaji, javne nabavke, izveštaji o radu.",
+      "keywords": "dokumenta, finansijski izveštaji, javne nabavke, izveštaji o radu, ZZZZMUP"
     },
     "contact": {
       "title": "Kontakt i lokacija {'|'} ZZZZMUP",

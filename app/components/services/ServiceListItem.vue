@@ -13,31 +13,16 @@
         class="text-left text-sm sm:text-base font-semibold text-primary-900"
         >{{ service.title }}</span
       >
-      <div class="flex items-center gap-3">
-        <span
-          v-if="service.price"
-          class="rounded-full bg-primary-50 px-3 py-1.5 text-sm font-semibold sm:font-bold text-primary-400 border border-primary-200"
-        >
-          {{ formattedPrice }}
-        </span>
-        <span
-          v-else
-          class="rounded-full flex items-center gap-1 px-3 py-1.5 text-sm font-semibold sm:font-bold bg-green-50 text-green-700 border border-green-200"
-        >
-          <Icon name="ion:checkmark" size="14" class="text-green-700" />
-          {{ $t('components.free') }}
-        </span>
-        <span
-          class="flex items-center justify-center h-8 w-8 shrink-0 rounded-full hover:bg-neutral-100 transition-colors"
-        >
-          <Icon
-            name="ion:chevron-down"
-            size="16"
-            class="text-neutral-400 transition-transform duration-300"
-            :class="{ 'rotate-180': isOpen }"
-          />
-        </span>
-      </div>
+      <span
+        class="flex items-center justify-center h-8 w-8 shrink-0 rounded-full hover:bg-neutral-100 transition-colors"
+      >
+        <Icon
+          name="ion:chevron-down"
+          size="16"
+          class="text-neutral-400 transition-transform duration-300"
+          :class="{ 'rotate-180': isOpen }"
+        />
+      </span>
     </button>
     <div
       class="grid transition-[grid-template-rows] duration-300 ease-out"
@@ -60,14 +45,4 @@ const { service } = defineProps<{
 }>()
 
 const isOpen = ref(false)
-
-const priceFormatter = new Intl.NumberFormat('sr-RS', {
-  style: 'currency',
-  currency: 'RSD',
-  maximumFractionDigits: 2,
-})
-
-const formattedPrice = computed(() =>
-  service.price ? priceFormatter.format(service.price) : null,
-)
 </script>

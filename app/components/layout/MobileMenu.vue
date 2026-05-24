@@ -68,7 +68,35 @@
               </NuxtLink>
 
               <div v-else>
+                <!-- Item with both route and children: link + separate expand button -->
+                <div v-if="item.route" class="flex items-center">
+                  <NuxtLink
+                    :to="item.route"
+                    active-class=""
+                    class="flex-1 px-6 py-3.5 text-neutral-700 font-medium hover:bg-primary-50 hover:text-primary-500 transition-colors"
+                    :class="{
+                      'text-primary-500! font-bold!': isChildActive(item),
+                    }"
+                    @click="isOpen = false"
+                  >
+                    {{ $t(item.title) }}
+                  </NuxtLink>
+                  <button
+                    type="button"
+                    class="flex items-center px-6 justify-center py-3.5 hover:bg-primary-50 hover:text-primary-500 transition-colors cursor-pointer text-neutral-700"
+                    @click="toggleSubmenu(item.title)"
+                  >
+                    <Icon
+                      name="ion:chevron-down"
+                      size="14"
+                      class="transition-transform duration-200"
+                      :class="{ 'rotate-180': openSubmenu === item.title }"
+                    />
+                  </button>
+                </div>
+                <!-- Item with only children (no route): full-width toggle -->
                 <button
+                  v-else
                   type="button"
                   class="w-full px-6 py-3.5 flex items-center justify-between text-neutral-700 font-medium hover:bg-primary-50 hover:text-primary-500 transition-colors cursor-pointer"
                   :class="{
@@ -94,16 +122,74 @@
                 >
                   <div class="overflow-hidden">
                     <div class="bg-neutral-50">
-                      <NuxtLink
+                      <template
                         v-for="child in item.children"
                         :key="child.title"
-                        :to="child.route!"
-                        class="block pl-10 pr-6 py-3 text-neutral-600 hover:text-primary-500 hover:bg-primary-50 transition-colors"
-                        exact-active-class="!text-primary-500 !bg-primary-50 font-medium"
-                        @click="isOpen = false"
                       >
-                        {{ $t(child.title) }}
-                      </NuxtLink>
+                        <!-- Child with nested children -->
+                        <div v-if="child.children">
+                          <button
+                            type="button"
+                            class="w-full pl-10 pr-6 py-3 flex items-center justify-between text-neutral-600 hover:text-primary-500 hover:bg-primary-50 transition-colors cursor-pointer"
+                            :class="{
+                              'text-primary-500! font-medium!':
+                                isNestedChildActive(child),
+                            }"
+                            @click="toggleNestedSubmenu(child.title)"
+                          >
+                            {{ $t(child.title) }}
+                            <Icon
+                              name="ion:chevron-down"
+                              size="12"
+                              class="transition-transform duration-200"
+                              :class="{
+                                'rotate-180': openNestedSubmenu === child.title,
+                              }"
+                            />
+                          </button>
+                          <div
+                            class="grid transition-[grid-template-rows] duration-300 ease-out"
+                            :class="
+                              openNestedSubmenu === child.title
+                                ? 'grid-rows-[1fr]'
+                                : 'grid-rows-[0fr]'
+                            "
+                          >
+                            <div class="overflow-hidden">
+                              <div class="bg-neutral-100">
+                                <NuxtLink
+                                  v-for="nested in child.children"
+                                  :key="nested.title"
+                                  :to="nested.route!"
+                                  active-class=""
+                                  class="block pl-14 pr-6 py-2.5 text-sm text-neutral-600 hover:text-primary-500 hover:bg-primary-50 transition-colors"
+                                  :class="{
+                                    'text-primary-500! bg-primary-50! font-medium':
+                                      isRouteActive(nested.route!),
+                                  }"
+                                  @click="isOpen = false"
+                                >
+                                  {{ $t(nested.title) }}
+                                </NuxtLink>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Simple child link -->
+                        <NuxtLink
+                          v-else
+                          :to="child.route!"
+                          active-class=""
+                          class="block pl-10 pr-6 py-3 text-neutral-600 hover:text-primary-500 hover:bg-primary-50 transition-colors"
+                          :class="{
+                            'text-primary-500! bg-primary-50! font-medium':
+                              isRouteActive(child.route!),
+                          }"
+                          @click="isOpen = false"
+                        >
+                          {{ $t(child.title) }}
+                        </NuxtLink>
+                      </template>
                     </div>
                   </div>
                 </div>
@@ -129,14 +215,41 @@
 const route = useRoute()
 const isOpen = ref(false)
 const openSubmenu = ref<string | null>(null)
+const openNestedSubmenu = ref<string | null>(null)
 const { open: openEFormModal } = useEFormModal()
 
+const isRouteActive = (targetRoute: string) => {
+  const [path, query] = targetRoute.split('?')
+  if (path !== route.path) return false
+  if (!query) return !Object.keys(route.query).length
+  const params = new URLSearchParams(query)
+  for (const [key, value] of params) {
+    const routeVal = route.query[key]
+    const normalized = Array.isArray(routeVal) ? routeVal[0] : routeVal
+    if (normalized !== value) return false
+  }
+  return true
+}
+
 const isChildActive = (item: (typeof NAV_ITEMS)[number]) => {
-  return item.children?.some((child) => child.route === route.path)
+  return item.children?.some(
+    (child) =>
+      isRouteActive(child.route!) ||
+      child.children?.some((nested) => isRouteActive(nested.route!)),
+  )
+}
+
+const isNestedChildActive = (child: (typeof NAV_ITEMS)[number]) => {
+  return child.children?.some((nested) => isRouteActive(nested.route!))
 }
 
 const toggleSubmenu = (title: string) => {
   openSubmenu.value = openSubmenu.value === title ? null : title
+  openNestedSubmenu.value = null
+}
+
+const toggleNestedSubmenu = (title: string) => {
+  openNestedSubmenu.value = openNestedSubmenu.value === title ? null : title
 }
 
 const handleButtonClicked = () => {
@@ -147,10 +260,11 @@ const handleButtonClicked = () => {
 }
 
 watch(
-  () => route.path,
+  () => route.fullPath,
   () => {
     isOpen.value = false
     openSubmenu.value = null
+    openNestedSubmenu.value = null
   },
 )
 
