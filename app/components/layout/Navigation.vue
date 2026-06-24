@@ -92,7 +92,7 @@
             <div
               v-if="openDropdown === item.title"
               class="absolute top-full left-0 pt-1 z-50"
-              :class="item.mega ? 'w-[44rem]' : 'min-w-48'"
+              :class="item.mega ? 'w-[44rem]' : 'w-72'"
             >
               <div
                 class="bg-white rounded-lg shadow-lg border border-neutral-200 py-1"
@@ -177,7 +177,7 @@
                     >
                       <div
                         v-if="openNestedDropdown === child.title"
-                        class="absolute left-full top-0 pl-1 min-w-44 z-50"
+                        class="absolute left-full top-0 pl-1 w-72 z-50"
                       >
                         <div
                           class="bg-white rounded-lg shadow-lg border border-neutral-200 py-1"
