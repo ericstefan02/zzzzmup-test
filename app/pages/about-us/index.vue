@@ -9,11 +9,6 @@
       class="px-4 md:px-12 lg:px-28 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 bg-white"
     >
       <div class="flex flex-col gap-6">
-        <span
-          class="font-bold text-xs text-primary-400 rounded-full bg-primary-50 px-3 py-1 max-w-max uppercase"
-        >
-          {{ $t('pages.aboutUs.historyLabel') }}
-        </span>
         <h2 class="text-2xl md:text-4xl font-bold text-primary-900">
           {{ $t('pages.aboutUs.trustTitle') }}
           <span class="text-primary-500">{{
@@ -54,13 +49,13 @@
             >
               <Icon name="ion:flag" size="24" class="text-white" />
             </div>
-            <span class="text-sm font-bold uppercase tracking-wider text-primary-100">
+            <h2 class="text-2xl md:text-3xl font-bold">
               {{ $t('pages.aboutUs.missionTitle') }}
-            </span>
+            </h2>
           </div>
-          <h2 class="text-2xl md:text-4xl font-bold leading-tight">
+          <p class="text-lg md:text-xl leading-relaxed text-primary-50">
             {{ $t('pages.aboutUs.missionText') }}
-          </h2>
+          </p>
         </div>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
           <div
@@ -87,13 +82,13 @@
           >
             <Icon name="ion:eye" size="24" class="text-primary-500" />
           </div>
-          <span class="text-sm font-bold uppercase tracking-wider text-primary-400">
+          <h2 class="text-2xl md:text-3xl font-bold text-primary-900">
             {{ $t('pages.aboutUs.visionTitle') }}
-          </span>
+          </h2>
         </div>
-        <h2 class="text-2xl md:text-4xl font-bold text-primary-900 leading-tight">
+        <p class="text-lg md:text-xl text-neutral-600 leading-relaxed">
           {{ $t('pages.aboutUs.visionText') }}
-        </h2>
+        </p>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
         <div

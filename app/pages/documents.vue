@@ -3,6 +3,8 @@
     <TextBanner
       :title="$t('pages.documents.title')"
       :description="$t('pages.documents.description')"
+      parent-label="nav.aboutUs"
+      parent-to="/about-us"
     />
 
     <section

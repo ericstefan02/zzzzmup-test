@@ -107,8 +107,11 @@ npm run preview    # preview build-a
 
 - ✅ УСЛУГЕ: nav reorg 3-way (Мед. службе → 18 / Правна / Техничка), `NavItem.mega` flag + širok mega-meni u kolone ([Navigation.vue](app/components/layout/Navigation.vue) `megaMedical`/`megaOthers`). `/services` ([services.vue](app/pages/services.vue)) proširen na 18 grupa (Медицинске/Остале) + pretraga; dept rute `?department=1..18`, `?section=group`. Sadržaj usluga po grupi = dummy (ServicesList) → API. Desktop nav samo ≥1440px (`nav:` breakpoint).
 
+- ✅ Dizajn polish (design-taste + impeccable + emil audit): em/en dash uklonjeni svuda; Мисија/Визија = kratak naslov + lead paragraf; TextBanner zadržava plavu + responsive breadcrumb (desktop pun trag / mobilni parent back-link) + `BreadcrumbList` JSON-LD, naslov h2→h1; services sidebar širi (340px) + jasni group headeri + side-stripe uklonjen (bg-tint); uprava pojedinci = horizontalna profil kartica; kontakt naslov forme; suptilan motion (active press, hero fade-up, card hover-lift, news zoom, focus-visible, `prefers-reduced-motion`).
+
 **Preostalo:**
-- ⬜ Dizajn polish (skill-ovi) + playwright responsivnost — KRAJ
+- ⬜ Review klijenta → push (commit „design polish" na `client-verdict-v1`).
+- ⬜ (čeka materijale) news/[id] dinamička strana + `NewsArticle` schema; pravi sadržaj iz API-ja.
 
 **Napomene:**
 - **reka-ui** (Reka UI, Vue headless komponente) je dozvoljen ako zatreba komponenta (mega-meni, accordion, tabs). Proveriti API preko ctx7 pre upotrebe.

@@ -3,6 +3,8 @@
     <TextBanner
       :title="$t('pages.strucniOrgani.title')"
       :description="$t('pages.strucniOrgani.description')"
+      parent-label="nav.aboutUs"
+      parent-to="/about-us"
     />
 
     <div

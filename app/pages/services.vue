@@ -5,11 +5,11 @@
       :description="$t('pages.services.description')"
     />
     <div
-      class="px-4 md:px-12 lg:px-28 flex flex-col lg:grid lg:grid-cols-4 items-start gap-6 lg:gap-12 my-6 md:my-10 max-w-480 mx-auto w-full"
+      class="px-4 md:px-12 lg:px-28 flex flex-col lg:grid lg:grid-cols-[340px_1fr] items-start gap-6 lg:gap-12 my-6 md:my-10 max-w-480 mx-auto w-full"
     >
       <nav
         ref="mobileNavRef"
-        class="w-full lg:w-auto flex flex-col gap-3 lg:gap-0"
+        class="w-full flex flex-col gap-3 lg:gap-4"
         aria-label="Službe"
       >
         <!-- Search -->
@@ -23,7 +23,7 @@
             v-model="search"
             type="search"
             :placeholder="$t('pages.services.searchPlaceholder')"
-            class="w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-3 py-2.5 text-sm outline-none focus:border-primary-400"
+            class="w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-3 py-3 text-sm text-neutral-800 placeholder:text-neutral-500 outline-none focus:border-primary-400 focus:ring-2 focus:ring-primary-100"
           >
         </div>
 
@@ -65,10 +65,12 @@
         >
           <template v-if="medicalDepartments.length">
             <div
-              class="flex p-4 items-center gap-2 border-b border-neutral-200"
+              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200"
             >
-              <Icon name="ion:medkit" size="18" class="text-primary-400" />
-              <h2 class="text-primary-900 text-base font-bold">
+              <Icon name="ion:medkit" size="16" class="text-primary-400" />
+              <h2
+                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
+              >
                 {{ $t('nav.medicalServices') }}
               </h2>
             </div>
@@ -85,10 +87,12 @@
 
           <template v-if="otherDepartments.length">
             <div
-              class="flex p-4 items-center gap-2 border-t border-b border-neutral-200"
+              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-y border-neutral-200"
             >
-              <Icon name="ion:briefcase" size="18" class="text-primary-400" />
-              <h2 class="text-primary-900 text-base font-bold">
+              <Icon name="ion:briefcase" size="16" class="text-primary-400" />
+              <h2
+                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
+              >
                 {{ $t('nav.otherServices') }}
               </h2>
             </div>
@@ -105,10 +109,12 @@
 
           <template v-if="visibleGroupExams.length">
             <div
-              class="flex p-4 items-center gap-2 border-t border-b border-neutral-200"
+              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-y border-neutral-200"
             >
-              <Icon name="ion:people" size="18" class="text-primary-400" />
-              <h2 class="text-primary-900 text-base font-bold">
+              <Icon name="ion:people" size="16" class="text-primary-400" />
+              <h2
+                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
+              >
                 {{ $t('pages.services.groupExamsTitle') }}
               </h2>
             </div>
@@ -116,21 +122,23 @@
               v-for="exam in visibleGroupExams"
               :key="'g-' + exam.id"
               type="button"
-              class="w-full px-5 py-3.5 cursor-pointer transition-colors duration-200 flex items-center justify-between border-l-4"
+              class="w-full px-4 py-3 cursor-pointer transition-colors flex items-start justify-between gap-2 text-left"
               :class="
                 selectedGroupExam?.id === exam.id
-                  ? 'bg-primary-100 text-primary-500 border-l-primary-500'
-                  : 'text-neutral-700 bg-white hover:bg-primary-100 hover:text-primary-500 border-l-transparent'
+                  ? 'bg-primary-50 text-primary-600 font-semibold'
+                  : 'text-neutral-700 bg-white hover:bg-neutral-50 hover:text-primary-600'
               "
               @click="selectGroupExam(exam)"
             >
-              <span class="text-sm font-medium text-left">{{ exam.title }}</span>
+              <span class="text-sm leading-snug">{{ exam.title }}</span>
               <Icon
                 name="ion:chevron-forward"
                 size="16"
-                class="text-neutral-400"
+                class="mt-0.5 shrink-0"
                 :class="
-                  selectedGroupExam?.id === exam.id ? 'text-primary-500' : ''
+                  selectedGroupExam?.id === exam.id
+                    ? 'text-primary-500'
+                    : 'text-neutral-300'
                 "
               />
             </button>
@@ -150,7 +158,7 @@
       </nav>
 
       <!-- Right side content -->
-      <section class="lg:col-span-3 flex flex-col gap-8 w-full lg:w-auto">
+      <section class="flex flex-col gap-8 w-full min-w-0">
         <template v-if="!selectedGroupExam && selectedDepartment">
           <div class="flex flex-col gap-1">
             <h2 class="text-2xl font-bold text-primary-900">

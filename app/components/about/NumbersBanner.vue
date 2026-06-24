@@ -1,9 +1,11 @@
 <template>
-  <div class="pt-4 h-full">
-    <div class="pl-4 border-l-4 border-primary-400 h-full">
-      <p class="text-primary-900 font-bold text-3xl">{{ number }}+</p>
-      <p class="text-neutral-500 font-medium text-sm">{{ label }}</p>
-    </div>
+  <div class="flex flex-col gap-1">
+    <p
+      class="text-primary-600 font-bold text-3xl md:text-4xl tracking-tight tabular-nums"
+    >
+      {{ number }}+
+    </p>
+    <p class="text-neutral-500 text-sm">{{ label }}</p>
   </div>
 </template>
 

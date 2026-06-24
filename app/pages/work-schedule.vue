@@ -95,7 +95,7 @@
                   ).length
                 "
                 class="text-sm text-neutral-300 italic"
-                >—</span
+                >-</span
               >
             </div>
           </div>
@@ -165,7 +165,7 @@
                     ).length
                   "
                   class="text-sm text-neutral-300 italic w-full text-center block"
-                  >—</span
+                  >-</span
                 >
               </td>
               <td class="px-6 py-5">
@@ -196,7 +196,7 @@
                     ).length
                   "
                   class="text-sm text-neutral-300 italic text-center w-full block"
-                  >—</span
+                  >-</span
                 >
               </td>
             </tr>
