@@ -36,6 +36,7 @@ Zvanični sajt **Zavoda za zdravstvenu zaštitu radnika MUP-a** (državna zdravs
 ## Konvencije
 
 ### Tekst i i18n — obavezno
+- **DOSLOVNOST KLIJENTA (kritično):** nazivi linkova, službi, organa i dokumenata moraju biti **TAČNO** kako ih klijent pošalje (ćirilica) — bez skraćivanja, parafraziranja ili „lepšeg" oblika. Latinica = transliteracija istog teksta. Kanonska lista je dole (sekcija „Kanonski nazivi"). Pre izmene bilo kog `nav.*` / naslova proveriti protiv te liste.
 - **Nijedan vidljiv string ne sme biti hardkodovan u template.** Sve ide kroz `$t('...')` / `t('...')`.
 - Svaki novi ključ dodati u **OBA** fajla: [i18n/locales/sr-Cyrl.json](i18n/locales/sr-Cyrl.json) i [sr-Latn.json](i18n/locales/sr-Latn.json). Ćirilica je primarna.
 - Struktura ključeva: `nav.*`, `pages.<stranica>.*`, `components.<komponenta>.*`, `seo.<stranica>.*`, `validation.*`, `months.*`, `days.*`.
@@ -82,6 +83,25 @@ npm run preview    # preview build-a
 ## Radni tok / workflow
 - **Dizajn na kraju:** kad sadržaj i struktura legnu, OBAVEZNO proći kroz design skill-ove (design-taste-frontend, impeccable, redesign-existing-projects i sl.) za finalni polish. Eksplicitan dogovor sa korisnikom — ne preskakati.
 - Backend (NestJS) se možda dodaje kao sibling folder u workspace radi referenciranja DTO/entity → TS interface-i. Tretirati read-only, ne menjati bez dozvole.
+
+## Kanonski nazivi (klijent — DOSLOVNO, ćirilica)
+Ovo je izvor istine za sve `nav.*` ključeve i naslove strana. Ne menjati bez klijenta.
+
+**О НАМА:**
+1. Историјат
+2. Мисија Завода ЗЗЗР МУП-а
+3. Визија Завода ЗЗЗР МУП-а
+4. Управа и други органи управљања
+   - 4.1 Управни одбор · 4.2 Надзорни одбор · 4.3 Директор Завода · 4.4 Помоћник директора Завода за медицинске послове · 4.5 Шеф Службе спец.-консулт. делатности · 4.6 Главна сестра Завода
+5. Стручни органи Завода
+   - 5.1 Стручни савет · 5.2 Стручни колегијум · 5.3 Етички одбор · 5.4 Комисија за унапређење квалитета здравствене заштите · 5.5 Комисија за заштиту од болничких инфекција
+6. Документа
+   - 6.1 Статут Завода · 6.2 Финансијски извештаји · 6.3 План рада · 6.4 Нормативна акта · 6.5 Јавне набавке
+
+**УСЛУГЕ → Медицинске службе:**
+Општа медицина · Центар за превенцију · Гинекологија · Интерна медицина · Офталмологија · Оториноларингологија · Физикална медицина и рехабилитација · Психијатрија · Психолошка заштита · Медицина рада · Радиолошка дијагностика · Рентген дијагностика · Ултразвучна дијагностика · Мамографија · Спортска медицина · Лабораторијска дијагностика · Апотекарска здравствена делатмост · Служба за правне и економско-финансијске послове · Служба за техничке и друге сличне послове
+
+> NAPOMENA: u klijentovom izvoru piše „Апотекарска здравствена **делатмост**" (verovatno typo за „делатност") — postavljeno DOSLOVNO; ispraviti tek po potvrdi klijenta.
 
 ## Restrukturiranje (klijent) — STATUS
 
