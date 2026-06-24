@@ -1,6 +1,6 @@
 <template>
   <article
-    class="p-4 md:p-6 lg:p-8 rounded-xl relative flex flex-col gap-4 md:gap-6 shadow overflow-hidden"
+    class="p-4 md:p-6 lg:p-8 rounded-xl relative flex flex-col gap-4 md:gap-6 shadow overflow-hidden cursor-pointer transition duration-200 ease-out hover:-translate-y-0.5 hover:shadow-lg"
     :class="main ? 'bg-primary-500 text-white' : 'bg-white text-primary-900'"
   >
     <div

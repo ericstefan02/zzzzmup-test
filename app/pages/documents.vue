@@ -3,6 +3,8 @@
     <TextBanner
       :title="$t('pages.documents.title')"
       :description="$t('pages.documents.description')"
+      parent-label="nav.aboutUs"
+      parent-to="/about-us"
     />
 
     <section
@@ -12,8 +14,9 @@
         class="bg-white shadow-sm border border-neutral-200 rounded-xl overflow-hidden w-full"
       >
         <div
+          ref="tablistRef"
           role="tablist"
-          class="grid grid-cols-2 md:grid-cols-4 border-b border-neutral-200"
+          class="flex overflow-x-auto border-b border-neutral-200"
         >
           <button
             v-for="tab in DOCUMENT_TYPES_TABS"
@@ -21,7 +24,7 @@
             type="button"
             role="tab"
             :aria-selected="activeDocumentType === tab.value"
-            class="flex items-center justify-center gap-2 px-3 md:px-6 py-3 text-xs md:text-sm font-semibold transition-colors"
+            class="flex flex-1 items-center justify-center gap-2 whitespace-nowrap px-5 py-3 text-sm font-semibold transition-colors"
             :class="{
               'bg-primary-500 text-white': activeDocumentType === tab.value,
               'text-neutral-500 hover:text-primary-400 hover:bg-primary-50 cursor-pointer':
@@ -77,7 +80,12 @@ useSeoMeta({
   ogSiteName: () => t('seo.siteName'),
 })
 
-type DocumentType = 'financial' | 'procurement' | 'reports' | 'other'
+type DocumentType =
+  | 'statute'
+  | 'financial'
+  | 'work-plan'
+  | 'normative'
+  | 'procurement'
 
 const DOCUMENT_TYPES_TABS: {
   label: string
@@ -85,53 +93,83 @@ const DOCUMENT_TYPES_TABS: {
   icon: string
 }[] = [
   {
+    label: 'pages.documents.statute',
+    value: 'statute',
+    icon: 'ion:document-text',
+  },
+  {
     label: 'pages.documents.financialReports',
     value: 'financial',
-    icon: 'ion:document-text',
+    icon: 'ion:stats-chart',
+  },
+  {
+    label: 'pages.documents.workPlan',
+    value: 'work-plan',
+    icon: 'ion:clipboard',
+  },
+  {
+    label: 'pages.documents.normativeActs',
+    value: 'normative',
+    icon: 'ion:book',
   },
   {
     label: 'pages.documents.publicProcurement',
     value: 'procurement',
-    icon: 'ion:document-text',
-  },
-  {
-    label: 'pages.documents.workReports',
-    value: 'reports',
-    icon: 'ion:document-text',
-  },
-  {
-    label: 'pages.documents.other',
-    value: 'other',
-    icon: 'ion:document-text',
+    icon: 'ion:cart',
   },
 ]
 
 const validTypes: DocumentType[] = [
+  'statute',
   'financial',
+  'work-plan',
+  'normative',
   'procurement',
-  'reports',
-  'other',
 ]
 
 const getInitialType = (): DocumentType => {
   const queryType = route.query.type as string
   return validTypes.includes(queryType as DocumentType)
     ? (queryType as DocumentType)
-    : 'financial'
+    : 'statute'
 }
 
 const activeDocumentType = ref<DocumentType>(getInitialType())
+const tablistRef = ref<HTMLElement | null>(null)
+
+const scrollActiveTabIntoView = () => {
+  nextTick(() => {
+    const active = tablistRef.value?.querySelector(
+      '[aria-selected="true"]',
+    ) as HTMLElement | null
+    active?.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'center',
+      block: 'nearest',
+    })
+  })
+}
 
 const setActiveTab = (type: DocumentType) => {
   activeDocumentType.value = type
   router.replace({ query: { type } })
+  scrollActiveTabIntoView()
 }
+
+onMounted(scrollActiveTabIntoView)
 
 // TODO: zameniti dummy vrednostima i povezati sa backendom
 
 type DocumentsData = DocumentItem[] | Record<number, DocumentItem[]>
 
 const DOCUMENTS_BY_TYPE: Record<DocumentType, DocumentsData> = {
+  statute: [
+    {
+      title: 'Statut Zavoda za zdravstvenu zaštitu radnika MUP-a',
+      url: '#',
+      created_at: '2023-01-20',
+    },
+  ],
   financial: {
     2024: [
       {
@@ -158,25 +196,31 @@ const DOCUMENTS_BY_TYPE: Record<DocumentType, DocumentsData> = {
       },
     ],
   },
-  procurement: {},
-  reports: [
+  'work-plan': [
     {
-      title: 'Izveštaj o radu za 2024. godinu',
+      title: 'Plan rada za 2025. godinu',
       url: '#',
-      created_at: '2025-02-10',
+      created_at: '2024-12-15',
     },
     {
-      title: 'Izveštaj o radu za 2023. godinu',
+      title: 'Plan rada za 2024. godinu',
       url: '#',
-      created_at: '2024-02-15',
-    },
-    {
-      title: 'Izveštaj o radu za 2022. godinu',
-      url: '#',
-      created_at: '2023-03-01',
+      created_at: '2023-12-20',
     },
   ],
-  other: {},
+  normative: [
+    {
+      title: 'Pravilnik o organizaciji i sistematizaciji radnih mesta',
+      url: '#',
+      created_at: '2023-06-01',
+    },
+    {
+      title: 'Poslovnik o radu Upravnog odbora',
+      url: '#',
+      created_at: '2023-02-10',
+    },
+  ],
+  procurement: {},
 }
 
 const currentData = computed<DocumentsData>(
@@ -202,6 +246,7 @@ watch(
       const queryType = route.query.type as string
       if (validTypes.includes(queryType as DocumentType)) {
         activeDocumentType.value = queryType as DocumentType
+        scrollActiveTabIntoView()
       }
     }
   },

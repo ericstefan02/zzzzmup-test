@@ -52,8 +52,8 @@ const sizeClasses: Record<ButtonSize, string> = {
 }
 
 const customClasses = computed(() => [
-  'font-semibold flex items-center gap-2 rounded-lg cursor-pointer transition-colors',
-  'disabled:cursor-not-allowed',
+  'font-semibold flex items-center gap-2 rounded-lg cursor-pointer transition duration-150 ease-out active:scale-[0.98]',
+  'disabled:cursor-not-allowed disabled:active:scale-100',
   variantClasses[variant],
   sizeClasses[size],
   textColor ||
