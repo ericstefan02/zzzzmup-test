@@ -5,109 +5,158 @@
       :description="$t('pages.services.description')"
     />
     <div
-      class="px-4 md:px-12 lg:px-28 flex flex-col lg:grid lg:grid-cols-4 items-start gap-6 lg:gap-12 my-6 md:my-10"
+      class="px-4 md:px-12 lg:px-28 flex flex-col lg:grid lg:grid-cols-4 items-start gap-6 lg:gap-12 my-6 md:my-10 max-w-480 mx-auto w-full"
     >
       <nav
         ref="mobileNavRef"
-        class="w-full lg:w-auto flex lg:flex-col lg:rounded-xl lg:border lg:border-neutral-200 lg:shadow-xs overflow-x-auto lg:overflow-hidden gap-2 lg:gap-0"
-        aria-label="Odeljenja"
+        class="w-full lg:w-auto flex flex-col gap-3 lg:gap-0"
+        aria-label="Službe"
       >
-        <!-- Departments section header (desktop only) -->
-        <div
-          class="hidden lg:flex p-4 items-center gap-2 border-b border-neutral-200"
-        >
-          <Icon name="ion:layers" size="18" class="text-primary-400" />
-          <h2 class="text-primary-900 text-lg font-bold">
-            {{ $t('pages.services.departmentsLabel') }}
-          </h2>
-        </div>
-        <!-- Department buttons (mobile: horizontal pills) -->
-        <button
-          v-for="department in departments"
-          :key="department.id"
-          type="button"
-          class="lg:hidden whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
-          :class="
-            selectedDepartment?.id === department.id && !selectedGroupExam
-              ? 'bg-primary-500 text-white border-primary-500'
-              : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
-          "
-          @click="selectDepartment(department)"
-        >
-          {{ department.title }}
-        </button>
-        <!-- Group exam buttons (mobile: horizontal pills) -->
-        <button
-          v-for="exam in groupExams"
-          :key="'group-' + exam.id"
-          type="button"
-          class="lg:hidden whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
-          :class="
-            selectedGroupExam?.id === exam.id
-              ? 'bg-primary-500 text-white border-primary-500'
-              : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
-          "
-          @click="selectGroupExam(exam)"
-        >
-          {{ exam.title }}
-        </button>
-        <!-- Department buttons (desktop: sidebar list) -->
-        <div class="hidden lg:block">
-          <DepartmentButton
-            v-for="department in departments"
-            :key="department.id"
-            :department="department"
-            :selected="
-              selectedDepartment?.id === department.id && !selectedGroupExam
-            "
-            @select="selectDepartment($event)"
+        <!-- Search -->
+        <div class="relative w-full">
+          <Icon
+            name="ion:search"
+            size="16"
+            class="absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400"
           />
+          <input
+            v-model="search"
+            type="search"
+            :placeholder="$t('pages.services.searchPlaceholder')"
+            class="w-full rounded-lg border border-neutral-200 bg-white pl-9 pr-3 py-2.5 text-sm outline-none focus:border-primary-400"
+          >
         </div>
-        <!-- Group exams section header (desktop only) -->
-        <div
-          class="hidden lg:flex p-4 items-center gap-2 border-t border-b border-neutral-200"
-        >
-          <Icon name="ion:people" size="18" class="text-primary-400" />
-          <h2 class="text-primary-900 text-lg font-bold">
-            {{ $t('pages.services.groupExamsTitle') }}
-          </h2>
-        </div>
-        <!-- Group exam buttons (desktop: sidebar list) -->
-        <div class="hidden lg:block">
+
+        <!-- Mobile: horizontal pills -->
+        <div class="flex lg:hidden gap-2 overflow-x-auto">
           <button
-            v-for="exam in groupExams"
-            :key="'group-' + exam.id"
+            v-for="department in visibleDepartments"
+            :key="'m-' + department.id"
             type="button"
-            class="w-full px-5 py-3.5 cursor-pointer transition-colors duration-200 flex items-center justify-between border-l-4"
+            class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
+            :class="
+              selectedDepartment?.id === department.id && !selectedGroupExam
+                ? 'bg-primary-500 text-white border-primary-500'
+                : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
+            "
+            @click="selectDepartment(department)"
+          >
+            {{ department.title }}
+          </button>
+          <button
+            v-for="exam in visibleGroupExams"
+            :key="'mg-' + exam.id"
+            type="button"
+            class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
             :class="
               selectedGroupExam?.id === exam.id
-                ? 'bg-primary-100 text-primary-500 border-l-primary-500'
-                : 'text-neutral-700 bg-white hover:bg-primary-100 hover:text-primary-500 border-l-transparent'
+                ? 'bg-primary-500 text-white border-primary-500'
+                : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
             "
             @click="selectGroupExam(exam)"
           >
-            <span class="text-sm font-medium text-left">{{ exam.title }}</span>
-            <Icon
-              name="ion:chevron-forward"
-              size="16"
-              class="text-neutral-400"
-              :class="
-                selectedGroupExam?.id === exam.id ? 'text-primary-500' : ''
-              "
-            />
+            {{ exam.title }}
           </button>
+        </div>
+
+        <!-- Desktop: grouped sidebar -->
+        <div
+          class="hidden lg:block lg:rounded-xl lg:border lg:border-neutral-200 lg:shadow-xs overflow-hidden"
+        >
+          <template v-if="medicalDepartments.length">
+            <div
+              class="flex p-4 items-center gap-2 border-b border-neutral-200"
+            >
+              <Icon name="ion:medkit" size="18" class="text-primary-400" />
+              <h2 class="text-primary-900 text-base font-bold">
+                {{ $t('nav.medicalServices') }}
+              </h2>
+            </div>
+            <DepartmentButton
+              v-for="department in medicalDepartments"
+              :key="department.id"
+              :department="department"
+              :selected="
+                selectedDepartment?.id === department.id && !selectedGroupExam
+              "
+              @select="selectDepartment($event)"
+            />
+          </template>
+
+          <template v-if="otherDepartments.length">
+            <div
+              class="flex p-4 items-center gap-2 border-t border-b border-neutral-200"
+            >
+              <Icon name="ion:briefcase" size="18" class="text-primary-400" />
+              <h2 class="text-primary-900 text-base font-bold">
+                {{ $t('nav.otherServices') }}
+              </h2>
+            </div>
+            <DepartmentButton
+              v-for="department in otherDepartments"
+              :key="department.id"
+              :department="department"
+              :selected="
+                selectedDepartment?.id === department.id && !selectedGroupExam
+              "
+              @select="selectDepartment($event)"
+            />
+          </template>
+
+          <template v-if="visibleGroupExams.length">
+            <div
+              class="flex p-4 items-center gap-2 border-t border-b border-neutral-200"
+            >
+              <Icon name="ion:people" size="18" class="text-primary-400" />
+              <h2 class="text-primary-900 text-base font-bold">
+                {{ $t('pages.services.groupExamsTitle') }}
+              </h2>
+            </div>
+            <button
+              v-for="exam in visibleGroupExams"
+              :key="'g-' + exam.id"
+              type="button"
+              class="w-full px-5 py-3.5 cursor-pointer transition-colors duration-200 flex items-center justify-between border-l-4"
+              :class="
+                selectedGroupExam?.id === exam.id
+                  ? 'bg-primary-100 text-primary-500 border-l-primary-500'
+                  : 'text-neutral-700 bg-white hover:bg-primary-100 hover:text-primary-500 border-l-transparent'
+              "
+              @click="selectGroupExam(exam)"
+            >
+              <span class="text-sm font-medium text-left">{{ exam.title }}</span>
+              <Icon
+                name="ion:chevron-forward"
+                size="16"
+                class="text-neutral-400"
+                :class="
+                  selectedGroupExam?.id === exam.id ? 'text-primary-500' : ''
+                "
+              />
+            </button>
+          </template>
+
+          <p
+            v-if="
+              !medicalDepartments.length &&
+              !otherDepartments.length &&
+              !visibleGroupExams.length
+            "
+            class="px-5 py-6 text-sm text-neutral-400"
+          >
+            {{ $t('pages.services.noResults') }}
+          </p>
         </div>
       </nav>
 
       <!-- Right side content -->
       <section class="lg:col-span-3 flex flex-col gap-8 w-full lg:w-auto">
-        <!-- Department services view -->
         <template v-if="!selectedGroupExam && selectedDepartment">
           <div class="flex flex-col gap-1">
             <h2 class="text-2xl font-bold text-primary-900">
               {{ selectedDepartment.title }}
             </h2>
-            <p class="text-lg text-neutral-500">
+            <p v-if="selectedDepartment.description" class="text-lg text-neutral-500">
               {{ selectedDepartment.description }}
             </p>
           </div>
@@ -115,7 +164,6 @@
           <ServicesList :department-id="selectedDepartment.id" />
         </template>
 
-        <!-- Group exam detail view -->
         <GroupExamDetail v-if="selectedGroupExam" :exam="selectedGroupExam" />
       </section>
     </div>
@@ -142,39 +190,40 @@ useSeoMeta({
   ogSiteName: () => t('seo.siteName'),
 })
 
-const departments: Department[] = [
-  {
-    id: 1,
-    title: 'Opšta medicina',
-    description: 'Pregledi i konsultacije sa opštim lekarima.',
-  },
-  {
-    id: 2,
-    title: 'Specijalistički pregledi',
-    description:
-      'Specijalistički pregledi i konsultacije sa različitim specijalistima.',
-  },
-  {
-    id: 3,
-    title: 'Dijagnostika',
-    description: 'Dijagnostičke procedure i laboratorijske analize.',
-  },
-  {
-    id: 4,
-    title: 'Fizioterapija',
-    description: 'Fizioterapijske usluge i rehabilitacija.',
-  },
-  {
-    id: 5,
-    title: 'Stomatologija',
-    description: 'Stomatološke usluge i pregledi.',
-  },
-  {
-    id: 6,
-    title: 'Psihološka podrška',
-    description: 'Psihološka podrška i savetovanje.',
-  },
+// Grupe usluga (nova klijentova podela). Konkretne usluge po grupi dolaze sa API-ja.
+const DEPARTMENT_CONFIG: {
+  id: number
+  titleKey: string
+  group: 'medical' | 'other'
+}[] = [
+  { id: 1, titleKey: 'nav.generalMedicine', group: 'medical' },
+  { id: 2, titleKey: 'nav.gynecology', group: 'medical' },
+  { id: 3, titleKey: 'nav.internalMedicine', group: 'medical' },
+  { id: 4, titleKey: 'nav.ophthalmology', group: 'medical' },
+  { id: 5, titleKey: 'nav.otorhinolaryngology', group: 'medical' },
+  { id: 6, titleKey: 'nav.physicalMedicine', group: 'medical' },
+  { id: 7, titleKey: 'nav.psychiatry', group: 'medical' },
+  { id: 8, titleKey: 'nav.psychologicalSupport', group: 'medical' },
+  { id: 9, titleKey: 'nav.occupationalMedicine', group: 'medical' },
+  { id: 10, titleKey: 'nav.radiology', group: 'medical' },
+  { id: 11, titleKey: 'nav.xray', group: 'medical' },
+  { id: 12, titleKey: 'nav.ultrasound', group: 'medical' },
+  { id: 13, titleKey: 'nav.mammography', group: 'medical' },
+  { id: 14, titleKey: 'nav.sportsMedicine', group: 'medical' },
+  { id: 15, titleKey: 'nav.labDiagnostics', group: 'medical' },
+  { id: 16, titleKey: 'nav.pharmacy', group: 'medical' },
+  { id: 17, titleKey: 'nav.legalService', group: 'other' },
+  { id: 18, titleKey: 'nav.technicalService', group: 'other' },
 ]
+
+const allDepartments = computed(() =>
+  DEPARTMENT_CONFIG.map((d) => ({
+    id: d.id,
+    title: t(d.titleKey),
+    description: '',
+    group: d.group,
+  })),
+)
 
 // TODO: zameniti dummy vrednostima i povezati sa backendom
 const groupExams: GroupExam[] = [
@@ -206,6 +255,24 @@ const groupExams: GroupExam[] = [
     price: 18000,
   },
 ]
+
+const search = ref('')
+const matches = (title: string) =>
+  title.toLowerCase().includes(search.value.trim().toLowerCase())
+
+const medicalDepartments = computed(() =>
+  allDepartments.value.filter((d) => d.group === 'medical' && matches(d.title)),
+)
+const otherDepartments = computed(() =>
+  allDepartments.value.filter((d) => d.group === 'other' && matches(d.title)),
+)
+const visibleDepartments = computed(() => [
+  ...medicalDepartments.value,
+  ...otherDepartments.value,
+])
+const visibleGroupExams = computed(() =>
+  groupExams.filter((e) => matches(e.title)),
+)
 
 const selectedDepartment = ref<Department | null>(null)
 const selectedGroupExam = ref<GroupExam | null>(null)
@@ -255,7 +322,6 @@ const applyQueryParams = () => {
         return
       }
     }
-    // Default to first group exam if section=group without specific id
     if (groupExams.length) {
       selectGroupExam(groupExams[0]!, false)
     }
@@ -263,23 +329,21 @@ const applyQueryParams = () => {
   }
 
   if (deptId) {
-    const found = departments.find((d) => d.id === deptId)
+    const found = allDepartments.value.find((d) => d.id === deptId)
     if (found) {
       selectDepartment(found, false)
       return
     }
   }
 
-  // Default: first department
-  if (departments.length) {
-    selectDepartment(departments[0]!, false)
+  // Default: prva grupa
+  if (allDepartments.value.length) {
+    selectDepartment(allDepartments.value[0]!, false)
   }
 }
 
-// Apply on initial load
 applyQueryParams()
 
-// Watch for query param changes (e.g. when navigating from within the nav)
 watch(
   () => route.query,
   () => {

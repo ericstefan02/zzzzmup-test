@@ -91,12 +91,61 @@
           >
             <div
               v-if="openDropdown === item.title"
-              class="absolute top-full left-0 pt-1 min-w-48 z-50"
+              class="absolute top-full left-0 pt-1 z-50"
+              :class="item.mega ? 'w-[44rem]' : 'min-w-48'"
             >
               <div
                 class="bg-white rounded-lg shadow-lg border border-neutral-200 py-1"
               >
-                <template v-for="child in item.children" :key="child.title">
+                <!-- Mega meni (Услуге): kolone -->
+                <div v-if="item.mega" class="flex gap-6 p-5">
+                  <div class="flex-1">
+                    <h3
+                      class="px-3 pb-2 text-xs font-bold uppercase tracking-wider text-primary-400"
+                    >
+                      {{ $t(megaMedical(item)?.title ?? '') }}
+                    </h3>
+                    <div class="grid grid-cols-2 gap-x-2">
+                      <NuxtLink
+                        v-for="c in megaMedical(item)?.children"
+                        :key="c.title"
+                        :to="c.route!"
+                        active-class=""
+                        class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
+                        :class="{
+                          'text-primary-500! bg-primary-50! font-medium':
+                            isRouteActive(c.route!),
+                        }"
+                        @click="openDropdown = null"
+                      >
+                        {{ $t(c.title) }}
+                      </NuxtLink>
+                    </div>
+                  </div>
+                  <div class="w-px bg-neutral-200 shrink-0" />
+                  <div class="w-56 shrink-0">
+                    <h3
+                      class="px-3 pb-2 text-xs font-bold uppercase tracking-wider text-primary-400"
+                    >
+                      {{ $t('nav.otherServices') }}
+                    </h3>
+                    <NuxtLink
+                      v-for="o in megaOthers(item)"
+                      :key="o.title"
+                      :to="o.route!"
+                      active-class=""
+                      class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
+                      :class="{
+                        'text-primary-500! bg-primary-50! font-medium':
+                          isRouteActive(o.route!),
+                      }"
+                      @click="openDropdown = null"
+                    >
+                      {{ $t(o.title) }}
+                    </NuxtLink>
+                  </div>
+                </div>
+                <template v-for="child in item.children" v-else :key="child.title">
                   <!-- Child with nested children: shows nested flyout on hover -->
                   <div
                     v-if="child.children"
@@ -187,6 +236,12 @@ const route = useRoute()
 const openDropdown = ref<string | null>(null)
 const openNestedDropdown = ref<string | null>(null)
 const { open: openEFormModal } = useEFormModal()
+
+type Nav = (typeof NAV_ITEMS)[number]
+
+// Mega meni: grupa sa pod-stavkama (Медицинске службе) i samostalne stavke (Правна/Техничка)
+const megaMedical = (item: Nav) => item.children?.find((c) => c.children)
+const megaOthers = (item: Nav) => item.children?.filter((c) => !c.children) ?? []
 
 const isChildActive = (item: (typeof NAV_ITEMS)[number]) => {
   return item.children?.some(

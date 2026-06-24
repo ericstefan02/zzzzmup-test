@@ -1,30 +1,14 @@
 <template>
   <div>
     <section
-      class="relative px-4 md:px-12 lg:px-28 py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
+      class="relative flex flex-col justify-center px-4 md:px-12 lg:px-28 py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
     >
       <div class="relative flex flex-col gap-6 z-10 text-white">
-        <div
-          class="flex items-center gap-2 px-3 py-1 border border-white/20 max-w-max rounded-full bg-white/10 backdrop-blur"
-        >
-          <Icon
-            name="ion:ios-information-circle-outline"
-            size="12"
-            class="text-success"
-          />
-          <p class="text-white font-medium text-sm">
-            {{ $t('pages.home.officialInstitution') }}
-          </p>
-        </div>
-        <h2
-          class="font-bold text-3xl md:text-5xl lg:text-6xl text-white leading-10 md:leading-16 tracking-tight"
-        >
-          {{ $t('pages.home.heroTitle') }}
-          <br />
-          <span class="text-[#BFDBFE] leading-normal tracking-normal">{{
-            $t('pages.home.heroTitleMinistry')
-          }}</span>
-        </h2>
+        <!-- Natpis "Званична државна институција" + назив Завода уклоњени на захтев клијента.
+             h1 задржан као sr-only ради SEO (назив мора остати индексабилан). -->
+        <h1 class="sr-only">
+          {{ $t('pages.home.heroTitle') }} {{ $t('pages.home.heroTitleMinistry') }}
+        </h1>
         <p class="max-w-full md:max-w-2/3 lg:max-w-1/2 text-base md:text-xl">
           {{ $t('pages.home.heroDescription') }}
         </p>
