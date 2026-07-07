@@ -6,7 +6,7 @@
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="flex flex-col gap-6">
           <div class="flex items-center gap-3 text-lg font-bold text-white">
-            <NuxtLink to="/">
+            <NuxtLink to="/" class="shrink-0">
               <NuxtImg
                 src="/img/logo.png"
                 alt="Logo"
