@@ -106,7 +106,6 @@ export const NAV_ITEMS: NavItem[] = [
   {
     title: 'nav.services',
     route: '/services',
-    mega: true,
     children: SERVICE_GROUPS.map((group) => serviceNodeToNavItem(group)),
   },
   { title: 'nav.workSchedule', route: '/work-schedule' },

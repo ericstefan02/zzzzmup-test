@@ -187,6 +187,16 @@ import { useForm } from 'vee-validate'
 
 const { isOpen, close } = useEFormModal()
 const { t } = useI18n()
+const route = useRoute()
+
+// Promena rute (i browser back/forward) zatvara modal — otvoren modal preko
+// nove strane + zaključan body prave pogrešan scroll na povratku
+watch(
+  () => route.fullPath,
+  () => {
+    if (isOpen.value) close()
+  },
+)
 
 const { errors, handleSubmit, defineField, resetForm } = useForm({
   validationSchema: {
@@ -228,12 +238,9 @@ const onSubmit = handleSubmit((values) => {
   console.log('E-Form submitted:', values)
 })
 
+useBodyScrollLock(isOpen)
+
 watch(isOpen, (val) => {
-  if (val) {
-    document.body.style.overflow = 'hidden'
-  } else {
-    document.body.style.overflow = ''
-    resetForm()
-  }
+  if (!val) resetForm()
 })
 </script>

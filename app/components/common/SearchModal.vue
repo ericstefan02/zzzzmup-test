@@ -10,7 +10,7 @@
     >
       <div
         v-if="isOpen"
-        class="fixed inset-0 bg-black/50 z-80 flex items-start justify-center overflow-y-auto py-8 md:py-20 px-4"
+        class="fixed inset-0 bg-black/50 z-80 flex items-start justify-center overflow-y-auto overscroll-contain py-8 md:py-20 px-4"
         @click.self="close"
       >
         <Transition
@@ -58,7 +58,11 @@
             </div>
 
             <!-- Rezultati -->
-            <div ref="listRef" class="max-h-[60vh] overflow-y-auto">
+            <!-- dvh umesto vh: iOS address bar; overscroll/touch-pan-y: skrol prstom ostaje u listi -->
+            <div
+              ref="listRef"
+              class="max-h-[60dvh] overflow-y-auto overscroll-contain touch-pan-y"
+            >
               <template v-if="results.length">
                 <div
                   v-for="group in groupedResults"
@@ -133,7 +137,17 @@ import {
 } from '~/composables/useSiteSearch'
 
 const router = useRouter()
+const route = useRoute()
 const { isOpen, close } = useSearchModal()
+
+// Promena rute (i browser back/forward) zatvara modal — otvoren modal preko
+// nove strane + zaključan body prave pogrešan scroll na povratku
+watch(
+  () => route.fullPath,
+  () => {
+    if (isOpen.value) close()
+  },
+)
 
 const query = ref('')
 const activeIndex = ref(0)
@@ -190,8 +204,9 @@ const onKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Escape' && isOpen.value) close()
 }
 
+useBodyScrollLock(isOpen)
+
 watch(isOpen, (val) => {
-  document.body.style.overflow = val ? 'hidden' : ''
   if (val) {
     query.value = ''
     activeIndex.value = 0
@@ -204,6 +219,5 @@ watch(isOpen, (val) => {
 
 onUnmounted(() => {
   document.removeEventListener('keydown', onKeydown)
-  document.body.style.overflow = ''
 })
 </script>

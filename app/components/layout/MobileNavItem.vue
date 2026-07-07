@@ -73,13 +73,8 @@ const open = ref(false)
 const closeMenu = inject<() => void>('closeMobileMenu', () => {})
 
 const isActive = (target: string) => isNavRouteActive(target, route)
-// Grana je aktivna i kad je pogođena njena sopstvena ruta (npr. golo /services),
-// ne samo kad je aktivan neki potomak
-const isBranchActive = computed(
-  () =>
-    isNavBranchActive(item, route) ||
-    (!!item.route && isNavRouteActive(item.route, route)),
-)
+// Grana = sopstvena ruta ili bilo koji potomak (deljeni helper sa desktop kaskadom)
+const isBranchActive = computed(() => isNavItemActive(item, route))
 
 const activeClass = 'text-primary-500! bg-primary-50! font-medium'
 

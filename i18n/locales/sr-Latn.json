@@ -135,8 +135,7 @@
       "instituteName": "Zavod za zdravstvenu zaštitu radnika",
       "ministryName": "Ministarstva unutrašnjih poslova",
       "logoAlt": "Logo zavoda",
-      "eFormButton": "E-Forma (PDF)",
-      "megaOpenGroup": "Pogledajte detalje"
+      "eFormButton": "E-Forma (PDF)"
     },
     "footer": {
       "instituteName": "Zavod za zdravstvenu zaštitu",
@@ -373,7 +372,7 @@
       "legalDescription": "Vaša prava su zakonom zagarantovana. U skladu sa važećim propisima, pacijentima Zavoda osigurana je pravna zaštita i stručna pomoć u ostvarivanju njihovih prava kroz dve instance",
       "rfzoTitle": "Zaštitnik prava osiguranika (RFZO)",
       "rfzoDescription": "U skladu sa Pravilnikom o zaštiti prava osiguranih lica (Sl. glasnik RS br. 68/13)",
-      "rfzoLocation": "Specijalna bolnica \u201ESveti Sava\u201C, kancelarija br. 10",
+      "rfzoLocation": "Specijalna bolnica „Sveti Sava“, kancelarija br. 10",
       "patientAdviserTitle": "Savetnik za zaštitu prava pacijenata",
       "patientAdviserDescription": "Za direktne prigovore i pravne savete, pacijentima je na raspolaganju gradski savetnik",
       "patientAdviserLocation": "Tiršova 1, prizemlje, kancelarija br. 9",

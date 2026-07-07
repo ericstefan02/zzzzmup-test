@@ -74,6 +74,10 @@
   --color-accent: #dc2626;
   --color-success: #4ADE80;
 
-  /* Custom breakpoint for navigation */
+  /* Custom breakpoints for navigation:
+     nav = prag za desktop meni (ispod: burger);
+     navwide = pun oblik (veći font linkova + E-Форма sa tekstom) — između
+     nav i navwide meni je kompaktan da sve stane bez preklapanja */
   --breakpoint-nav: 1440px;
+  --breakpoint-navwide: 1660px;
 }

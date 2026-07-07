@@ -50,7 +50,7 @@ Zvanični sajt **Zavoda za zdravstvenu zaštitu radnika MUP-a** (državna zdravs
 
 ### Stil
 - Samo Tailwind utility klase. Boje SAMO iz teme: `primary-50..950`, `accent` (crvena), `success`, `neutral-*`. Ne uvoditi proizvoljne hex vrednosti u template (osim već postojećih retkih izuzetaka tipa `#BFDBFE`).
-- Responsive: mobile-first, breakpoint-ovi `md` `lg` + custom `nav` (1440px) za navigaciju.
+- Responsive: mobile-first, breakpoint-ovi `md` `lg` + custom `nav` (1440px, prag desktop menija) i `navwide` (1660px, pun oblik nav linkova + E-Форма dugmeta; između je kompaktan nav).
 - Padding sekcija konzistentan: `px-4 md:px-12 lg:px-28`, širine centriraju `max-w-480 mx-auto`.
 
 ### SEO — održavati na svakoj stranici
@@ -142,13 +142,21 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 
 **Urađeno (runda jul 2026, excel klijenta):**
 - ✅ УСЛУГЕ restruktura po excelu: [services-structure.ts](app/utils/services-structure.ts) = izvor istine (`SERVICE_GROUPS`, slugovi); NAV_ITEMS/sidebar/kvadrati/pretraga se izvode iz njega. Query šema `/services?group=<slug>` i `?service=<slug>` (staro `?department=N` ukinuto). Групни прегледи uklonjeni (GroupExam* komponente ostale na disku neupotrebljene).
-- ✅ Desktop mega meni = master-detail panel (levi rail 7 grupa, desno stavke, L3 inline uvučeno); mobilni meni = rekurzivni [MobileNavItem.vue](app/components/layout/MobileNavItem.vue) (4 nivoa).
+- ✅ Desktop mega meni = master-detail panel (ZAMENJEN kaskadom u rundi #2, vidi dole); mobilni meni = rekurzivni [MobileNavItem.vue](app/components/layout/MobileNavItem.vue) (4 nivoa).
 - ✅ Margine poravnate sitewide: standard `px-4 md:px-12 lg:px-28` + `max-w-480 mx-auto` wrapper na SVIM trakama (Navigation, InfoBar, Footer, TextBanner, legal header, sve strane). Leve ivice mereno = 112px na 1600w.
 - ✅ Pretraga sajta (demo, client-side): [SearchModal](app/components/common/SearchModal.vue) + [useSiteSearch](app/composables/useSiteSearch.ts) + [transliterate.ts](app/utils/transliterate.ts) (ćir/lat normalizacija). Indeksira: usluge, stranice, vesti, oglase, dokumenta, doktore. Dugme lupe u nav (svi breakpointi). Dummy nizovi izmešteni u [dummy-data.ts](app/utils/dummy-data.ts) — stranice i pretraga dele iste podatke.
 - ✅ Homepage: nova hero poruka (tačan tekst klijenta), 4 kvadrata = 4 grupe usluga (svi «Сазнај више», opisi placeholder do tekstova klijenta), plava sekcija = 3-stat band (15+ служби / 100.000+ прегледа / 30+ година — placeholder brojke), logo+naziv Zavoda = jedan link na početnu.
 
+**Urađeno (runda jul 2026 #2 — 5 fixova, klijent + Stefan):**
+- ✅ УСЛУГЕ desktop meni = kaskadni dropdown identičan О нама (zahtev klijenta): rekurzivni [NavDropdownItem.vue](app/components/layout/NavDropdownItem.vue) sa edge-flip (flyout se otvara levo kad ne staje u viewport); mega master-detail panel obrisan, `NavItem.mega` flag uklonjen, О нама i УСЛУГЕ dele istu komponentu.
+- ✅ Nav overlap 1440–1660: novi breakpoint `navwide` (1660px) u main.css; između `nav` i `navwide` linkovi su text-base/px-3 + `whitespace-nowrap`, E-Форма dugme samo ikonica; od `navwide` pun oblik (text-lg + tekst dugmeta).
+- ✅ Mobile scroll (iOS/WebKit): [useBodyScrollLock.ts](app/composables/useBodyScrollLock.ts) — position:fixed tehnika + lock brojač, deli se između SearchModal/EFormModal/MobileMenu (`overflow:hidden` na body NE radi na iOS-u). Search lista: `max-h-[60dvh]` + `overscroll-contain` + `touch-pan-y`.
+- ✅ Services mobilni pillovi: red bez aktivne pilule se resetuje na početak pri promeni grupe (`[data-pill-row]` u [services.vue](app/pages/services.vue)).
+- ✅ Font flicker na deploy-u: `fonts.defaults` u nuxt.config — weights `['400 800']` (varijabilni opseg, koristi se do extrabold), samo `normal` stil (italic se ne koristi), subsets cyrillic/latin/latin-ext, `preload: true`. Bez toga NIŠTA nije bilo preload-ovano (Google subsetovani fajlovi imaju unicode-range → default preload logika ih preskače). Modul preload-uje cyrillic woff2; latin (cifre) ide on-demand.
+
 **Preostalo:**
-- ⬜ Review klijenta → push.
+- ⬜ Review klijenta → push. (Runda jul 2026 pušena na master: `fbdbdc2`.)
+- ⬜ Tech-debt iz code review-a (nije blokirajuće, raditi usput): services.vue selekciju derivovati čisto iz rute (computed) umesto ref+watch sync; zajednički modal shell za EFormModal/SearchModal; obrisati mrtve GroupExam* komponente + neiskorišćene ključeve (pages.services.departmentsLabel, documentationRequired) ako se potvrdi da se ne vraćaju. (Mega panel ekstrakcija i body-scroll-lock composable rešeni u rundi #2.)
 - ⬜ Hero dugmad («Изаберите лекара»/«Наше услуге»): klijent menja akcije, još ne zna koje — NE dirati do odluke.
 - ⬜ Uvodni tekstovi kvadrata + tekstovi usluga/uverenja (šalje klijent), prave brojke stat banda.
 - ⬜ Mobilni bug — čeka screenshot od Dušana.
