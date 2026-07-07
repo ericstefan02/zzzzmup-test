@@ -50,6 +50,21 @@ export default defineNuxtConfig({
   site: {
     url: 'https://www.zzzzmup.rs',
   },
+  fonts: {
+    defaults: {
+      // Varijabilni opseg — sajt koristi 400..800 (font-extrabold na home statistici)
+      weights: ['400 800'],
+      // Samo normal: sa italic-om modul preload-uje italic umesto normal fajla
+      // (FOUT na glavnom tekstu). `italic` klase su zato uklonjene iz template-a
+      // (work-schedule napomene, footer) — ne vraćati bez provere preload-a.
+      styles: ['normal'],
+      // Ćirilica je primarno pismo — bez eksplicitnog subseta browser kasno dovlači
+      // cyrillic unicode-range fajl pa se vidi FOUT na svakom učitavanju
+      subsets: ['cyrillic', 'latin', 'latin-ext'],
+      // Google subsetovani fajlovi imaju unicode-range pa ih default logika NE preload-uje
+      preload: true,
+    },
+  },
   i18n: {
     locales: [
       { code: 'sr-Cyrl', name: 'Ћирилица', file: 'sr-Cyrl.json' },

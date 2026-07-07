@@ -8,8 +8,6 @@ export interface NavItem {
   title: string
   route?: string
   children?: NavItem[]
-  // Render kao širok mega-meni (kolone) umesto običnog dropdown-a.
-  mega?: boolean
 }
 
 export interface HighlightCardData {

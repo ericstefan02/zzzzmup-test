@@ -29,7 +29,7 @@
 
         <!-- Mobile: horizontal pills -->
         <template v-if="!isSearching">
-          <div class="flex lg:hidden gap-2 overflow-x-auto">
+          <div data-pill-row class="flex lg:hidden gap-2 overflow-x-auto">
             <button
               v-for="group in SERVICE_GROUPS"
               :key="'mg-' + group.slug"
@@ -48,6 +48,7 @@
           </div>
           <div
             v-if="activeGroupItems.length"
+            data-pill-row
             class="flex lg:hidden gap-2 overflow-x-auto"
           >
             <template v-for="flat in activeGroupItems" :key="'mi-' + flat.node.slug">
@@ -404,17 +405,19 @@ const mobileItemLabel = (flat: FlatServiceNode) =>
     : t(flat.node.titleKey)
 
 // Horizontalno centriranje aktivnih pilula (oba mobilna reda: grupe i stavke).
+// Red bez aktivne pilule (promena grupe → stavke još nisu birane) ide na početak,
+// inače ostane skrolovan tamo gde je bio za prethodnu grupu.
 // Ručni scrollTo umesto scrollIntoView da ne pomera stranicu vertikalno.
 const scrollActiveIntoView = () => {
   nextTick(() => {
-    const actives = mobileNavRef.value?.querySelectorAll<HTMLElement>(
-      '[aria-current="true"]',
-    )
-    actives?.forEach((el) => {
-      const row = el.parentElement
-      if (!row) return
+    const rows =
+      mobileNavRef.value?.querySelectorAll<HTMLElement>('[data-pill-row]')
+    rows?.forEach((row) => {
+      const active = row.querySelector<HTMLElement>('[aria-current="true"]')
       row.scrollTo({
-        left: el.offsetLeft - (row.clientWidth - el.clientWidth) / 2,
+        left: active
+          ? active.offsetLeft - (row.clientWidth - active.clientWidth) / 2
+          : 0,
         behavior: 'smooth',
       })
     })
