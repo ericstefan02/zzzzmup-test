@@ -8,9 +8,11 @@
       leave-from-class="opacity-100"
       leave-to-class="opacity-0"
     >
+      <!-- Backdrop namerno NIJE skrolabilan: jedini skroler je lista rezultata.
+           Ugneždeni skroler u skrolabilnom backdrop-u ne radi pouzdano na iOS-u -->
       <div
         v-if="isOpen"
-        class="fixed inset-0 bg-black/50 z-80 flex items-start justify-center overflow-y-auto overscroll-contain py-8 md:py-20 px-4"
+        class="fixed inset-0 bg-black/50 z-80 flex items-start justify-center py-8 md:py-20 px-4"
         @click.self="close"
       >
         <Transition
@@ -23,14 +25,14 @@
         >
           <div
             v-if="isOpen"
-            class="flex flex-col rounded-2xl shadow-md border border-neutral-200 bg-white w-full max-w-2xl overflow-hidden"
+            class="flex flex-col max-h-full rounded-2xl shadow-md border border-neutral-200 bg-white w-full max-w-2xl overflow-hidden"
             role="dialog"
             aria-modal="true"
             :aria-label="$t('components.search.title')"
           >
             <!-- Input -->
             <div
-              class="flex items-center gap-3 px-5 py-4 border-b border-neutral-200"
+              class="flex items-center gap-3 px-5 py-4 border-b border-neutral-200 shrink-0"
             >
               <Icon
                 name="ion:search"
@@ -58,10 +60,11 @@
             </div>
 
             <!-- Rezultati -->
-            <!-- dvh umesto vh: iOS address bar; overscroll/touch-pan-y: skrol prstom ostaje u listi -->
+            <!-- min-h-0: flex dete sme da se skupi ispod sadržaja pa overflow radi;
+                 overscroll/touch-pan-y: skrol prstom ostaje u listi -->
             <div
               ref="listRef"
-              class="max-h-[60dvh] overflow-y-auto overscroll-contain touch-pan-y"
+              class="min-h-0 md:max-h-128 overflow-y-auto overscroll-contain touch-pan-y"
             >
               <template v-if="results.length">
                 <div
