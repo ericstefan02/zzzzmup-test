@@ -107,26 +107,6 @@ const selectionPhases: SelectionPhase[] = [
   },
 ]
 
-// TODO: zameni dummy podatke i poveži sa backendom
-const jobOfferings: JobOffering[] = [
-  {
-    id: 1,
-    title: 'Medicinski tehničar',
-    description:
-      'Ova pozicija je namenjena medicinskim tehničarima sa iskustvom u radu sa pacijentima. Opis posla uključuje pružanje podrške lekarima, obavljanje medicinskih procedura i brigu o pacijentima.',
-    expirationDate: '2024-12-31',
-  },
-  {
-    id: 2,
-    title: 'Farmaceut',
-    description: 'Opis posla za farmaceuta.',
-    expirationDate: '2027-11-30',
-  },
-  {
-    id: 3,
-    title: 'Administrativni radnik',
-    description: 'Opis posla za administrativnog radnika.',
-    expirationDate: '2024-10-31',
-  },
-]
+// TODO: zameni dummy podatke i poveži sa backendom (dummy-data.ts)
+const jobOfferings: JobOffering[] = JOB_OFFERINGS
 </script>

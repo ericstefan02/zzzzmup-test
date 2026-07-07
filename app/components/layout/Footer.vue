@@ -1,6 +1,8 @@
 <template>
-  <footer class="px-4 md:px-12 lg:px-28 py-8 md:py-16 bg-primary-900">
-    <div class="flex flex-col gap-8 md:gap-12">
+  <footer class="py-8 md:py-16 bg-primary-900">
+    <div
+      class="flex flex-col gap-8 md:gap-12 max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+    >
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div class="flex flex-col gap-6">
           <div class="flex items-center gap-3 text-lg font-bold text-white">

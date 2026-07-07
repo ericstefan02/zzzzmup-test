@@ -21,9 +21,9 @@
 <script lang="ts" setup>
 import type { Service } from '~/types/services'
 
-// TODO: dodati fetch servisa po departmentId i prikazati ih
-const { departmentId } = defineProps<{
-  departmentId: number
+// TODO: dodati fetch servisa po serviceSlug (API) i prikazati ih
+const { serviceSlug } = defineProps<{
+  serviceSlug: string
 }>()
 
 // Ovo je samo dummy data, treba zameniti sa pravim podacima iz baze

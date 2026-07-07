@@ -8,7 +8,7 @@
     />
 
     <section
-      class="px-4 md:px-16 lg:px-48 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8 max-w-480 mx-auto"
+      class="px-4 md:px-12 lg:px-28 py-10 md:py-16 flex flex-col items-center justify-center gap-6 md:gap-8 max-w-480 mx-auto"
     >
       <div
         class="bg-white shadow-sm border border-neutral-200 rounded-xl overflow-hidden w-full"
@@ -66,6 +66,11 @@
 </template>
 <script lang="ts" setup>
 import type { DocumentItem } from '~/types/common'
+import {
+  DOCUMENTS_BY_TYPE,
+  type DocumentType,
+  type DocumentsData,
+} from '~/utils/dummy-data'
 
 const { t } = useI18n()
 const route = useRoute()
@@ -79,13 +84,6 @@ useSeoMeta({
   ogDescription: () => t('seo.documents.description'),
   ogSiteName: () => t('seo.siteName'),
 })
-
-type DocumentType =
-  | 'statute'
-  | 'financial'
-  | 'work-plan'
-  | 'normative'
-  | 'procurement'
 
 const DOCUMENT_TYPES_TABS: {
   label: string
@@ -158,70 +156,7 @@ const setActiveTab = (type: DocumentType) => {
 
 onMounted(scrollActiveTabIntoView)
 
-// TODO: zameniti dummy vrednostima i povezati sa backendom
-
-type DocumentsData = DocumentItem[] | Record<number, DocumentItem[]>
-
-const DOCUMENTS_BY_TYPE: Record<DocumentType, DocumentsData> = {
-  statute: [
-    {
-      title: 'Statut Zavoda za zdravstvenu zaštitu radnika MUP-a',
-      url: '#',
-      created_at: '2023-01-20',
-    },
-  ],
-  financial: {
-    2024: [
-      {
-        title: 'Finansijski izveštaj za 2023. godinu',
-        url: '#',
-        created_at: '2024-03-15',
-      },
-      {
-        title: 'Finansijski izveštaj za 2022. godinu',
-        url: '#',
-        created_at: '2024-03-15',
-      },
-    ],
-    2023: [
-      {
-        title: 'Finansijski izveštaj za 2022. godinu',
-        url: '#',
-        created_at: '2023-04-10',
-      },
-      {
-        title: 'Finansijski izveštaj za 2021. godinu',
-        url: '#',
-        created_at: '2023-04-10',
-      },
-    ],
-  },
-  'work-plan': [
-    {
-      title: 'Plan rada za 2025. godinu',
-      url: '#',
-      created_at: '2024-12-15',
-    },
-    {
-      title: 'Plan rada za 2024. godinu',
-      url: '#',
-      created_at: '2023-12-20',
-    },
-  ],
-  normative: [
-    {
-      title: 'Pravilnik o organizaciji i sistematizaciji radnih mesta',
-      url: '#',
-      created_at: '2023-06-01',
-    },
-    {
-      title: 'Poslovnik o radu Upravnog odbora',
-      url: '#',
-      created_at: '2023-02-10',
-    },
-  ],
-  procurement: {},
-}
+// TODO: zameniti dummy vrednostima i povezati sa backendom (dummy-data.ts)
 
 const currentData = computed<DocumentsData>(
   () => DOCUMENTS_BY_TYPE[activeDocumentType.value],

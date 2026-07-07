@@ -6,7 +6,7 @@
     />
 
     <section
-      class="px-4 md:px-12 lg:px-28 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 bg-white"
+      class="px-4 md:px-12 lg:px-28 py-10 md:py-16 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 bg-white max-w-480 mx-auto"
     >
       <div class="flex flex-col gap-6">
         <h2 class="text-2xl md:text-4xl font-bold text-primary-900">
@@ -39,9 +39,11 @@
 
     <section
       id="misija"
-      class="scroll-mt-28 px-4 md:px-12 lg:px-28 py-12 md:py-20 bg-primary-600 text-white"
+      class="scroll-mt-28 py-12 md:py-20 bg-primary-600 text-white"
     >
-      <div class="max-w-480 mx-auto flex flex-col gap-8 md:gap-12">
+      <div
+        class="max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28 flex flex-col gap-8 md:gap-12"
+      >
         <div class="flex flex-col gap-4 max-w-3xl">
           <div class="flex items-center gap-3">
             <div

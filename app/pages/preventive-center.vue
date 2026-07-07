@@ -4,9 +4,10 @@
       :title="$t('pages.preventiveCenter.title')"
       :description="$t('pages.preventiveCenter.description')"
     />
-    <address
-      class="grid gap-6 bg-white grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 px-4 md:px-12 lg:px-28 py-8 md:py-12 not-italic drop-shadow"
-    >
+    <address class="bg-white py-8 md:py-12 not-italic drop-shadow">
+      <div
+        class="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+      >
       <NuxtLink
         class="flex items-center gap-4"
         :to="MAPS_EMBED_URL"
@@ -68,6 +69,7 @@
             {{ $t('pages.preventiveCenter.workingHoursValue') }}
           </p>
         </div>
+      </div>
       </div>
     </address>
     <div

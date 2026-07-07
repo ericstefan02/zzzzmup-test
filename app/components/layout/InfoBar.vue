@@ -1,8 +1,8 @@
 <template>
-  <aside
-    class="px-4 md:px-12 lg:px-20 py-2 border-b border-neutral-200 bg-white text-xs sm:text-sm"
-  >
-    <div class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0">
+  <aside class="py-2 border-b border-neutral-200 bg-white text-xs sm:text-sm">
+    <div
+      class="flex flex-col sm:flex-row sm:justify-between gap-2 sm:gap-0 max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+    >
       <div
         class="flex gap-3 sm:gap-6 items-center justify-between sm:justify-start"
       >

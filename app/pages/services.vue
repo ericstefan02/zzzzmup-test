@@ -28,165 +28,321 @@
         </div>
 
         <!-- Mobile: horizontal pills -->
-        <div class="flex lg:hidden gap-2 overflow-x-auto">
-          <button
-            v-for="department in visibleDepartments"
-            :key="'m-' + department.id"
-            type="button"
-            class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
-            :class="
-              selectedDepartment?.id === department.id && !selectedGroupExam
-                ? 'bg-primary-500 text-white border-primary-500'
-                : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
-            "
-            @click="selectDepartment(department)"
-          >
-            {{ department.title }}
-          </button>
-          <button
-            v-for="exam in visibleGroupExams"
-            :key="'mg-' + exam.id"
-            type="button"
-            class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
-            :class="
-              selectedGroupExam?.id === exam.id
-                ? 'bg-primary-500 text-white border-primary-500'
-                : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
-            "
-            @click="selectGroupExam(exam)"
-          >
-            {{ exam.title }}
-          </button>
-        </div>
-
-        <!-- Desktop: grouped sidebar -->
-        <div
-          class="hidden lg:block lg:rounded-xl lg:border lg:border-neutral-200 lg:shadow-xs overflow-hidden"
-        >
-          <template v-if="medicalDepartments.length">
-            <div
-              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-b border-neutral-200"
-            >
-              <Icon name="ion:medkit" size="16" class="text-primary-400" />
-              <h2
-                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
-              >
-                {{ $t('nav.medicalServices') }}
-              </h2>
-            </div>
-            <DepartmentButton
-              v-for="department in medicalDepartments"
-              :key="department.id"
-              :department="department"
-              :selected="
-                selectedDepartment?.id === department.id && !selectedGroupExam
-              "
-              @select="selectDepartment($event)"
-            />
-          </template>
-
-          <template v-if="otherDepartments.length">
-            <div
-              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-y border-neutral-200"
-            >
-              <Icon name="ion:briefcase" size="16" class="text-primary-400" />
-              <h2
-                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
-              >
-                {{ $t('nav.otherServices') }}
-              </h2>
-            </div>
-            <DepartmentButton
-              v-for="department in otherDepartments"
-              :key="department.id"
-              :department="department"
-              :selected="
-                selectedDepartment?.id === department.id && !selectedGroupExam
-              "
-              @select="selectDepartment($event)"
-            />
-          </template>
-
-          <template v-if="visibleGroupExams.length">
-            <div
-              class="flex items-center gap-2 px-4 py-2.5 bg-neutral-50 border-y border-neutral-200"
-            >
-              <Icon name="ion:people" size="16" class="text-primary-400" />
-              <h2
-                class="text-xs font-bold uppercase tracking-wide text-neutral-500"
-              >
-                {{ $t('pages.services.groupExamsTitle') }}
-              </h2>
-            </div>
+        <template v-if="!isSearching">
+          <div class="flex lg:hidden gap-2 overflow-x-auto">
             <button
-              v-for="exam in visibleGroupExams"
-              :key="'g-' + exam.id"
+              v-for="group in SERVICE_GROUPS"
+              :key="'mg-' + group.slug"
               type="button"
-              class="w-full px-4 py-3 cursor-pointer transition-colors flex items-start justify-between gap-2 text-left"
+              class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
               :class="
-                selectedGroupExam?.id === exam.id
-                  ? 'bg-primary-50 text-primary-600 font-semibold'
-                  : 'text-neutral-700 bg-white hover:bg-neutral-50 hover:text-primary-600'
+                activeGroupSlug === group.slug
+                  ? 'bg-primary-500 text-white border-primary-500'
+                  : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
               "
-              @click="selectGroupExam(exam)"
+              :aria-current="activeGroupSlug === group.slug ? 'true' : undefined"
+              @click="selectGroup(group)"
             >
-              <span class="text-sm leading-snug">{{ exam.title }}</span>
-              <Icon
-                name="ion:chevron-forward"
-                size="16"
-                class="mt-0.5 shrink-0"
+              {{ $t(group.titleKey) }}
+            </button>
+          </div>
+          <div
+            v-if="activeGroupItems.length"
+            class="flex lg:hidden gap-2 overflow-x-auto"
+          >
+            <template v-for="flat in activeGroupItems" :key="'mi-' + flat.node.slug">
+              <NuxtLink
+                v-if="flat.node.route"
+                :to="flat.node.route"
+                class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors border bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500"
+              >
+                {{ $t(flat.node.titleKey) }}
+              </NuxtLink>
+              <button
+                v-else
+                type="button"
+                class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border"
                 :class="
-                  selectedGroupExam?.id === exam.id
-                    ? 'text-primary-500'
-                    : 'text-neutral-300'
+                  selectedItem?.node.slug === flat.node.slug
+                    ? 'bg-primary-500 text-white border-primary-500'
+                    : 'bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500'
                 "
-              />
+                :aria-current="
+                  selectedItem?.node.slug === flat.node.slug ? 'true' : undefined
+                "
+                @click="selectItem(flat)"
+              >
+                {{ mobileItemLabel(flat) }}
+              </button>
+            </template>
+          </div>
+        </template>
+        <div v-else class="flex lg:hidden gap-2 overflow-x-auto">
+          <template v-for="result in searchResults" :key="'ms-' + result.node.slug">
+            <NuxtLink
+              v-if="result.node.route"
+              :to="result.node.route"
+              class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors border bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500"
+            >
+              {{ $t(result.node.titleKey) }}
+            </NuxtLink>
+            <button
+              v-else
+              type="button"
+              class="whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors cursor-pointer border bg-white text-neutral-700 border-neutral-200 hover:bg-primary-50 hover:text-primary-500"
+              @click="selectSearchResult(result)"
+            >
+              {{ $t(result.node.titleKey) }}
             </button>
           </template>
-
           <p
-            v-if="
-              !medicalDepartments.length &&
-              !otherDepartments.length &&
-              !visibleGroupExams.length
-            "
-            class="px-5 py-6 text-sm text-neutral-400"
+            v-if="!searchResults.length"
+            class="px-2 py-2 text-sm text-neutral-400 whitespace-nowrap"
           >
             {{ $t('pages.services.noResults') }}
           </p>
+        </div>
+
+        <!-- Desktop sidebar -->
+        <div
+          class="hidden lg:block lg:rounded-xl lg:border lg:border-neutral-200 lg:shadow-xs overflow-hidden"
+        >
+          <!-- Rezultati pretrage: flat lista -->
+          <template v-if="isSearching">
+            <template v-for="result in searchResults" :key="'s-' + result.node.slug">
+              <NuxtLink
+                v-if="result.node.route"
+                :to="result.node.route"
+                class="w-full px-4 py-3 transition-colors flex items-start justify-between gap-2 text-left text-neutral-700 bg-white hover:bg-neutral-50 hover:text-primary-600"
+              >
+                <span class="text-sm leading-snug">
+                  {{ $t(result.node.titleKey) }}
+                </span>
+                <Icon
+                  name="ion:arrow-forward"
+                  size="16"
+                  class="mt-0.5 shrink-0 text-neutral-300"
+                />
+              </NuxtLink>
+              <DepartmentButton
+                v-else
+                :title="$t(result.node.titleKey)"
+                :subtitle="searchResultContext(result)"
+                :selected="isNodeSelected(result)"
+                @select="selectSearchResult(result)"
+              />
+            </template>
+            <p
+              v-if="!searchResults.length"
+              class="px-5 py-6 text-sm text-neutral-400"
+            >
+              {{ $t('pages.services.noResults') }}
+            </p>
+          </template>
+
+          <!-- Accordion grupa -->
+          <template v-else>
+            <div
+              v-for="group in SERVICE_GROUPS"
+              :key="group.slug"
+              class="border-b border-neutral-200 last:border-b-0"
+            >
+              <div class="flex items-stretch bg-neutral-50">
+                <button
+                  type="button"
+                  class="flex-1 flex items-center gap-2 px-4 py-3 text-left cursor-pointer transition-colors hover:text-primary-600"
+                  :class="
+                    activeGroupSlug === group.slug
+                      ? 'text-primary-600'
+                      : 'text-neutral-700'
+                  "
+                  @click="selectGroup(group)"
+                >
+                  <span class="text-sm font-bold leading-snug">
+                    {{ $t(group.titleKey) }}
+                  </span>
+                </button>
+                <button
+                  v-if="group.children"
+                  type="button"
+                  class="px-4 flex items-center cursor-pointer text-neutral-400 hover:text-primary-500 transition-colors"
+                  :aria-expanded="expandedGroup === group.slug"
+                  @click="toggleGroup(group.slug)"
+                >
+                  <Icon
+                    name="ion:chevron-down"
+                    size="14"
+                    class="transition-transform duration-200"
+                    :class="{ 'rotate-180': expandedGroup === group.slug }"
+                  />
+                </button>
+              </div>
+              <div
+                v-if="group.children"
+                class="grid transition-[grid-template-rows] duration-300 ease-out"
+                :class="
+                  expandedGroup === group.slug
+                    ? 'grid-rows-[1fr]'
+                    : 'grid-rows-[0fr]'
+                "
+              >
+                <div class="overflow-hidden">
+                  <div class="border-t border-neutral-200">
+                    <template
+                      v-for="child in group.children"
+                      :key="child.slug"
+                    >
+                      <NuxtLink
+                        v-if="child.route"
+                        :to="child.route"
+                        class="w-full px-4 py-3 transition-colors flex items-start justify-between gap-2 text-left text-neutral-700 bg-white hover:bg-neutral-50 hover:text-primary-600"
+                      >
+                        <span class="text-sm leading-snug">
+                          {{ $t(child.titleKey) }}
+                        </span>
+                        <Icon
+                          name="ion:arrow-forward"
+                          size="16"
+                          class="mt-0.5 shrink-0 text-neutral-300"
+                        />
+                      </NuxtLink>
+                      <template v-else>
+                        <DepartmentButton
+                          :title="$t(child.titleKey)"
+                          :selected="selectedItem?.node.slug === child.slug"
+                          @select="selectItem({ node: child, group, parent: null })"
+                        />
+                        <DepartmentButton
+                          v-for="sub in child.children"
+                          :key="sub.slug"
+                          :title="$t(sub.titleKey)"
+                          :depth="1"
+                          :selected="selectedItem?.node.slug === sub.slug"
+                          @select="selectItem({ node: sub, group, parent: child })"
+                        />
+                      </template>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </template>
         </div>
       </nav>
 
       <!-- Right side content -->
       <section class="flex flex-col gap-8 w-full min-w-0">
-        <template v-if="!selectedGroupExam && selectedDepartment">
+        <!-- Izabrana konkretna stavka -->
+        <template v-if="selectedItem">
           <div class="flex flex-col gap-1">
+            <p class="text-sm font-medium text-primary-400">
+              {{ $t(selectedItem.group.titleKey) }}
+              <template v-if="selectedItem.parent">
+                / {{ $t(selectedItem.parent.titleKey) }}
+              </template>
+            </p>
             <h2 class="text-2xl font-bold text-primary-900">
-              {{ selectedDepartment.title }}
+              {{ $t(selectedItem.node.titleKey) }}
             </h2>
-            <p v-if="selectedDepartment.description" class="text-lg text-neutral-500">
-              {{ selectedDepartment.description }}
+          </div>
+          <div class="w-full h-px bg-neutral-200" />
+          <ServicesList :service-slug="selectedItem.node.slug" />
+        </template>
+
+        <!-- Izabrana grupa: overview -->
+        <template v-else-if="selectedGroup">
+          <div class="flex flex-col gap-2">
+            <h2 class="text-2xl font-bold text-primary-900">
+              {{ $t(selectedGroup.titleKey) }}
+            </h2>
+            <p
+              v-if="groupLead(selectedGroup.slug)"
+              class="text-lg text-neutral-500"
+            >
+              {{ groupLead(selectedGroup.slug) }}
             </p>
           </div>
           <div class="w-full h-px bg-neutral-200" />
-          <ServicesList :department-id="selectedDepartment.id" />
+          <div
+            v-if="selectedGroup.children"
+            class="grid md:grid-cols-2 gap-3"
+          >
+            <template
+              v-for="child in selectedGroup.children"
+              :key="'ov-' + child.slug"
+            >
+              <NuxtLink
+                v-if="child.route"
+                :to="child.route"
+                class="group flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white p-4 transition-colors hover:border-primary-300 hover:bg-primary-50"
+              >
+                <span class="font-medium text-neutral-700 group-hover:text-primary-600">
+                  {{ $t(child.titleKey) }}
+                </span>
+                <Icon
+                  name="ion:arrow-forward"
+                  size="16"
+                  class="shrink-0 text-neutral-300 group-hover:text-primary-500"
+                />
+              </NuxtLink>
+              <button
+                v-else
+                type="button"
+                class="group flex items-center justify-between gap-3 rounded-xl border border-neutral-200 bg-white p-4 text-left cursor-pointer transition-colors hover:border-primary-300 hover:bg-primary-50"
+                @click="
+                  selectItem({ node: child, group: selectedGroup!, parent: null })
+                "
+              >
+                <span class="flex flex-col gap-0.5">
+                  <span
+                    class="font-medium text-neutral-700 group-hover:text-primary-600"
+                  >
+                    {{ $t(child.titleKey) }}
+                  </span>
+                  <span
+                    v-if="child.children"
+                    class="text-xs text-neutral-400"
+                  >
+                    {{
+                      child.children
+                        .map((sub) => $t(sub.titleKey))
+                        .join(' · ')
+                    }}
+                  </span>
+                </span>
+                <Icon
+                  name="ion:chevron-forward"
+                  size="16"
+                  class="shrink-0 text-neutral-300 group-hover:text-primary-500"
+                />
+              </button>
+            </template>
+          </div>
+          <!-- Grupa bez pod-stavki (правна/техничка служба): direktno usluge -->
+          <ServicesList v-else :service-slug="selectedGroup.slug" />
         </template>
-
-        <GroupExamDetail v-if="selectedGroupExam" :exam="selectedGroupExam" />
       </section>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import type { Department, GroupExam } from '~/types/services'
+import {
+  SERVICE_GROUPS,
+  findServiceGroup,
+  findServiceNode,
+  flattenServiceNodes,
+  type FlatServiceNode,
+  type ServiceNode,
+} from '~/utils/services-structure'
 
-const { t } = useI18n()
+const { t, te } = useI18n()
 const route = useRoute()
 const router = useRouter()
 
-const queryString = (val: unknown): string | undefined => {
-  if (Array.isArray(val)) return val[0] ?? undefined
-  return (val as string) ?? undefined
+// Lead tekst grupe — guard da nova grupa bez prevoda ne renderuje sirovi ključ
+const groupLead = (slug: string) => {
+  const key = `pages.services.groupLeads.${slug}`
+  return te(key) ? t(key) : ''
 }
 
 useSeoMeta({
@@ -198,159 +354,135 @@ useSeoMeta({
   ogSiteName: () => t('seo.siteName'),
 })
 
-// Grupe usluga (nova klijentova podela). Konkretne usluge po grupi dolaze sa API-ja.
-const DEPARTMENT_CONFIG: {
-  id: number
-  titleKey: string
-  group: 'medical' | 'other'
-}[] = [
-  { id: 1, titleKey: 'nav.generalMedicine', group: 'medical' },
-  { id: 2, titleKey: 'nav.gynecology', group: 'medical' },
-  { id: 3, titleKey: 'nav.internalMedicine', group: 'medical' },
-  { id: 4, titleKey: 'nav.ophthalmology', group: 'medical' },
-  { id: 5, titleKey: 'nav.otorhinolaryngology', group: 'medical' },
-  { id: 6, titleKey: 'nav.physicalMedicine', group: 'medical' },
-  { id: 7, titleKey: 'nav.psychiatry', group: 'medical' },
-  { id: 8, titleKey: 'nav.psychologicalSupport', group: 'medical' },
-  { id: 9, titleKey: 'nav.occupationalMedicine', group: 'medical' },
-  { id: 10, titleKey: 'nav.radiology', group: 'medical' },
-  { id: 11, titleKey: 'nav.xray', group: 'medical' },
-  { id: 12, titleKey: 'nav.ultrasound', group: 'medical' },
-  { id: 13, titleKey: 'nav.mammography', group: 'medical' },
-  { id: 14, titleKey: 'nav.sportsMedicine', group: 'medical' },
-  { id: 15, titleKey: 'nav.labDiagnostics', group: 'medical' },
-  { id: 16, titleKey: 'nav.pharmacy', group: 'medical' },
-  { id: 17, titleKey: 'nav.legalService', group: 'other' },
-  { id: 18, titleKey: 'nav.technicalService', group: 'other' },
-]
-
-const allDepartments = computed(() =>
-  DEPARTMENT_CONFIG.map((d) => ({
-    id: d.id,
-    title: t(d.titleKey),
-    description: '',
-    group: d.group,
-  })),
-)
-
-// TODO: zameniti dummy vrednostima i povezati sa backendom
-const groupExams: GroupExam[] = [
-  {
-    id: 1,
-    title: 'Sistematski pregled za specijalne jedinice',
-    description:
-      'Kompletan sistematski pregled koji obuhvata internistički pregled, EKG, laboratorijske analize krvi i urina, spirometriju, oftalmološki pregled, ORL pregled, neurološki pregled i psihološku procenu.',
-    documentationRequired:
-      'Lična karta, službena legitimacija, uput od nadležne organizacione jedinice, zdravstveni karton',
-    price: 15000,
-  },
-  {
-    id: 2,
-    title: 'Sistematski pregled za policijske službenike',
-    description:
-      'Standardni sistematski pregled za redovne policijske službenike. Uključuje internistički pregled, EKG, osnovne laboratorijske analize, pregled vida i sluha.',
-    documentationRequired:
-      'Lična karta, službena legitimacija, uput od kadrovske službe',
-    price: 12000,
-  },
-  {
-    id: 3,
-    title: 'Sistematski pregled za vatrogasno-spasilačke jedinice',
-    description:
-      'Prošireni sistematski pregled prilagođen zahtevima vatrogasno-spasilačke službe. Obuhvata kompletnu internističku obradu, ergometriju, spirometriju i procenu fizičke sposobnosti.',
-    documentationRequired:
-      'Lična karta, službena legitimacija, uput od nadležne jedinice, prethodni nalazi (ako postoje)',
-    price: 18000,
-  },
-]
-
-const search = ref('')
-const matches = (title: string) =>
-  title.toLowerCase().includes(search.value.trim().toLowerCase())
-
-const medicalDepartments = computed(() =>
-  allDepartments.value.filter((d) => d.group === 'medical' && matches(d.title)),
-)
-const otherDepartments = computed(() =>
-  allDepartments.value.filter((d) => d.group === 'other' && matches(d.title)),
-)
-const visibleDepartments = computed(() => [
-  ...medicalDepartments.value,
-  ...otherDepartments.value,
-])
-const visibleGroupExams = computed(() =>
-  groupExams.filter((e) => matches(e.title)),
-)
-
-const selectedDepartment = ref<Department | null>(null)
-const selectedGroupExam = ref<GroupExam | null>(null)
+// Selekcija: ili L1 grupa (overview) ili konkretna L2/L3 stavka
+const selectedGroup = ref<ServiceNode | null>(null)
+const selectedItem = ref<FlatServiceNode | null>(null)
+const expandedGroup = ref<string | null>(null)
 const mobileNavRef = ref<HTMLElement | null>(null)
 
+const activeGroupSlug = computed(
+  () => selectedItem.value?.group.slug ?? selectedGroup.value?.slug ?? null,
+)
+
+const activeGroupItems = computed<FlatServiceNode[]>(() => {
+  const slug = activeGroupSlug.value
+  if (!slug) return []
+  return flattenServiceNodes().filter((f) => f.group.slug === slug)
+})
+
+// Pretraga (radi za ćirilicu i latinicu preko normalizeSearch)
+const search = ref('')
+const isSearching = computed(() => search.value.trim().length > 0)
+const searchResults = computed<FlatServiceNode[]>(() => {
+  const q = normalizeSearch(search.value.trim())
+  if (!q) return []
+  const groups: FlatServiceNode[] = SERVICE_GROUPS.map((g) => ({
+    node: g,
+    group: g,
+    parent: null,
+  }))
+  return [...groups, ...flattenServiceNodes()].filter((f) =>
+    normalizeSearch(t(f.node.titleKey)).includes(q),
+  )
+})
+
+const searchResultContext = (flat: FlatServiceNode) =>
+  flat.node.slug === flat.group.slug
+    ? undefined
+    : [t(flat.group.titleKey), flat.parent && t(flat.parent.titleKey)]
+        .filter(Boolean)
+        .join(' / ')
+
+const isNodeSelected = (flat: FlatServiceNode) =>
+  flat.node.slug === flat.group.slug
+    ? selectedGroup.value?.slug === flat.node.slug && !selectedItem.value
+    : selectedItem.value?.node.slug === flat.node.slug
+
+const mobileItemLabel = (flat: FlatServiceNode) =>
+  flat.parent
+    ? `${t(flat.parent.titleKey)}: ${t(flat.node.titleKey)}`
+    : t(flat.node.titleKey)
+
+// Horizontalno centriranje aktivnih pilula (oba mobilna reda: grupe i stavke).
+// Ručni scrollTo umesto scrollIntoView da ne pomera stranicu vertikalno.
 const scrollActiveIntoView = () => {
   nextTick(() => {
-    const active = mobileNavRef.value?.querySelector(
-      '.bg-primary-500',
-    ) as HTMLElement | null
-    active?.scrollIntoView({
-      behavior: 'smooth',
-      inline: 'center',
-      block: 'nearest',
+    const actives = mobileNavRef.value?.querySelectorAll<HTMLElement>(
+      '[aria-current="true"]',
+    )
+    actives?.forEach((el) => {
+      const row = el.parentElement
+      if (!row) return
+      row.scrollTo({
+        left: el.offsetLeft - (row.clientWidth - el.clientWidth) / 2,
+        behavior: 'smooth',
+      })
     })
   })
 }
 
-const selectDepartment = (department: Department, updateUrl = true) => {
-  selectedDepartment.value = department
-  selectedGroupExam.value = null
+const toggleGroup = (slug: string) => {
+  expandedGroup.value = expandedGroup.value === slug ? null : slug
+}
+
+const selectGroup = (group: ServiceNode, updateUrl = true) => {
+  selectedGroup.value = group
+  selectedItem.value = null
+  expandedGroup.value = group.children ? group.slug : null
   if (updateUrl) {
-    router.replace({ query: { department: String(department.id) } })
+    router.replace({ query: { group: group.slug } })
   }
   scrollActiveIntoView()
 }
 
-const selectGroupExam = (exam: GroupExam, updateUrl = true) => {
-  selectedGroupExam.value = exam
-  selectedDepartment.value = null
+const selectItem = (flat: FlatServiceNode, updateUrl = true) => {
+  selectedItem.value = flat
+  selectedGroup.value = null
+  expandedGroup.value = flat.group.slug
   if (updateUrl) {
-    router.replace({ query: { group: String(exam.id) } })
+    router.replace({ query: { service: flat.node.slug } })
   }
   scrollActiveIntoView()
+}
+
+const selectSearchResult = (flat: FlatServiceNode) => {
+  search.value = ''
+  if (flat.node.slug === flat.group.slug) {
+    selectGroup(flat.group)
+  } else {
+    selectItem(flat)
+  }
 }
 
 const applyQueryParams = () => {
-  const deptId = Number(queryString(route.query.department))
-  const section = queryString(route.query.section)
-  const groupId = Number(queryString(route.query.group))
+  const groupSlug = queryString(route.query.group)
+  const serviceSlug = queryString(route.query.service)
 
-  if (section === 'group' || groupId) {
-    if (groupId) {
-      const found = groupExams.find((e) => e.id === groupId)
-      if (found) {
-        selectGroupExam(found, false)
-        return
-      }
+  if (serviceSlug) {
+    const found = findServiceNode(serviceSlug)
+    if (found && !found.node.route) {
+      selectItem(found, false)
+      return
     }
-    if (groupExams.length) {
-      selectGroupExam(groupExams[0]!, false)
-    }
-    return
   }
 
-  if (deptId) {
-    const found = allDepartments.value.find((d) => d.id === deptId)
+  if (groupSlug) {
+    const found = findServiceGroup(groupSlug)
     if (found) {
-      selectDepartment(found, false)
+      selectGroup(found, false)
       return
     }
   }
 
   // Default: prva grupa
-  if (allDepartments.value.length) {
-    selectDepartment(allDepartments.value[0]!, false)
-  }
+  selectGroup(SERVICE_GROUPS[0]!, false)
 }
 
 applyQueryParams()
+
+// Na direktan ulazak preko URL-a setup se izvršava pre mount-a (ref je null),
+// pa se centriranje aktivnih pilula ponavlja kad DOM postoji
+onMounted(scrollActiveIntoView)
 
 watch(
   () => route.query,

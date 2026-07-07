@@ -20,7 +20,9 @@
         </div>
       </div>
     </TextBanner>
-    <div class="px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-10">
+    <div
+      class="px-4 md:px-12 lg:px-28 flex flex-col gap-6 md:gap-10 max-w-480 mx-auto w-full"
+    >
       <div
         class="px-4 md:px-8 py-8 md:py-12 gap-6 grid grid-cols-1 md:grid-cols-2 bg-white rounded-xl shadow-lg -mt-6 sm:-mt-10 relative"
       >
@@ -227,6 +229,7 @@
 import type { DetachmentClinicScheduleItem } from '~/types/schedule'
 
 const { t } = useI18n()
+const route = useRoute()
 
 const MONTH_KEYS = [
   'months.january',
@@ -275,16 +278,22 @@ useSeoMeta({
   ogSiteName: () => t('seo.siteName'),
 })
 
-// TODO: zameniti dummy vrednostima i povezati sa backendom
-interface WorkScheduleItem {
-  day: string
-  doctor: string
-  shift?: 1 | 2
-  room?: string
-}
+// TODO: zameniti dummy vrednostima i povezati sa backendom (dummy-data.ts)
+// Odeljenje se može zadati preko ?department= (npr. rezultat pretrage sajta)
+const departmentFromQuery = () =>
+  queryString(route.query.department) === 'cardiology' ? 'cardiology' : 'general'
 
-const currentDepartment = ref('general') // ili 'Kardiologija', može se menjati dinamički
+const currentDepartment = ref(departmentFromQuery())
 const doctorSearch = ref('') // Za buduću funkcionalnost pretrage doktora
+
+watch(
+  () => route.query.department,
+  () => {
+    if (route.path === '/work-schedule') {
+      currentDepartment.value = departmentFromQuery()
+    }
+  },
+)
 
 const daysOfWeek = [
   { key: 'Ponedeljak', label: 'days.monday' },
@@ -301,236 +310,11 @@ const departments = [
   { label: 'Kardiologija', value: 'cardiology' },
 ] // Lista odeljenja, može se proširiti
 
-const workSchedule: WorkScheduleItem[] = [
-  // Ponedeljak - Više doktora u prvoj smeni
-  {
-    day: 'Ponedeljak',
-    shift: 1,
-    doctor: 'Dr. Marković',
-    room: 'Soba 101',
-  },
-  {
-    day: 'Ponedeljak',
-    shift: 1,
-    doctor: 'Dr. Lukić',
-    room: 'Soba 106',
-  },
-  {
-    day: 'Ponedeljak',
-    shift: 1,
-    doctor: 'Dr. Marić',
-    room: 'Soba 110',
-  },
-  {
-    day: 'Ponedeljak',
-    shift: 2,
-    doctor: 'Dr. Marković',
-    room: 'Soba 101',
-  },
-
-  // Utorak - Jednom fali soba
-  { day: 'Utorak', shift: 1, doctor: 'Dr. Petrović' },
-  {
-    day: 'Utorak',
-    shift: 1,
-    doctor: 'Dr. Simić',
-    room: 'Soba 102',
-  },
-  {
-    day: 'Utorak',
-    shift: 2,
-    doctor: 'Dr. Stanić',
-    room: 'Soba 205',
-  },
-
-  // Sreda - Više doktora u drugoj smeni, jednom fali smena
-  { day: 'Sreda', doctor: 'Dr. Jovanović', room: 'Soba 103' },
-  {
-    day: 'Sreda',
-    shift: 2,
-    doctor: 'Dr. Pavlović',
-    room: 'Soba 108',
-  },
-  {
-    day: 'Sreda',
-    shift: 2,
-    doctor: 'Dr. Ilić',
-    room: 'Soba 109',
-  },
-
-  // Četvrtak
-  {
-    day: 'Četvrtak',
-    shift: 2,
-    doctor: 'Dr. Nikolić',
-    room: 'Soba 104',
-  },
-  {
-    day: 'Četvrtak',
-    shift: 1,
-    doctor: 'Dr. Arsić',
-    room: 'Soba 112',
-  },
-
-  // Petak - Kombinovano
-  {
-    day: 'Petak',
-    shift: 1,
-    doctor: 'Dr. Ilić',
-    room: 'Soba 105',
-  },
-  { day: 'Petak', doctor: 'Dr. Kostić' },
-  // Subota - Vikend dežurstva i skraćene smene
-  {
-    day: 'Subota',
-    shift: 1,
-    doctor: 'Dr. Lukić',
-    room: 'Soba 106',
-  },
-  {
-    day: 'Subota',
-    shift: 1,
-    doctor: 'Dr. Marić',
-    room: 'Soba 110',
-  },
-  {
-    day: 'Subota',
-    shift: 2,
-    doctor: 'Dr. Petrović',
-    room: 'Soba 102',
-  },
-  { day: 'Subota', shift: 2, doctor: 'Dr. Arsić' }, // Fali soba
-
-  // Nedelja - Minimalna postava / Dežurni lekari
-  {
-    day: 'Nedelja',
-    doctor: 'Dr. Simić',
-    room: 'Dežurna Služba',
-  }, // Fali smena (ceo dan dežuran)
-  {
-    day: 'Nedelja',
-    shift: 1,
-    doctor: 'Dr. Nikolić',
-    room: 'Soba 104',
-  },
-]
-
-const cardiologySchedule: WorkScheduleItem[] = [
-  // Ponedeljak - Jutarnja gužva na kardiologiji
-  {
-    day: 'Ponedeljak',
-    shift: 1,
-    doctor: 'Dr. Popović (Kardiolog)',
-    room: 'Kardio 1',
-  },
-  {
-    day: 'Ponedeljak',
-    shift: 1,
-    doctor: 'Dr. Pejić (Hirurg)',
-    room: 'Operaciona Sala A',
-  },
-  {
-    day: 'Ponedeljak',
-    shift: 2,
-    doctor: 'Dr. Popović (Kardiolog)',
-    room: 'Kardio 1',
-  },
-
-  // Utorak
-  {
-    day: 'Utorak',
-    shift: 1,
-    doctor: 'Dr. Tanasković',
-    room: 'Ultrazvuk Kabinet',
-  },
-  { day: 'Utorak', shift: 1, doctor: 'Dr. Mikić' }, // Nema sobe
-
-  // Sreda
-  {
-    day: 'Sreda',
-    shift: 2,
-    doctor: 'Dr. Vasović',
-    room: 'Kardio 2',
-  },
-  {
-    day: 'Sreda',
-    shift: 2,
-    doctor: 'Dr. Đurić',
-    room: 'Kardio 3',
-  },
-  { day: 'Sreda', doctor: 'Dr. Terzić', room: 'Dežurna Služba' }, // Nema smene
-
-  // Četvrtak
-  {
-    day: 'Četvrtak',
-    shift: 1,
-    doctor: 'Dr. Filipović',
-    room: 'Kardio 1',
-  },
-  { day: 'Četvrtak', shift: 2, doctor: 'Dr. Filipović' },
-
-  // Petak
-  {
-    day: 'Petak',
-    shift: 1,
-    doctor: 'Dr. Živković',
-    room: 'Kardio 4',
-  },
-  {
-    day: 'Petak',
-    shift: 1,
-    doctor: 'Dr. Jović',
-    room: 'Kardio 5',
-  },
-  {
-    day: 'Petak',
-    shift: 2,
-    doctor: 'Dr. Jović',
-    room: 'Kardio 5',
-  },
-  // Subota - Hitne intervencije i pregledi
-  {
-    day: 'Subota',
-    shift: 1,
-    doctor: 'Dr. Popović (Kardiolog)',
-    room: 'Kardio 1',
-  },
-  {
-    day: 'Subota',
-    shift: 1,
-    doctor: 'Dr. Tanasković',
-    room: 'Kardio 2',
-  },
-  {
-    day: 'Subota',
-    doctor: 'Dr. Pejić (Hirurg)',
-    room: 'Operaciona Sala A',
-  }, // Fali smena (pripravnost)
-
-  // Nedelja - Dežurstva
-  {
-    day: 'Nedelja',
-    shift: 2,
-    doctor: 'Dr. Đurić',
-    room: 'Kardio 3',
-  },
-  {
-    day: 'Nedelja',
-    shift: 1,
-    doctor: 'Dr. Filipović',
-    room: 'Kardio 1',
-  },
-  {
-    day: 'Nedelja',
-    doctor: 'Dr. Vasović',
-  }, // Samo doktor (nema sobe ni smene - on-call)
-]
-
 const currentSchedule = computed(() => {
   if (currentDepartment.value === 'cardiology') {
-    return cardiologySchedule
+    return WORK_SCHEDULE_CARDIOLOGY
   }
-  return workSchedule
+  return WORK_SCHEDULE_GENERAL
 })
 
 const returnSceheduleTime = (shift?: 1 | 2) => {
@@ -539,39 +323,6 @@ const returnSceheduleTime = (shift?: 1 | 2) => {
   return 'N/A'
 }
 
-const detachedClinicsSchedule: DetachmentClinicScheduleItem[] = [
-  {
-    doctor: 'Dr. Jovanović',
-    clinic: {
-      name: 'Dom Zdravlja Novi Sad',
-      address: 'Bulevar Oslobođenja 123, Novi Sad',
-      phoneNumber: '+381 21 1234567',
-    },
-  },
-  {
-    doctor: 'Dr. Stanić',
-    clinic: {
-      name: 'Poliklinika Zdravlje',
-      address: 'Kralja Petra 45, Novi Sad',
-      phoneNumber: '+381 21 7654321',
-    },
-  },
-  {
-    doctor: 'Dr. Vasović',
-    clinic: {
-      name: 'Dom Zdravlja Petrovaradin',
-      address: 'Petrovaradinska 10, Novi Sad',
-      phoneNumber: '+381 21 2468101',
-    },
-  },
-
-  {
-    doctor: 'Dr. Đurić',
-    clinic: {
-      name: 'Poliklinika Zdravlje',
-      address: 'Kralja Petra 45, Novi Sad',
-      phoneNumber: '+381 21 7654321',
-    },
-  },
-]
+const detachedClinicsSchedule: DetachmentClinicScheduleItem[] =
+  DETACHED_CLINICS_SCHEDULE
 </script>

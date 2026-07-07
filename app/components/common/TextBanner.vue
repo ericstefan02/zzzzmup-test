@@ -1,8 +1,10 @@
 <template>
   <section
-    class="relative overflow-hidden px-4 md:px-12 lg:px-28 py-10 md:py-16 lg:py-20 bg-primary-600"
+    class="relative overflow-hidden py-10 md:py-16 lg:py-20 bg-primary-600"
   >
-    <div class="relative z-10 flex flex-col gap-4 md:gap-6">
+    <div
+      class="relative z-10 flex flex-col gap-4 md:gap-6 max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+    >
       <!-- Desktop: pun trag -->
       <nav
         aria-label="breadcrumb"

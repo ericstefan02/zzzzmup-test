@@ -1,8 +1,11 @@
 <template>
   <div class="bg-neutral-50 flex flex-col min-h-screen">
     <header
-      class="flex px-4 md:px-8 lg:px-28 items-center justify-between bg-white py-3 sm:py-4 sticky top-0 z-50 border-b border-neutral-200"
+      class="bg-white py-3 sm:py-4 sticky top-0 z-50 border-b border-neutral-200"
     >
+      <div
+        class="flex items-center justify-between max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+      >
       <NuxtLink to="/" class="flex items-center gap-3">
         <NuxtImg
           src="/img/logo.png"
@@ -24,6 +27,7 @@
         <Icon name="ion:arrow-back" size="18" />
         <span class="text-sm font-medium">{{ $t('legal.backButton') }}</span>
       </button>
+      </div>
     </header>
     <main class="grow">
       <slot />

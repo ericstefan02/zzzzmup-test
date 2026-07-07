@@ -1,9 +1,11 @@
 <template>
   <div>
     <section
-      class="relative flex flex-col justify-center px-4 md:px-12 lg:px-28 py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
+      class="relative flex flex-col justify-center py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
     >
-      <div class="fade-up relative flex flex-col gap-6 z-10 text-white">
+      <div
+        class="fade-up relative flex flex-col gap-6 z-10 text-white max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+      >
         <!-- Natpis "Званична државна институција" + назив Завода уклоњени на захтев клијента.
              h1 задржан као sr-only ради SEO (назив мора остати индексабилан). -->
         <h1 class="sr-only">
@@ -44,7 +46,7 @@
       />
     </section>
     <section
-      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-24 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5 max-w-480 mx-auto"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 px-4 md:px-12 lg:px-28 pt-12 md:pt-24 -mt-16 sm:-mt-24 lg:-mt-59.5 max-w-480 mx-auto"
     >
       <HighlightCard
         v-for="(item, index) in highlightItems"
@@ -53,12 +55,11 @@
         :description="item.description"
         :icon="item.icon"
         :button-text="item.buttonText"
-        :main="item.main"
         @click="item.action"
       />
     </section>
     <section
-      class="flex flex-col gap-8 md:gap-16 py-8 md:py-24 px-4 md:px-12 lg:px-28"
+      class="flex flex-col gap-8 md:gap-16 py-8 md:py-24 px-4 md:px-12 lg:px-28 max-w-480 mx-auto w-full"
     >
       <div class="flex flex-col gap-1 items-center justify-center">
         <span class="text-sm font-bold text-primary-400 uppercase">
@@ -72,7 +73,7 @@
         </p>
       </div>
       <div
-        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-480 mx-auto"
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
       >
         <ServicesCard
           v-for="(item, index) in selectedServices"
@@ -84,38 +85,23 @@
         />
       </div>
     </section>
-    <section
-      class="px-4 md:px-12 lg:px-28 py-8 md:py-12 bg-primary-600 flex flex-col md:flex-row justify-between items-start md:items-center gap-8 md:gap-16"
-    >
-      <div class="flex items-start gap-4 max-w-full md:max-w-2/5">
+    <section class="py-10 md:py-16 bg-primary-600">
+      <div
+        class="max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12"
+      >
         <div
-          class="flex items-center justify-center rounded-full bg-white/10 p-3 shrink-0"
+          v-for="n in 3"
+          :key="'stat-' + n"
+          class="flex flex-col gap-1.5 border-t border-primary-400/60 pt-5"
         >
-          <Icon name="ion:shield-half-outline" size="24" class="text-white" />
-        </div>
-        <div>
-          <h3 class="font-bold text-xl text-white">
-            {{ $t('pages.home.securityHealth') }}
-          </h3>
-          <p class="text-sm text-primary-100">
-            {{ $t('pages.home.securityHealthDesc') }}
-          </p>
-        </div>
-      </div>
-      <div class="hidden md:block w-px bg-primary-500 self-stretch" />
-      <div class="flex items-start gap-4 max-w-full md:max-w-2/5">
-        <div
-          class="flex items-center justify-center rounded-full bg-white/10 p-3 shrink-0"
-        >
-          <Icon name="ion:people" size="24" class="text-white" />
-        </div>
-        <div>
-          <h3 class="font-bold text-xl text-white">
-            {{ $t('pages.home.availability') }}
-          </h3>
-          <p class="text-sm text-primary-100">
-            {{ $t('pages.home.availabilityDesc') }}
-          </p>
+          <span
+            class="text-4xl md:text-5xl font-extrabold text-white tracking-tight tabular-nums"
+          >
+            {{ $t(`pages.home.stat${n}Value`) }}
+          </span>
+          <span class="text-base text-primary-100">
+            {{ $t(`pages.home.stat${n}Label`) }}
+          </span>
         </div>
       </div>
     </section>
@@ -197,37 +183,37 @@ useHead({
   ],
 })
 
-const highlightItems = computed(() => [
-  {
-    title: t('pages.home.highlightServices'),
-    description: t('pages.home.highlightServicesDesc'),
+// 4 kvadrata = prve 4 grupe usluga iz excela klijenta, vezano po slugu
+// (reorder u SERVICE_GROUPS ne sme da pomeša ikonice/opise).
+// Opisi su privremeni placeholderi — klijent šalje uvodne tekstove.
+const HIGHLIGHT_META: Record<string, { icon: string; descKey: string }> = {
+  'osnovne-zdravstvene-usluge': {
     icon: 'ion:medkit',
-    buttonText: t('pages.home.highlightServicesButton'),
-    action: () => router.push('/services'),
+    descKey: 'pages.home.highlightBasicDesc',
   },
-  {
-    title: t('pages.home.highlightSchedule'),
-    description: t('pages.home.highlightScheduleDesc'),
-    icon: 'ion:calendar',
-    buttonText: t('pages.home.highlightScheduleButton'),
-    action: () => router.push('/work-schedule'),
+  'pregledi-za-skolovanje-i-obuku': {
+    icon: 'ion:school',
+    descKey: 'pages.home.highlightSchoolingDesc',
   },
-  {
-    title: t('pages.home.highlightEForm'),
-    description: t('pages.home.highlightEFormDesc'),
-    icon: 'ion:document',
-    buttonText: t('pages.home.highlightEFormButton'),
-    main: true,
-    action: () => openEFormModal(),
+  'pregledi-za-prijem-u-radni-odnos': {
+    icon: 'ion:briefcase',
+    descKey: 'pages.home.highlightEmploymentDesc',
   },
-  {
-    title: t('pages.home.highlightPreventive'),
-    description: t('pages.home.highlightPreventiveDesc'),
-    icon: 'ion:heart',
-    buttonText: t('pages.home.highlightPreventiveButton'),
-    action: () => router.push('/preventive-center'),
+  'lekarska-uverenja': {
+    icon: 'ion:document-text',
+    descKey: 'pages.home.highlightCertificatesDesc',
   },
-])
+}
+
+const highlightItems = computed(() =>
+  SERVICE_GROUPS.filter((group) => HIGHLIGHT_META[group.slug]).map((group) => ({
+    title: t(group.titleKey),
+    description: t(HIGHLIGHT_META[group.slug]!.descKey),
+    icon: HIGHLIGHT_META[group.slug]!.icon,
+    buttonText: t('pages.home.learnMoreButton'),
+    action: () => router.push(serviceNodeRoute(group, true)),
+  })),
+)
 
 const selectedServices: ServicesCardData[] = [
   {
@@ -269,37 +255,6 @@ const selectedServices: ServicesCardData[] = [
   },
 ]
 
-const newsArticles: NewsArticle[] = [
-  {
-    id: 1,
-    title: 'Zavod uspešno završio projekat digitalizacije',
-    content:
-      '<p>Zavod za zdravstvenu zaštitu radnika Ministarstva unutrašnjih poslova uspešno je završio revolucionarni projekat digitalizacije svih medicinskih kartona i procesa. Ovaj projekat omogućava našim lekarima i pacijentima značajno brži pristup informacijama.</p><p>Glavne prednosti implementiranog sistema obuhvataju:</p><ul><li><strong>Brzina:</strong> Trenutni pristup celokupnoj istoriji bolesti pacijenta.</li><li><strong>Bezbednost podataka:</strong> Implementirani su najviši standardi enkripcije, u skladu sa procedurama MUP-a.</li><li><strong>Uvezanost:</strong> Bolja komunikacija između specijalističkih službi.</li></ul><p>Ovaj korak nas svrstava među najmodernije zdravstvene ustanove specifične namene u čitavom regionu.</p>',
-    image:
-      'https://fastly.picsum.photos/id/11/2500/1667.jpg?hmac=xxjFJtAPgshYkysU_aqx2sZir-kIOjNR9vx0te7GycQ',
-    created_at: '2024-05-15T10:00:00Z',
-  },
-  {
-    id: 2,
-    title:
-      'Zavod organizuje ciklus besplatnih zdravstvenih radionica za edukaciju i unapređenje životnih navika zaposlenih',
-    content:
-      '<p>Na osnovu statističkih podataka i analiza zdravstvenog stanja iz prethodnih godina, Zavod je pokrenuo potpuno novi <em>program prevencije oboljenja srca i krvnih sudova</em> namenjen svim aktivnim pripadnicima MUP-a.</p><p>Program obuhvata nekoliko ključnih faza:</p><ol><li>Detaljna kardiološka dijagnostika (EKG, ultrazvuk srca, Holter pritiska).</li><li>Ergometrija (test opterećenja) za procenu radne sposobnosti.</li><li>Konsultacije sa kliničkim nutricionistom radi izrade posebog plana ishrane.</li></ol><p>Prijave za prvi ciklus pregleda su otvorene i možete ih zakazati elektronskim putem preko portala.</p>',
-    image:
-      'https://fastly.picsum.photos/id/19/2500/1667.jpg?hmac=7epGozH4QjToGaBf_xb2HbFTXoV5o8n_cYzB7I4lt6g',
-
-    created_at: '2024-09-01T12:00:00Z',
-  },
-  {
-    id: 3,
-    title:
-      'Implementacija novog i sveobuhvatnog programa primarne prevencije bolesti srca i krvnih sudova kroz detaljnu analizu zdravstvenog profila pripadnika službi',
-    content:
-      '<p>Zavod organizuje novu seriju besplatnih i visoko-interaktivnih zdravstvenih radionica. Teme koje će biti obrađene pažljivo su odabrane u saradnji sa komandirima jedinica i zasnivaju se na potrebama direktno sa terena.</p><p>Prve tri radionice biće fokusirane na:</p><ul><li>Prevencija <strong>Burnout sindroma</strong> (sindroma sagorevanja na poslu).</li><li>Pravilna ishrana i balans tokom noćnih dežurstava.</li><li>Održavanje fizičke kondicije uz minimalno dostupnih rekvizita.</li></ul><p>Svi učesnici će na kraju ciklusa dobiti zvanični sertifikat o učestvovanju, dok su predavači naši eminentni stručnjaci iz psihijatrije i sportske medicine.</p>',
-    image:
-      'https://fastly.picsum.photos/id/42/3456/2304.jpg?hmac=dhQvd1Qp19zg26MEwYMnfz34eLnGv8meGk_lFNAJR3g',
-
-    created_at: '2024-06-10T14:00:00Z',
-  },
-]
+// TODO: zameniti API pozivom (dummy-data.ts)
+const newsArticles: NewsArticle[] = NEWS_ARTICLES.slice(0, 3)
 </script>

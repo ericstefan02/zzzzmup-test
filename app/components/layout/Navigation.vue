@@ -1,18 +1,20 @@
 <template>
-  <header
-    class="flex px-4 md:px-8 lg:px-16 nav:px-28 items-center justify-between shadow bg-white py-3 sm:py-4 sticky top-0 z-50 gap-4"
-  >
-    <div class="flex items-center gap-3">
-      <NuxtLink to="/" class="shrink-0">
-        <NuxtImg
-          src="/img/logo.png"
-          :alt="$t('layout.nav.logoAlt')"
-          format="webp"
-          height="75"
-          width="75"
-          class="h-12 w-12"
-        />
-      </NuxtLink>
+  <header class="shadow bg-white py-3 sm:py-4 sticky top-0 z-50">
+    <div
+      class="flex items-center justify-between gap-4 max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
+    >
+    <NuxtLink
+      to="/"
+      class="flex items-center gap-3 min-w-0 transition-opacity hover:opacity-80"
+    >
+      <NuxtImg
+        src="/img/logo.png"
+        :alt="$t('layout.nav.logoAlt')"
+        format="webp"
+        height="75"
+        width="75"
+        class="h-12 w-12"
+      />
       <h1 class="flex flex-col gap-0.5 sm:gap-0">
         <span
           class="font-bold sm:text-lg text-primary-600 leading-tight sm:leading-normal"
@@ -25,7 +27,7 @@
           {{ $t('layout.nav.ministryName') }}
         </span>
       </h1>
-    </div>
+    </NuxtLink>
     <nav class="hidden nav:flex items-center gap-1">
       <template v-for="item in NAV_ITEMS" :key="item.title">
         <NuxtLink
@@ -40,7 +42,7 @@
         <div
           v-else
           class="relative"
-          @mouseenter="openDropdown = item.title"
+          @mouseenter="openItem(item)"
           @mouseleave="closeDropdown"
         >
           <button
@@ -51,9 +53,7 @@
               'text-primary-500! font-bold border-primary-500!':
                 isChildActive(item),
             }"
-            @click="
-              openDropdown = openDropdown === item.title ? null : item.title
-            "
+            @click="openDropdown === item.title ? closeDropdown() : openItem(item)"
           >
             {{ $t(item.title) }}
             <Icon
@@ -91,58 +91,115 @@
           >
             <div
               v-if="openDropdown === item.title"
-              class="absolute top-full left-0 pt-1 z-50"
-              :class="item.mega ? 'w-[44rem]' : 'w-72'"
+              class="absolute top-full z-50 pt-1"
+              :class="
+                item.mega
+                  ? 'w-[56rem] left-1/2 -translate-x-1/2'
+                  : 'w-72 left-0'
+              "
             >
               <div
-                class="bg-white rounded-lg shadow-lg border border-neutral-200 py-1"
+                class="bg-white rounded-lg shadow-lg border border-neutral-200"
+                :class="item.mega ? 'overflow-hidden' : 'py-1'"
               >
-                <!-- Mega meni (Услуге): kolone -->
-                <div v-if="item.mega" class="flex gap-6 p-5">
-                  <div class="flex-1">
+                <!-- Mega meni (Услуге): master-detail — levi rail = grupe, desno = stavke aktivne grupe -->
+                <div v-if="item.mega" class="flex items-stretch">
+                  <div
+                    class="w-76 shrink-0 bg-neutral-50 border-r border-neutral-200 py-2"
+                  >
+                    <NuxtLink
+                      v-for="group in SERVICE_GROUPS"
+                      :key="group.slug"
+                      :to="serviceNodeRoute(group, true)"
+                      active-class=""
+                      class="flex items-center justify-between gap-2 px-4 py-2.5 text-[15px] font-semibold text-neutral-700 hover:text-primary-500 transition-colors"
+                      :class="{
+                        'bg-white': activeMegaGroup === group.slug,
+                        'text-primary-500!':
+                          activeMegaGroup === group.slug ||
+                          currentServiceGroupSlug === group.slug,
+                      }"
+                      @mouseenter="activeMegaGroup = group.slug"
+                      @focusin="activeMegaGroup = group.slug"
+                      @click="closeDropdown"
+                    >
+                      <span>{{ $t(group.titleKey) }}</span>
+                      <Icon
+                        name="ion:chevron-forward"
+                        size="14"
+                        class="shrink-0"
+                        :class="
+                          activeMegaGroup === group.slug
+                            ? 'text-primary-400'
+                            : 'text-neutral-300'
+                        "
+                      />
+                    </NuxtLink>
+                  </div>
+                  <div v-if="activeMegaNode" class="flex-1 min-w-0 p-5">
                     <h3
                       class="px-3 pb-2 text-xs font-bold uppercase tracking-wider text-primary-400"
                     >
-                      {{ $t(megaMedical(item)?.title ?? '') }}
+                      {{ $t(activeMegaNode.titleKey) }}
                     </h3>
-                    <div class="grid grid-cols-2 gap-x-2">
-                      <NuxtLink
-                        v-for="c in megaMedical(item)?.children"
-                        :key="c.title"
-                        :to="c.route!"
-                        active-class=""
-                        class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
-                        :class="{
-                          'text-primary-500! bg-primary-50! font-medium':
-                            isRouteActive(c.route!),
-                        }"
-                        @click="openDropdown = null"
+                    <div
+                      v-if="activeMegaNode.children"
+                      class="columns-2 gap-x-4"
+                    >
+                      <div
+                        v-for="child in activeMegaNode.children"
+                        :key="child.slug"
+                        class="break-inside-avoid"
                       >
-                        {{ $t(c.title) }}
+                        <NuxtLink
+                          :to="serviceNodeRoute(child)"
+                          active-class=""
+                          class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
+                          :class="{
+                            'text-primary-500! bg-primary-50! font-medium':
+                              isRouteActive(serviceNodeRoute(child)),
+                          }"
+                          @click="closeDropdown"
+                        >
+                          {{ $t(child.titleKey) }}
+                        </NuxtLink>
+                        <div
+                          v-if="child.children"
+                          class="ml-3 mb-1 pl-2 border-l border-primary-100"
+                        >
+                          <NuxtLink
+                            v-for="sub in child.children"
+                            :key="sub.slug"
+                            :to="serviceNodeRoute(sub)"
+                            active-class=""
+                            class="block px-3 py-1.5 text-[13px] text-neutral-500 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
+                            :class="{
+                              'text-primary-500! bg-primary-50! font-medium':
+                                isRouteActive(serviceNodeRoute(sub)),
+                            }"
+                            @click="closeDropdown"
+                          >
+                            {{ $t(sub.titleKey) }}
+                          </NuxtLink>
+                        </div>
+                      </div>
+                    </div>
+                    <div v-else class="px-3">
+                      <p
+                        v-if="activeMegaLead"
+                        class="text-sm text-neutral-500 leading-relaxed"
+                      >
+                        {{ activeMegaLead }}
+                      </p>
+                      <NuxtLink
+                        :to="serviceNodeRoute(activeMegaNode, true)"
+                        class="inline-flex items-center gap-1.5 pt-3 text-sm font-medium text-primary-500 hover:text-primary-600 transition-colors"
+                        @click="closeDropdown"
+                      >
+                        {{ $t('layout.nav.megaOpenGroup') }}
+                        <Icon name="ion:arrow-forward" size="14" />
                       </NuxtLink>
                     </div>
-                  </div>
-                  <div class="w-px bg-neutral-200 shrink-0" />
-                  <div class="w-56 shrink-0">
-                    <h3
-                      class="px-3 pb-2 text-xs font-bold uppercase tracking-wider text-primary-400"
-                    >
-                      {{ $t('nav.otherServices') }}
-                    </h3>
-                    <NuxtLink
-                      v-for="o in megaOthers(item)"
-                      :key="o.title"
-                      :to="o.route!"
-                      active-class=""
-                      class="block px-3 py-2 text-sm text-neutral-600 hover:bg-primary-50 hover:text-primary-500 rounded-md transition-colors"
-                      :class="{
-                        'text-primary-500! bg-primary-50! font-medium':
-                          isRouteActive(o.route!),
-                      }"
-                      @click="openDropdown = null"
-                    >
-                      {{ $t(o.title) }}
-                    </NuxtLink>
                   </div>
                 </div>
                 <template v-for="child in item.children" v-else :key="child.title">
@@ -221,48 +278,70 @@
         </div>
       </template>
     </nav>
-    <Button
-      class="hidden nav:inline-flex"
-      :text="$t('layout.nav.eFormButton')"
-      prepend-icon="ion:document"
-      @click="handleButtonClicked"
-    />
-    <MobileMenu />
+    <div class="flex items-center gap-1 sm:gap-2 shrink-0">
+      <button
+        type="button"
+        class="flex items-center justify-center h-10 w-10 rounded-lg text-neutral-600 hover:bg-primary-50 hover:text-primary-500 transition-colors cursor-pointer"
+        :aria-label="$t('components.search.open')"
+        @click="openSearchModal"
+      >
+        <Icon name="ion:search" size="22" />
+      </button>
+      <Button
+        class="hidden nav:inline-flex"
+        :text="$t('layout.nav.eFormButton')"
+        prepend-icon="ion:document"
+        @click="handleButtonClicked"
+      />
+      <MobileMenu />
+    </div>
+    </div>
   </header>
 </template>
 
 <script setup lang="ts">
+import type { NavItem } from '~/types/common'
+
 const route = useRoute()
 const openDropdown = ref<string | null>(null)
 const openNestedDropdown = ref<string | null>(null)
 const { open: openEFormModal } = useEFormModal()
+const { open: openSearchModal } = useSearchModal()
 
-type Nav = (typeof NAV_ITEMS)[number]
+// Mega meni (Услуге): aktivna grupa u levom rail-u
+const { t, te } = useI18n()
+const activeMegaGroup = ref<string>(SERVICE_GROUPS[0]!.slug)
+const activeMegaNode = computed(() => findServiceGroup(activeMegaGroup.value))
 
-// Mega meni: grupa sa pod-stavkama (Медицинске службе) i samostalne stavke (Правна/Техничка)
-const megaMedical = (item: Nav) => item.children?.find((c) => c.children)
-const megaOthers = (item: Nav) => item.children?.filter((c) => !c.children) ?? []
+// Lead za grupe bez pod-stavki — guard protiv sirovog ključa za novu grupu
+const activeMegaLead = computed(() => {
+  const slug = activeMegaNode.value?.slug
+  if (!slug) return ''
+  const key = `pages.services.groupLeads.${slug}`
+  return te(key) ? t(key) : ''
+})
 
-const isChildActive = (item: (typeof NAV_ITEMS)[number]) => {
-  return item.children?.some(
-    (child) =>
-      isRouteActive(child.route!) ||
-      child.children?.some((nested) => isRouteActive(nested.route!)),
-  )
-}
+// Grupa kojoj pripada trenutno otvorena usluga/grupa (za oznaku u rail-u)
+const currentServiceGroupSlug = computed(() => {
+  if (route.path !== '/services') return null
+  const groupSlug = queryString(route.query.group)
+  if (groupSlug && findServiceGroup(groupSlug)) return groupSlug
+  const serviceSlug = queryString(route.query.service)
+  if (serviceSlug) return findServiceNode(serviceSlug)?.group.slug ?? null
+  return null
+})
 
-const isRouteActive = (targetRoute: string) => {
-  const [path, query] = targetRoute.split('?')
-  if (path !== route.path) return false
-  if (!query) return !Object.keys(route.query).length
-  const params = new URLSearchParams(query)
-  for (const [key, value] of params) {
-    const routeVal = route.query[key]
-    const normalized = Array.isArray(routeVal) ? routeVal[0] : routeVal
-    if (normalized !== value) return false
+const openItem = (item: NavItem) => {
+  openDropdown.value = item.title
+  if (item.mega) {
+    activeMegaGroup.value =
+      currentServiceGroupSlug.value ?? SERVICE_GROUPS[0]!.slug
   }
-  return true
 }
+
+const isChildActive = (item: NavItem) => isNavBranchActive(item, route)
+const isRouteActive = (targetRoute: string) =>
+  isNavRouteActive(targetRoute, route)
 
 const closeDropdown = () => {
   openDropdown.value = null

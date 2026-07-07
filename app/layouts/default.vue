@@ -7,5 +7,6 @@
     </main>
     <Footer />
     <EFormModal />
+    <SearchModal />
   </div>
 </template>
