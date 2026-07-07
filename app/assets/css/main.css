@@ -2,7 +2,6 @@
 
 @layer base {
   :root {
-    --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
     /* Jaka ease-out kriva za UI (Emil) */
     --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
   }
@@ -54,8 +53,10 @@
 }
 
 @theme {
-  /* Tipografija */
-  --font-sans: var(--font-sans);
+  /* Tipografija — font stack se definiše OVDE, direktno u @theme.
+     NE preko :root + var(): samoreferenca pravi ciklus koji posle SPA
+     navigacije obara var u guaranteed-invalid → sajt padne na system font */
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
   /* Primary (Plava ka tamno sivoj) */
   --color-primary-50: #f0f4fe;
