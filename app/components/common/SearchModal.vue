@@ -15,13 +15,15 @@
         class="fixed inset-0 bg-black/50 z-80 flex items-start justify-center py-8 md:py-20 px-4"
         @click.self="close"
       >
+        <!-- Bez scale transforma: WebKit bug — touch skrol unutar elementa koji
+             je imao transform ume da ostane mrtav na iOS-u -->
         <Transition
           enter-active-class="transition duration-300 ease-out"
-          enter-from-class="opacity-0 scale-95"
-          enter-to-class="opacity-100 scale-100"
+          enter-from-class="opacity-0"
+          enter-to-class="opacity-100"
           leave-active-class="transition duration-200 ease-in"
-          leave-from-class="opacity-100 scale-100"
-          leave-to-class="opacity-0 scale-95"
+          leave-from-class="opacity-100"
+          leave-to-class="opacity-0"
         >
           <div
             v-if="isOpen"
@@ -61,10 +63,13 @@
 
             <!-- Rezultati -->
             <!-- min-h-0: flex dete sme da se skupi ispod sadržaja pa overflow radi;
-                 overscroll/touch-pan-y: skrol prstom ostaje u listi -->
+                 overscroll/touch-pan-y: skrol prstom ostaje u listi;
+                 touchstart blur: iOS sa otvorenom tastaturom guta drag gest,
+                 pa se tastatura sklanja čim korisnik pipne listu -->
             <div
               ref="listRef"
               class="min-h-0 md:max-h-128 overflow-y-auto overscroll-contain touch-pan-y"
+              @touchstart.passive="dismissKeyboard"
             >
               <template v-if="results.length">
                 <div
@@ -197,6 +202,11 @@ const openResult = (result: SearchResult) => {
 const openActive = () => {
   const active = results.value[activeIndex.value]
   if (active) openResult(active)
+}
+
+// Sklanja iOS tastaturu pri dodiru liste da drag gest ode listi, ne viewport-u
+const dismissKeyboard = () => {
+  inputRef.value?.blur()
 }
 
 watch(query, () => {
