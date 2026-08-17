@@ -154,6 +154,16 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 - ✅ Services mobilni pillovi: red bez aktivne pilule se resetuje na početak pri promeni grupe (`[data-pill-row]` u [services.vue](app/pages/services.vue)).
 - ✅ Font flicker na deploy-u: `fonts.defaults` u nuxt.config — weights `['400 800']` (varijabilni opseg, koristi se do extrabold), samo `normal` stil (italic se ne koristi), subsets cyrillic/latin/latin-ext, `preload: true`. Bez toga NIŠTA nije bilo preload-ovano (Google subsetovani fajlovi imaju unicode-range → default preload logika ih preskače). Modul preload-uje cyrillic woff2; latin (cifre) ide on-demand.
 
+**Urađeno (runda avg 2026 — šablon strane službe, grana `feat/service-pages`):**
+- ✅ Šablon 8 sekcija po mejlu klijenta, prva služba: Општа медицина. Planovi u `plans/` (git-ignorisano; PLAN-SAJT.md = naš, PLAN-BEKEND.md = za Dušana; identična „UGOVOR" sekcija u oba).
+- ✅ `ServiceNode.kind` (`group|sluzba|usluga`) u [services-structure.ts](app/utils/services-structure.ts) — tip sadržaja je svojstvo čvora, ne dubine. `serviceNodeRoute`: sluzba SA sadržajem → `/services/<slug>`, ostalo query kao pre.
+- ✅ Sadržaj: [types/sluzba.ts](app/types/sluzba.ts) (`SluzbaPage` = API ugovor), [utils/sluzbe/](app/utils/sluzbe/) registar (`hasSluzbaContent`), opsta-medicina.ts DOSLOVNO iz mejla. PLACEHOLDERI: opcije zakazivanja, FAQ odgovori (pitanja klijenta doslovna), fotke lekara (inicijali).
+- ✅ Strana [services/[slug].vue](app/pages/services/[slug].vue) (services.vue → services/index.vue): TextBanner + zakazivanje/kontakt (plavi okvir [ServiceContactCard](app/components/services/ServiceContactCard.vue)) + link raspored → /work-schedule + usluge po kategorijama + tim ([ServiceTeamCard](app/components/services/ServiceTeamCard.vue), badge detaširane ambulante) + еЗдравље ([EHealthLinks](app/components/services/EHealthLinks.vue)) + ЧПП (reuse FAQItem). Stari `?service=opsta-medicina` → 301 redirect.
+- ✅ SEO: useSeoMeta iz sadržaja + JSON-LD `MedicalClinic` + `FAQPage` (+ postojeći BreadcrumbList); sitemap.urls u nuxt.config (dopunjavati po službi).
+- ✅ Latinica: `toLatin()` display transliteracija u [transliterate.ts](app/utils/transliterate.ts) (digrafi Lj/Nj/Dž), dubinska zamena u computed-u strane (preskače slug/photo). U fazi 2 latinicu vraća API (`Accept-Language`).
+- ✅ Provereno: typecheck, Playwright (1440/768/390, nav dropdown → nova ruta, FAQ accordion, redirect, JSON-LD, lat toggle).
+- ✅ Dizajn pass (impeccable polish): Услуге = tipografske kolone (`columns-*`, break-inside-avoid) umesto identičnih icon-kartica sa checkmarcima (Stefanov prigovor „zguzvano"); tim = roster bez okvira, 2/3/4/5 kolona; kontakt telefon krupniji, radno vreme format usklađen sa footerom (`07:00 - 19:00`). Napravljen [PRODUCT.md](PRODUCT.md) (impeccable kontekst: register brand, personality „pouzdan/državni/smiren", anti-ref: marketing poliklinike + stari .gov.rs, WCAG 2.1 AA). Impeccable v4.1.1 dostupan (instaliran v3.5.0) — update po želji.
+
 **Preostalo:**
 - ⬜ Review klijenta → push. (Runda jul 2026 pušena na master: `fbdbdc2`.)
 - ⬜ Tech-debt iz code review-a (nije blokirajuće, raditi usput): services.vue selekciju derivovati čisto iz rute (computed) umesto ref+watch sync; zajednički modal shell za EFormModal/SearchModal; obrisati mrtve GroupExam* komponente + neiskorišćene ključeve (pages.services.departmentsLabel, documentationRequired) ako se potvrdi da se ne vraćaju. (Mega panel ekstrakcija i body-scroll-lock composable rešeni u rundi #2.)
@@ -161,6 +171,7 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 - ⬜ Uvodni tekstovi kvadrata + tekstovi usluga/uverenja (šalje klijent), prave brojke stat banda.
 - ⬜ Mobilni bug — čeka screenshot od Dušana.
 - ⬜ (čeka materijale) news/[id] dinamička strana + `NewsArticle` schema; pravi sadržaj iz API-ja.
+- ⬜ Backend pitanje (odluka backend tima, ne blokira sajt): doctor i faq kao `jsonb` kolone na sluzba_profile umesto zasebnih tabela? FAQ ok kao jsonb (čist prikaz); doctor bolje tabela — deli se sa rasporedom rada i budućim «Изаберите лекара» (treba FK/id).
 
 **Napomene:**
 - **reka-ui** (Reka UI, Vue headless komponente) je dozvoljen ako zatreba komponenta (mega-meni, accordion, tabs). Proveriti API preko ctx7 pre upotrebe.

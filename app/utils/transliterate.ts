@@ -50,3 +50,54 @@ export const normalizeSearch = (input: string): string => {
   }
   return out
 }
+
+// Prava (prikazna) transliteracija ćirilica → latinica, sa dijakriticima.
+// Srpska latinica je 1:1 preslikavanje, pa sadržaj koji stigne ćirilicom
+// (statički moduli sad, API kasnije za ne-API delove) ne mora da se unosi duplo.
+const CYR_TO_LAT_DISPLAY: Record<string, string> = {
+  а: 'a',
+  б: 'b',
+  в: 'v',
+  г: 'g',
+  д: 'd',
+  ђ: 'đ',
+  е: 'e',
+  ж: 'ž',
+  з: 'z',
+  и: 'i',
+  ј: 'j',
+  к: 'k',
+  л: 'l',
+  љ: 'lj',
+  м: 'm',
+  н: 'n',
+  њ: 'nj',
+  о: 'o',
+  п: 'p',
+  р: 'r',
+  с: 's',
+  т: 't',
+  ћ: 'ć',
+  у: 'u',
+  ф: 'f',
+  х: 'h',
+  ц: 'c',
+  ч: 'č',
+  џ: 'dž',
+  ш: 'š',
+}
+
+export const toLatin = (input: string): string => {
+  let out = ''
+  for (const ch of input) {
+    const lower = ch.toLowerCase()
+    const rep = CYR_TO_LAT_DISPLAY[lower]
+    if (rep === undefined) {
+      out += ch
+      continue
+    }
+    // Veliko slovo: Љ → Lj (digraf se ne kapitalizuje ceo)
+    out += ch === lower ? rep : rep[0]!.toUpperCase() + rep.slice(1)
+  }
+  return out
+}
