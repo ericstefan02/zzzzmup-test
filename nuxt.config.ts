@@ -50,6 +50,11 @@ export default defineNuxtConfig({
   site: {
     url: 'https://www.zzzzmup.rs',
   },
+  sitemap: {
+    // Dinamičke rute /services/[slug] se ne otkrivaju automatski — dopuniti
+    // pri dodavanju sadržaja nove službe (app/utils/sluzbe/)
+    urls: ['/services/opsta-medicina'],
+  },
   fonts: {
     defaults: {
       // Varijabilni opseg — sajt koristi 400..800 (font-extrabold na home statistici)

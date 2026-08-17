@@ -335,6 +335,7 @@ import {
   type FlatServiceNode,
   type ServiceNode,
 } from '~/utils/services-structure'
+import { hasSluzbaContent } from '~/utils/sluzbe'
 
 const { t, te } = useI18n()
 const route = useRoute()
@@ -457,6 +458,16 @@ const selectSearchResult = (flat: FlatServiceNode) => {
   }
 }
 
+// Stari link ?service=<slug> za službu koja sad ima svoju stranu → redirect
+const sluzbaRedirect = (): string | null => {
+  const serviceSlug = queryString(route.query.service)
+  if (!serviceSlug) return null
+  const found = findServiceNode(serviceSlug)
+  return found && found.node.kind === 'sluzba' && hasSluzbaContent(serviceSlug)
+    ? `/services/${serviceSlug}`
+    : null
+}
+
 const applyQueryParams = () => {
   const groupSlug = queryString(route.query.group)
   const serviceSlug = queryString(route.query.service)
@@ -481,7 +492,12 @@ const applyQueryParams = () => {
   selectGroup(SERVICE_GROUPS[0]!, false)
 }
 
-applyQueryParams()
+const initialRedirect = sluzbaRedirect()
+if (initialRedirect) {
+  await navigateTo(initialRedirect, { redirectCode: 301 })
+} else {
+  applyQueryParams()
+}
 
 // Na direktan ulazak preko URL-a setup se izvršava pre mount-a (ref je null),
 // pa se centriranje aktivnih pilula ponavlja kad DOM postoji
@@ -491,7 +507,12 @@ watch(
   () => route.query,
   () => {
     if (route.path === '/services') {
-      applyQueryParams()
+      const redirect = sluzbaRedirect()
+      if (redirect) {
+        navigateTo(redirect)
+      } else {
+        applyQueryParams()
+      }
     }
   },
 )

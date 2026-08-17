@@ -428,6 +428,26 @@
         "tehnicka-sluzba": "Tehnički i drugi slični poslovi Zavoda."
       }
     },
+    "sluzba": {
+      "schedulingTitle": "Zakažite pregled",
+      "contactTitle": "Kontakt",
+      "phoneLabel": "Kontakt telefon",
+      "emailLabel": "E-mail adresa",
+      "workingHoursTitle": "Radno vreme",
+      "weekdaysLabel": "Ponedeljak - Petak",
+      "weekendLabel": "Subota/nedelja",
+      "scheduleHere": "ovde",
+      "servicesTitle": "Usluge",
+      "teamTitle": "Naš tim",
+      "usefulInfoTitle": "Korisne informacije",
+      "eHealthIntro": "Putem portala eZdravlje možete brzo i jednostavno pristupiti svojim zdravstvenim podacima i elektronskim uslugama, bez dolaska u zdravstvenu ustanovu.",
+      "eHealthAccess": "Za pristup je potreban nalog na Portalu eUprava / elektronski identitet.",
+      "eHealthScheduling": "Zakazivanje pregleda",
+      "eHealthPrescription": "eRecept",
+      "eHealthSickLeave": "eBolovanje",
+      "eHealthRecords": "Uvid u zdravstveni karton",
+      "faqTitle": "Često postavljana pitanja"
+    },
     "workSchedule": {
       "title": "Raspored rada lekara",
       "description": "Informišite se o dostupnosti i rasporedu smena naših lekara specijalista. Podaci se ažuriraju na nedeljnom nivou.",
