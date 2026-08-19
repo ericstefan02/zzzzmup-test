@@ -9,16 +9,23 @@ export const OPSTA_MEDICINA: SluzbaPage = {
   about:
     'Служба опште медицине је први контакт пацијента са системом здравствене заштите. Наши лекари пружају примарну здравствену заштиту, превентивне прегледе, дијагностику, лечење акутних и хроничних болести, као и административне услуге из надлежности изабраног лекара.',
 
-  // PLACEHOLDER: klijent je napisao "навести које су опције" bez liste opcija.
-  // Zameniti kad klijent pošalje tačne opcije zakazivanja.
+  // Opcije zakazivanja: verdikt klijenta (mejl avg 2026). Prve 3 su linkovi
+  // (2× poziv, aplikacija u novom tabu) — ceo tekst je link.
   scheduling: [
-    'Телефоном на 011/3610-385',
-    'Лично, на шалтеру Завода',
-    'Путем Е-Форме на сајту',
+    { text: 'Национални кол центар 011/362-0000', url: 'tel:+381113620000' },
+    {
+      text: 'Централа Завода 011/3615-665 (следити упутства говорног аутомата)',
+      url: 'tel:+381113615665',
+    },
+    {
+      text: 'Апликација Мој доктор',
+      url: 'https://izabranidoktor.mojdoktor.gov.rs/',
+    },
+    { text: 'Лично, на шалтеру Завода' },
   ],
 
   contact: {
-    phone: '011/3610-385',
+    phone: '011/3615-665',
     email: 'info@zzzzmup.rs',
     workingHoursWeekday: '07:00 - 19:00',
     workingHoursWeekend: '07:00 - 13:00',
@@ -70,6 +77,8 @@ export const OPSTA_MEDICINA: SluzbaPage = {
     },
   ],
 
+  // Redosled: verdikt klijenta — lekari iz detaširanih ambulanti grupisani
+  // zajedno na kraju (poslednji red na širokom ekranu)
   team: [
     {
       fullName: 'Драган Петровић',
@@ -77,6 +86,14 @@ export const OPSTA_MEDICINA: SluzbaPage = {
       role: 'Шеф Службе опште медицине и гинекологије',
     },
     { fullName: 'Светлана Ђокић', title: 'Спец. др мед.' },
+    { fullName: 'Зорица Вујадиновић', title: 'др' },
+    { fullName: 'Љиљана Јовановић', title: 'др' },
+    { fullName: 'Валентина Ардељан', title: 'др' },
+    { fullName: 'Петар Јефтић', title: 'др' },
+    { fullName: 'Виолета Јовановић', title: 'др' },
+    { fullName: 'Горана Стевановић', title: 'др' },
+    { fullName: 'Бојана Шкрбић', title: 'др' },
+    { fullName: 'Иван Максимовић', title: 'др' },
     { fullName: 'Тања Ратковић', title: 'Спец. др мед.', ambulanta: 'амбуланта СИВ 2' },
     { fullName: 'Снежана Биволаревић', title: 'Спец. др мед.', ambulanta: 'амбуланта КПУ' },
     {
@@ -84,16 +101,8 @@ export const OPSTA_MEDICINA: SluzbaPage = {
       title: 'Спец. др мед.',
       ambulanta: 'амбуланта ПУ за Град Београд',
     },
-    { fullName: 'Зорица Вујадиновић', title: 'др' },
-    { fullName: 'Љиљана Јовановић', title: 'др' },
-    { fullName: 'Валентина Ардељан', title: 'др' },
-    { fullName: 'Петар Јефтић', title: 'др' },
-    { fullName: 'Виолета Јовановић', title: 'др' },
     { fullName: 'Аника Пештерац', title: 'др', ambulanta: 'амбуланта РИВ' },
-    { fullName: 'Горана Стевановић', title: 'др' },
     { fullName: 'Даница Тишма', title: 'др', ambulanta: 'амбуланта ЈЗО' },
-    { fullName: 'Бојана Шкрбић', title: 'др' },
-    { fullName: 'Иван Максимовић', title: 'др' },
   ],
 
   showUsefulInfo: true,
@@ -119,12 +128,12 @@ export const OPSTA_MEDICINA: SluzbaPage = {
     {
       question: 'Како заказујем преглед?',
       answer:
-        'Преглед можете заказати телефоном на 011/3610-385, лично на шалтеру Завода или путем Е-Форме на сајту.',
+        'Преглед можете заказати преко Националног кол центра 011/362-0000, преко централе Завода 011/3615-665, путем апликације Мој доктор или лично, на шалтеру Завода.',
     },
     {
       question: 'Како да откажем заказани преглед?',
       answer:
-        'Заказани преглед откажите телефоном на 011/3610-385, по могућству најкасније дан пре заказаног термина, како би термин могао да се уступи другом пацијенту.',
+        'Заказани преглед откажите телефоном, преко Националног кол центра 011/362-0000 или централе Завода 011/3615-665, по могућству најкасније дан пре заказаног термина, како би термин могао да се уступи другом пацијенту.',
     },
     {
       question: 'Шта треба понети?',

@@ -164,6 +164,13 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 - ✅ Provereno: typecheck, Playwright (1440/768/390, nav dropdown → nova ruta, FAQ accordion, redirect, JSON-LD, lat toggle).
 - ✅ Dizajn pass (impeccable polish): Услуге = tipografske kolone (`columns-*`, break-inside-avoid) umesto identičnih icon-kartica sa checkmarcima (Stefanov prigovor „zguzvano"); tim = roster bez okvira, 2/3/4/5 kolona; kontakt telefon krupniji, radno vreme format usklađen sa footerom (`07:00 - 19:00`). Napravljen [PRODUCT.md](PRODUCT.md) (impeccable kontekst: register brand, personality „pouzdan/državni/smiren", anti-ref: marketing poliklinike + stari .gov.rs, WCAG 2.1 AA). Impeccable v4.1.1 dostupan (instaliran v3.5.0) — update po želji.
 
+**Urađeno (verdikt klijenta na stranu službe, avg 2026 — NEKOMITOVANO, čeka Stefanov pregled):**
+- ✅ Закажите преглед = čisto nabrajanje 4 opcije (kol centar 011/362-0000 · centrala 011/3615-665 + govorni automat · aplikacija Мој доктор sa linkom · lično); Е-Форма opcija i dugme uklonjeni sa strane. `SluzbaPage.scheduling` sada `{text, url?}[]` (ugovor ažuriran u plans/).
+- ✅ Kontakt broj službe → 011/3615-665; FAQ placeholder odgovori usklađeni (bez starog broja).
+- ✅ Услуге = V4 varijanta (izbor klijenta): jednake kartice auto-fit, tint zaglavlje, hairline stavke.
+- ✅ Тим: 5 lekara detaširanih ambulanti grupisano na kraju (poslednji red na xl).
+- ⬜ Klijent ostaje dužan: destinacije 4 eZdravlje dugmeta (sad placeholder link) + FAQ odgovore.
+
 **Preostalo:**
 - ⬜ Review klijenta → push. (Runda jul 2026 pušena na master: `fbdbdc2`.)
 - ⬜ Tech-debt iz code review-a (nije blokirajuće, raditi usput): services.vue selekciju derivovati čisto iz rute (computed) umesto ref+watch sync; zajednički modal shell za EFormModal/SearchModal; obrisati mrtve GroupExam* komponente + neiskorišćene ključeve (pages.services.departmentsLabel, documentationRequired) ako se potvrdi da se ne vraćaju. (Mega panel ekstrakcija i body-scroll-lock composable rešeni u rundi #2.)

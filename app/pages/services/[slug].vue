@@ -33,15 +33,29 @@
               >
                 <Icon :name="SCHEDULING_ICONS[i] ?? 'ion:checkmark'" size="16" />
               </span>
-              <span class="text-neutral-700">{{ option }}</span>
+              <!-- Ceo tekst opcije je link kad url postoji (novi tab samo za
+                   web); klikabilnost signalizira primary deo (broj / naziv) -->
+              <a
+                v-if="option.url"
+                :href="option.url"
+                :target="option.url.startsWith('http') ? '_blank' : undefined"
+                :rel="option.url.startsWith('http') ? 'noopener' : undefined"
+                class="text-neutral-700 hover:underline underline-offset-2 decoration-primary-300"
+              >
+                <template
+                  v-for="(part, pi) in schedulingParts(option.text)"
+                  :key="pi"
+                >
+                  <span
+                    v-if="part.hot"
+                    class="font-medium text-primary-500"
+                  >{{ part.value }}</span>
+                  <template v-else>{{ part.value }}</template>
+                </template>
+              </a>
+              <span v-else class="text-neutral-700">{{ option.text }}</span>
             </li>
           </ul>
-          <Button
-            :text="$t('layout.nav.eFormButton')"
-            prepend-icon="ion:document-text"
-            shrinked
-            @click="openEFormModal"
-          />
           <p v-if="content.scheduleNote" class="text-neutral-500 mt-auto">
             {{ content.scheduleNote }}
             <NuxtLink
@@ -71,22 +85,26 @@
             {{ $t('pages.sluzba.servicesTitle') }}
           </h2>
         </div>
-        <!-- Poravnati redovi: kategorija u fiksnoj levoj koloni, stavke kao
-             pločice desno — sve kategorije dele istu ravan -->
-        <div>
+        <!-- V4 (izbor klijenta): jednake kartice u auto-fit redu, svetloplavo
+             tint zaglavlje, stavke lista sa hairline linijama -->
+        <div
+          class="grid grid-cols-[repeat(auto-fit,minmax(230px,1fr))] gap-4 items-stretch"
+        >
           <div
             v-for="category in content.serviceCategories"
             :key="category.name"
-            class="grid lg:grid-cols-[260px_1fr] gap-y-3 gap-x-10 py-6 md:py-7 border-b border-neutral-200 first:pt-0 last:border-b-0 last:pb-0"
+            class="flex flex-col rounded-xl border border-neutral-200 bg-white overflow-hidden"
           >
-            <h3 class="text-lg font-bold text-primary-900 leading-snug lg:pt-1.5">
+            <h3
+              class="bg-primary-50 text-primary-600 font-bold text-base px-4 py-3 leading-snug"
+            >
               {{ category.name }}
             </h3>
-            <ul class="flex flex-wrap gap-2">
+            <ul class="flex flex-col py-1">
               <li
                 v-for="item in category.items"
                 :key="item.name"
-                class="rounded-lg bg-primary-50 px-3.5 py-2 text-primary-900 leading-snug max-w-prose"
+                class="px-4 py-2.5 border-t border-neutral-100 first:border-t-0 text-neutral-700 text-[0.95rem] leading-snug"
               >
                 {{ item.name }}
               </li>
@@ -166,7 +184,6 @@ import type { SluzbaPage } from '~/types/sluzba'
 
 const route = useRoute()
 const { t, locale } = useI18n()
-const { open: openEFormModal } = useEFormModal()
 
 const slug = route.params.slug as string
 const raw = getSluzbaContent(slug)
@@ -184,8 +201,23 @@ if (!raw) {
   }
 }
 
-// Ikonice po redosledu opcija zakazivanja (sadržaj je dinamičan, ikone su UI)
-const SCHEDULING_ICONS = ['ion:call', 'ion:walk', 'ion:document-text']
+// Ikonice po redosledu opcija zakazivanja (sadržaj je dinamičan, ikone su UI):
+// kol centar · centrala · aplikacija Мој доктор · lično
+const SCHEDULING_ICONS = ['ion:call', 'ion:call', 'ion:phone-portrait', 'ion:walk']
+
+// Deo teksta opcije koji signalizira klikabilnost (primary boja): prvi
+// telefonski broj u tekstu, a bez broja ceo tekst (npr. naziv aplikacije)
+const schedulingParts = (
+  text: string,
+): { value: string; hot: boolean }[] => {
+  const match = text.match(/\d[\d/-]*\d/)
+  if (!match || match.index === undefined) return [{ value: text, hot: true }]
+  return [
+    { value: text.slice(0, match.index), hot: false },
+    { value: match[0], hot: true },
+    { value: text.slice(match.index + match[0].length), hot: false },
+  ].filter((part) => part.value)
+}
 
 // Sadržaj je ćirilicom; za sr-Latn dubinska transliteracija svih stringova
 // sem identifikatora. U fazi 2 (API) latinicu vraća server (Accept-Language).

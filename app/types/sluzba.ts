@@ -11,6 +11,13 @@ export interface SluzbaContact {
   workingHoursWeekend: string
 }
 
+/** Opcija zakazivanja — čisto nabrajanje (bez akcija); url samo kad je
+ *  eksplicitno deo sadržaja (npr. portal Мој доктор) */
+export interface SluzbaSchedulingOption {
+  text: string
+  url?: string
+}
+
 export interface SluzbaServiceItem {
   name: string
   description?: string
@@ -40,7 +47,7 @@ export interface SluzbaPage {
   /** О служби — uvodni tekst */
   about: string
   /** Начин заказивања — opcije */
-  scheduling?: string[]
+  scheduling?: SluzbaSchedulingOption[]
   /** Контакт и радно време (obojeni okvir) */
   contact?: SluzbaContact
   /** Rečenica pre linka "овде" ka /work-schedule (sadrži naziv u genitivu) */
