@@ -9,6 +9,9 @@ export interface SluzbaContact {
   email: string
   workingHoursWeekday: string
   workingHoursWeekend: string
+  /** Override labela vikend reda (default i18n „Субота/недеља") —
+   *  npr. ginekologija radi samo subotom pa klijent šalje „Субота" */
+  weekendLabel?: string
 }
 
 /** Opcija zakazivanja — čisto nabrajanje (bez akcija); url samo kad je

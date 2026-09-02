@@ -1,5 +1,6 @@
 import type { SluzbaPage } from '~/types/sluzba'
 import { OPSTA_MEDICINA } from './opsta-medicina'
+import { GINEKOLOGIJA } from './ginekologija'
 
 // Registar statičkog sadržaja strana službi (šablon 8 sekcija).
 // Služba čiji slug NIJE ovde zadržava stari prikaz na /services?service=<slug>
@@ -7,6 +8,7 @@ import { OPSTA_MEDICINA } from './opsta-medicina'
 
 const SLUZBA_CONTENT: Record<string, SluzbaPage> = {
   [OPSTA_MEDICINA.slug]: OPSTA_MEDICINA,
+  [GINEKOLOGIJA.slug]: GINEKOLOGIJA,
 }
 
 export const hasSluzbaContent = (slug: string): boolean =>

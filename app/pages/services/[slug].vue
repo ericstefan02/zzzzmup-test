@@ -121,13 +121,14 @@
             {{ $t('pages.sluzba.teamTitle') }}
           </h2>
         </div>
-        <div
-          class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-x-4 gap-y-8 md:gap-y-10"
-        >
+        <!-- Flex umesto grida: nepotpun poslednji red (i tim < 5) se centrira;
+             širine repliciraju kolone 2/3/4/5 po breakpointima (gap-x-4 = 1rem) -->
+        <div class="flex flex-wrap justify-center gap-x-4 gap-y-8 md:gap-y-10">
           <ServiceTeamCard
             v-for="member in content.team"
             :key="member.fullName"
             :member="member"
+            class="w-[calc(50%-0.5rem)] md:w-[calc(33.333%-0.667rem)] lg:w-[calc(25%-0.75rem)] xl:w-[calc(20%-0.8rem)]"
           />
         </div>
       </section>

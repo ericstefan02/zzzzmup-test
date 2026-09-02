@@ -53,7 +53,7 @@ export default defineNuxtConfig({
   sitemap: {
     // Dinamičke rute /services/[slug] se ne otkrivaju automatski — dopuniti
     // pri dodavanju sadržaja nove službe (app/utils/sluzbe/)
-    urls: ['/services/opsta-medicina'],
+    urls: ['/services/opsta-medicina', '/services/ginekologija'],
   },
   fonts: {
     defaults: {

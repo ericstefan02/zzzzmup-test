@@ -55,18 +55,15 @@
           <span class="text-sm text-primary-100">
             {{ $t('pages.sluzba.workingHoursTitle') }}
           </span>
-          <div class="flex items-baseline justify-between gap-4">
-            <span class="whitespace-nowrap">
-              {{ $t('pages.sluzba.weekdaysLabel') }}
-            </span>
+          <!-- Labela sme da se prelomi; vreme uvek u komadu uz desnu ivicu -->
+          <div class="grid grid-cols-[1fr_auto] items-baseline gap-x-4">
+            <span>{{ $t('pages.sluzba.weekdaysLabel') }}</span>
             <span class="font-semibold tabular-nums whitespace-nowrap">
               {{ contact.workingHoursWeekday }}
             </span>
           </div>
-          <div class="flex items-baseline justify-between gap-4">
-            <span class="whitespace-nowrap">
-              {{ $t('pages.sluzba.weekendLabel') }}
-            </span>
+          <div class="grid grid-cols-[1fr_auto] items-baseline gap-x-4">
+            <span>{{ contact.weekendLabel ?? $t('pages.sluzba.weekendLabel') }}</span>
             <span class="font-semibold tabular-nums whitespace-nowrap">
               {{ contact.workingHoursWeekend }}
             </span>
