@@ -1,7 +1,7 @@
 <template>
   <div>
     <section
-      class="relative flex flex-col justify-center py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-172"
+      class="relative flex flex-col justify-center py-16 md:py-24 lg:py-32 min-h-80 md:min-h-120 lg:h-192"
     >
       <div
         class="fade-up relative flex flex-col gap-6 z-10 text-white max-w-480 mx-auto w-full px-4 md:px-12 lg:px-28"
@@ -33,16 +33,67 @@
           </NuxtLink>
         </div>
       </div>
-      <NuxtImg
-        src="/img/index2.png"
-        class="absolute inset-0 w-full h-full object-cover"
-        :alt="$t('pages.home.heroImageAlt')"
-        format="webp"
-        preload
-        fetchpriority="high"
-      />
+      <!-- Kolaž klijenta (sep 2026) rekreiran gridom od pojedinačnih fotki:
+           md+ = 3 gore / 2 dole (raspored identičan poslatom kolažu),
+           mobilni = jedna fotka. Dekorativna pozadina ispod overlaya. -->
+      <div class="absolute inset-0" aria-hidden="true">
+        <div
+          class="hidden md:grid h-full w-full grid-cols-6 grid-rows-2 gap-1 bg-white"
+        >
+          <NuxtImg
+            src="/img/hero/cekaonica.webp"
+            width="1000"
+            height="668"
+            class="col-span-2 h-full w-full object-cover"
+            alt=""
+            fetchpriority="high"
+          />
+          <NuxtImg
+            src="/img/hero/ergospirometrija.webp"
+            width="1086"
+            height="1086"
+            class="col-span-2 h-full w-full object-cover"
+            alt=""
+            fetchpriority="high"
+          />
+          <NuxtImg
+            src="/img/hero/salter.webp"
+            width="1000"
+            height="668"
+            class="col-span-2 h-full w-full object-cover"
+            alt=""
+            fetchpriority="high"
+          />
+          <NuxtImg
+            src="/img/hero/rendgen.webp"
+            width="1000"
+            height="668"
+            class="col-span-3 h-full w-full object-cover"
+            alt=""
+            fetchpriority="high"
+          />
+          <NuxtImg
+            src="/img/hero/doktor.webp"
+            width="1536"
+            height="1024"
+            class="col-span-3 h-full w-full object-cover"
+            alt=""
+            fetchpriority="high"
+          />
+        </div>
+        <NuxtImg
+          src="/img/hero/doktor.webp"
+          width="1536"
+          height="1024"
+          class="md:hidden h-full w-full object-cover"
+          :alt="$t('pages.home.heroImageAlt')"
+          fetchpriority="high"
+        />
+      </div>
+      <!-- Overlay: mobilni vertikalan (tekst preko cele širine); desktop
+           horizontalan — taman levo ispod teksta, desno propušta kolaž -->
       <div
-        class="absolute inset-0 bg-linear-to-b from-primary-950/75 to-primary-600/85"
+        class="absolute inset-0 bg-linear-to-b from-primary-950/75 to-primary-600/85 md:bg-linear-to-r md:from-primary-900/85 md:via-primary-800/60 md:to-primary-700/30"
       />
     </section>
     <section
