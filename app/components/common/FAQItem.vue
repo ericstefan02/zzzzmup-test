@@ -27,8 +27,9 @@
       :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
     >
       <div class="overflow-hidden">
-        <!-- URL-ovi u odgovoru se renderuju kao linkovi (bez v-html) -->
-        <p class="text-neutral-500 mt-4">
+        <!-- URL-ovi u odgovoru se renderuju kao linkovi (bez v-html);
+             pre-line: odgovor sme da ima pasuse (\n\n) -->
+        <p class="text-neutral-500 mt-4 whitespace-pre-line">
           <template v-for="(part, i) in answerParts" :key="i">
             <a
               v-if="part.isUrl"
