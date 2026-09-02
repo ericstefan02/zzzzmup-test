@@ -232,10 +232,15 @@ const content = computed<SluzbaPage | undefined>(() => {
   ) as SluzbaPage
 })
 
-// about sme da ima pasuse (\n\n) — meta opis mora biti jedan red
-const seoDescription = computed(
-  () => content.value?.about.replace(/\s*\n+\s*/g, ' ') ?? '',
-)
+// about sme da ima pasuse (\n\n) — meta opis mora biti jedan red.
+// Služba bez uvoda (docx bez about teksta): neutralan fallback iz naziva,
+// PLACEHOLDER dok klijent ne pošalje uvodni tekst.
+const seoDescription = computed(() => {
+  if (!content.value) return ''
+  return content.value.about
+    ? content.value.about.replace(/\s*\n+\s*/g, ' ')
+    : `${content.value.name} - ${t('seo.siteName')}`
+})
 
 useSeoMeta({
   title: () => content.value?.name ?? '',

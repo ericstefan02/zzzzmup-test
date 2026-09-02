@@ -48,8 +48,9 @@ export interface SluzbaPage {
   slug: string
   /** Pun naziv službe, ćirilicom (npr. "Служба опште медицине") */
   name: string
-  /** О служби — uvodni tekst */
-  about: string
+  /** О служби — uvodni tekst (psihijatrija ga npr. nema u docx-u klijenta;
+   *  bez njega banner ide bez opisa, SEO meta pada na naziv + ustanovu) */
+  about?: string
   /** Начин заказивања — opcije */
   scheduling?: SluzbaSchedulingOption[]
   /** Контакт и радно време (obojeni okvir) */

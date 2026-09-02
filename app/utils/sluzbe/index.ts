@@ -3,6 +3,7 @@ import { OPSTA_MEDICINA } from './opsta-medicina'
 import { GINEKOLOGIJA } from './ginekologija'
 import { OTORINOLARINGOLOGIJA } from './otorinolaringologija'
 import { OFTALMOLOGIJA } from './oftalmologija'
+import { PSIHIJATRIJA } from './psihijatrija'
 
 // Registar statičkog sadržaja strana službi (šablon 8 sekcija).
 // Služba čiji slug NIJE ovde zadržava stari prikaz na /services?service=<slug>
@@ -13,6 +14,7 @@ const SLUZBA_CONTENT: Record<string, SluzbaPage> = {
   [GINEKOLOGIJA.slug]: GINEKOLOGIJA,
   [OTORINOLARINGOLOGIJA.slug]: OTORINOLARINGOLOGIJA,
   [OFTALMOLOGIJA.slug]: OFTALMOLOGIJA,
+  [PSIHIJATRIJA.slug]: PSIHIJATRIJA,
 }
 
 export const hasSluzbaContent = (slug: string): boolean =>

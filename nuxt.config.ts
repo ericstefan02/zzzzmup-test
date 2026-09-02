@@ -58,6 +58,7 @@ export default defineNuxtConfig({
       '/services/ginekologija',
       '/services/otorinolaringologija',
       '/services/oftalmologija',
+      '/services/psihijatrija',
     ],
   },
   fonts: {
