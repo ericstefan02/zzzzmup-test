@@ -62,7 +62,10 @@
               {{ contact.workingHoursWeekday }}
             </span>
           </div>
-          <div class="grid grid-cols-[1fr_auto] items-baseline gap-x-4">
+          <div
+            v-if="contact.workingHoursWeekend"
+            class="grid grid-cols-[1fr_auto] items-baseline gap-x-4"
+          >
             <span>{{ contact.weekendLabel ?? $t('pages.sluzba.weekendLabel') }}</span>
             <span class="font-semibold tabular-nums whitespace-nowrap">
               {{ contact.workingHoursWeekend }}

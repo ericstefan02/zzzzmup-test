@@ -27,7 +27,19 @@
       :class="isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'"
     >
       <div class="overflow-hidden">
-        <p class="text-neutral-500 mt-4">{{ faqItem.answer }}</p>
+        <!-- URL-ovi u odgovoru se renderuju kao linkovi (bez v-html) -->
+        <p class="text-neutral-500 mt-4">
+          <template v-for="(part, i) in answerParts" :key="i">
+            <a
+              v-if="part.isUrl"
+              :href="part.value"
+              target="_blank"
+              rel="noopener"
+              class="text-primary-500 underline underline-offset-2 hover:text-primary-600 break-all"
+            >{{ part.value }}</a>
+            <template v-else>{{ part.value }}</template>
+          </template>
+        </p>
       </div>
     </div>
   </div>
@@ -41,4 +53,11 @@ const { faqItem } = defineProps<{
 }>()
 
 const isOpen = ref(false)
+
+const answerParts = computed(() =>
+  faqItem.answer
+    .split(/(https?:\/\/[^\s]+)/g)
+    .filter(Boolean)
+    .map((value) => ({ value, isUrl: /^https?:\/\//.test(value) })),
+)
 </script>

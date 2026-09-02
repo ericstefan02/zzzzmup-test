@@ -8,7 +8,8 @@ export interface SluzbaContact {
   phone: string
   email: string
   workingHoursWeekday: string
-  workingHoursWeekend: string
+  /** Izostaje za službe koje ne rade vikendom (npr. ORL) — red se ne renderuje */
+  workingHoursWeekend?: string
   /** Override labela vikend reda (default i18n „Субота/недеља") —
    *  npr. ginekologija radi samo subotom pa klijent šalje „Субота" */
   weekendLabel?: string
