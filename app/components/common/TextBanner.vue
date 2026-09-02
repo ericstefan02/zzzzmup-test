@@ -39,12 +39,11 @@
       <h1 class="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white">
         {{ title }}
       </h1>
+      <!-- whitespace-pre-line: opis sme da ima pasuse razdvojene sa \n\n -->
       <p
         v-if="description"
-        class="max-w-full md:max-w-2/3 lg:max-w-1/2 text-base md:text-xl text-neutral-300"
-      >
-        {{ description }}
-      </p>
+        class="max-w-full md:max-w-2/3 lg:max-w-1/2 text-base md:text-xl text-neutral-300 whitespace-pre-line"
+      >{{ description }}</p>
 
       <slot />
     </div>

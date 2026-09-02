@@ -2,6 +2,7 @@ import type { SluzbaPage } from '~/types/sluzba'
 import { OPSTA_MEDICINA } from './opsta-medicina'
 import { GINEKOLOGIJA } from './ginekologija'
 import { OTORINOLARINGOLOGIJA } from './otorinolaringologija'
+import { OFTALMOLOGIJA } from './oftalmologija'
 
 // Registar statičkog sadržaja strana službi (šablon 8 sekcija).
 // Služba čiji slug NIJE ovde zadržava stari prikaz na /services?service=<slug>
@@ -11,6 +12,7 @@ const SLUZBA_CONTENT: Record<string, SluzbaPage> = {
   [OPSTA_MEDICINA.slug]: OPSTA_MEDICINA,
   [GINEKOLOGIJA.slug]: GINEKOLOGIJA,
   [OTORINOLARINGOLOGIJA.slug]: OTORINOLARINGOLOGIJA,
+  [OFTALMOLOGIJA.slug]: OFTALMOLOGIJA,
 }
 
 export const hasSluzbaContent = (slug: string): boolean =>

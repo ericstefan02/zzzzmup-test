@@ -232,11 +232,16 @@ const content = computed<SluzbaPage | undefined>(() => {
   ) as SluzbaPage
 })
 
+// about sme da ima pasuse (\n\n) — meta opis mora biti jedan red
+const seoDescription = computed(
+  () => content.value?.about.replace(/\s*\n+\s*/g, ' ') ?? '',
+)
+
 useSeoMeta({
   title: () => content.value?.name ?? '',
-  description: () => content.value?.about ?? '',
+  description: () => seoDescription.value,
   ogTitle: () => content.value?.name ?? '',
-  ogDescription: () => content.value?.about ?? '',
+  ogDescription: () => seoDescription.value,
   ogSiteName: () => t('seo.siteName'),
 })
 
