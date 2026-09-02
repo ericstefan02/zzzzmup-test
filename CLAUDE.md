@@ -171,6 +171,14 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 - ✅ Тим: 5 lekara detaširanih ambulanti grupisano na kraju (poslednji red na xl).
 - ⬜ Klijent ostaje dužan: destinacije 4 eZdravlje dugmeta (sad placeholder link) + FAQ odgovore.
 
+**Urađeno (runda sep 2026 — 4 nove službe + FAQ + hero, docx-ovi klijenta 2026-08-31 i mejl 2026-09-02):**
+- ✅ Strane službi: ginekologija, otorinolaringologija, oftalmologija, psihijatrija ([utils/sluzbe/](app/utils/sluzbe/)) — sadržaj doslovan iz docx-ova (ispravke samo pravopisa, dokumentovane u komentarima fajlova). Šablon se pokazao elastičan: `weekendLabel` (gin: samo Субота), `workingHoursWeekend?` (ORL/oft/psih bez vikenda), `about?` (psihijatrija bez uvoda — SEO meta fallback), višepasusni `about` (oftalmologija, TextBanner whitespace-pre-line), prazne kategorije se izostavljaju (psihijatrija).
+- ✅ FAQ opšte medicine: 16 pitanja sa PRAVIM odgovorima klijenta (usvojio 5 mojih placeholdera, 3 proširio, 6 novih); ORL isto pravi (4). FAQItem: auto-linkovanje URL-ova + pre-line pasusi. Ostale službe: odgovori placeholder.
+- ✅ Тim: flex-wrap kolone (nepotpun red se centrira — gin 4, oft 2, psih 3); kontakt kartica grid 1fr_auto (fix preloma na 390).
+- ✅ Hero početne: kolaž klijenta rekreiran CSS gridom od 5 webp fotki (public/img/hero/, cwebp q82, 286KB), mobilni jedna fotka, overlay horizontalan/posvetljen, lg:h-192. Stari placeholderi obrisani.
+- ⚠️ Docx-ovi navode kontakt 011/3610-385 za sve 4 službe (≠ verdikt broj opšte medicine 3615-665) — Stefan proverava sa klijentom; isto i zašto psihijatrija nema uvodni tekst.
+- ⚠️ Pitanje kartona u FAQ opšte medicine pominje i Službu ginekologije — proveriti da li klijent hoće ista pitanja i tamo.
+
 **Preostalo:**
 - ⬜ Review klijenta → push. (Runda jul 2026 pušena na master: `fbdbdc2`.)
 - ⬜ Tech-debt iz code review-a (nije blokirajuće, raditi usput): services.vue selekciju derivovati čisto iz rute (computed) umesto ref+watch sync; zajednički modal shell za EFormModal/SearchModal; obrisati mrtve GroupExam* komponente + neiskorišćene ključeve (pages.services.departmentsLabel, documentationRequired) ako se potvrdi da se ne vraćaju. (Mega panel ekstrakcija i body-scroll-lock composable rešeni u rundi #2.)
@@ -185,7 +193,7 @@ Napomene: typo iz excela ispravljeni uz odobrenje (Криминалистичк�
 - Osnovni podaci iz Informatora: Матични **07078978** · ПИБ **100182356** · Шифра делатности **85142** (proveriti footer).
 - „Informator o radu" je zakonska obaveza (Zakon o slоб. приступу инф. од јавног значаја) — delovi (овлашћења, организ. структура) treba da budu na sajtu; pun Informator kao strana — potvrditi sa klijentom.
 
-**Čeka materijale klijenta:** hero kolaž slika; pravi tekst Мисија/Визија; PDF fajlovi dokumenata; foto članova organa.
+**Čeka materijale klijenta:** pravi tekst Мисија/Визија; PDF fajlovi dokumenata; foto članova organa; foto lekara (službe); FAQ odgovori za gin/oft/psih; tekstovi ostalih službi.
 
 **Playwright:** browseri nisu instalirani; koristi sistemski Chrome — `npx playwright screenshot --channel chrome ...`. Za hover/interakciju (dropdown) skript importuje modul iz npx keša (`~/.npm/_npx/.../node_modules/playwright`, CommonJS → `import pw from ...; const {chromium}=pw`).
 
