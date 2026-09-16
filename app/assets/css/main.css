@@ -37,6 +37,25 @@
         transform: none;
       }
     }
+
+    /* Kolaž hero-a: beli veo preko svakog tile-a nestaje redom (mozaik se
+       „slaže", korak = --veil-i × 60ms). Veo, a ne opacity na slici: slika
+       je iscrtana od prvog frejma pa LCP nije odložen za delay. Definisano
+       samo pod no-preference → uz smanjen pokret nema ni pseudo-elementa. */
+    .veil::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: white;
+      pointer-events: none;
+      animation: veil 0.45s var(--ease-out-strong) both;
+      animation-delay: calc(var(--veil-i, 0) * 60ms);
+    }
+    @keyframes veil {
+      to {
+        opacity: 0;
+      }
+    }
   }
 
   /* Smanjen pokret: ugasi sve animacije/tranzicije */
@@ -79,6 +98,6 @@
      nav = prag za desktop meni (ispod: burger);
      navwide = pun oblik (veći font linkova + E-Форма sa tekstom) — između
      nav i navwide meni je kompaktan da sve stane bez preklapanja */
-  --breakpoint-nav: 1440px;
-  --breakpoint-navwide: 1660px;
+  --breakpoint-nav: 90rem; /* 1440px */
+  --breakpoint-navwide: 103.75rem; /* 1660px */
 }
